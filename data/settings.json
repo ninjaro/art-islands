@@ -1,0 +1,7 @@
+{
+  "recommendation": {
+    "dislikeWeight": 1.5,
+    "likeWeight": 1.0,
+    "limit": 100
+  }
+}

@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "art-islands"
+version = "0.1.0"
+description = "Static Art Islands data model, migration, and browser UI."
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+art-islands = "art_islands.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
