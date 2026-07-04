@@ -1,0 +1,44 @@
+name: Data correction batch
+description: Submit a declarative JSON/JSONL batch of catalog data corrections.
+title: "[data-batch] "
+labels: ["data-batch"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit **exactly one** batch per issue, in one of two forms:
+
+        1. **Attachment**: drag a `.json` or `.jsonl` file into the text area below so it becomes a
+           `https://github.com/user-attachments/files/...` link. Only GitHub user-attachment links
+           are accepted; only `.json` / `.jsonl` files up to 1 MB.
+        2. **Inline**: paste the batch into a single fenced ```json code block.
+
+        The batch format is documented in the repository README ("Issue batch format").
+        Batches are declarative data only — scripts, SQL, or executable content are rejected.
+
+        Nothing runs when the issue is opened. A maintainer reviews the batch and adds the
+        `data-batch-approved` label; only then does the bot validate the batch and open a pull
+        request with the resulting data changes.
+  - type: textarea
+    id: batch
+    attributes:
+      label: Batch attachment or inline JSON
+      description: One attachment link or one fenced ```json block containing the batch.
+      placeholder: |
+        ```json
+        {
+          "version": 1,
+          "operations": [
+            {"op": "update_entity", "entityId": 123, "set": {"label": "Corrected title"}}
+          ]
+        }
+        ```
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: What does this correct, and what is the source?
+      description: Briefly explain the correction and link supporting sources.
+    validations:
+      required: false

@@ -11,6 +11,7 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
+from . import batch as batch_module
 from .model import (
     ENTITY_KIND_FILM,
     ENTITY_KIND_GAME,
@@ -178,6 +179,64 @@ def command_build(args) -> None:
     for key, value in result.items():
         print(f"export_{key}={value}")
     print(f"output={args.output}")
+
+
+def _fail_batch(error: batch_module.BatchError) -> None:
+    for message in error.errors:
+        print(f"error: {message}")
+    raise SystemExit(1)
+
+
+def command_batch_from_issue(args) -> None:
+    body = args.body_file.read_text(encoding="utf-8")
+    try:
+        source = batch_module.extract_batch_source(body)
+        if source.kind == "inline":
+            text = source.text or ""
+        else:
+            text = batch_module.download_attachment(source.url or "")
+        parsed = batch_module.parse_batch_text(text)
+    except batch_module.BatchError as exc:
+        _fail_batch(exc)
+        return
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(text, encoding="utf-8")
+    print(f"source={source.kind} operations={len(parsed.operations)} output={args.output}")
+
+
+def command_batch_validate(args) -> None:
+    text = args.file.read_text(encoding="utf-8")
+    db = connect_art(args.db)
+    try:
+        parsed = batch_module.parse_batch_text(text)
+        batch_module.validate_batch(db, parsed)
+    except batch_module.BatchError as exc:
+        _fail_batch(exc)
+        return
+    finally:
+        db.close()
+    print(f"valid=1 operations={len(parsed.operations)}")
+
+
+def command_batch_apply(args) -> None:
+    text = args.file.read_text(encoding="utf-8")
+    db = connect_art(args.db)
+    try:
+        parsed = batch_module.parse_batch_text(text)
+        batch_module.validate_batch(db, parsed)
+        db.execute("begin")
+        try:
+            result = batch_module.apply_batch(db, parsed)
+            db.commit()
+        except Exception:
+            db.rollback()
+            raise
+    except batch_module.BatchError as exc:
+        _fail_batch(exc)
+        return
+    finally:
+        db.close()
+    print(json.dumps({"operations": len(parsed.operations), **result.as_dict()}, sort_keys=True))
 
 
 def command_serve_static(args) -> None:
@@ -713,6 +772,21 @@ def parser() -> argparse.ArgumentParser:
     tag_set.add_argument("--polarity", type=parse_polarity)
     tag_set.add_argument("--db", type=resolved_path, default=default_db_path())
     tag_set.set_defaults(function=command_tag_set)
+
+    batch = sub.add_parser("batch")
+    batch_sub = batch.add_subparsers(dest="batch_command", required=True)
+    batch_from_issue = batch_sub.add_parser("from-issue")
+    batch_from_issue.add_argument("--body-file", type=resolved_path, required=True)
+    batch_from_issue.add_argument("--output", type=resolved_path, required=True)
+    batch_from_issue.set_defaults(function=command_batch_from_issue)
+    batch_validate = batch_sub.add_parser("validate")
+    batch_validate.add_argument("--file", type=resolved_path, required=True)
+    batch_validate.add_argument("--db", type=resolved_path, default=default_db_path())
+    batch_validate.set_defaults(function=command_batch_validate)
+    batch_apply = batch_sub.add_parser("apply")
+    batch_apply.add_argument("--file", type=resolved_path, required=True)
+    batch_apply.add_argument("--db", type=resolved_path, default=default_db_path())
+    batch_apply.set_defaults(function=command_batch_apply)
 
     config = sub.add_parser("config")
     config.add_argument("--settings", type=resolved_path, default=default_settings_path())

@@ -88,7 +88,30 @@ DEFAULT_SETTINGS = {
         "likeWeight": 1.0,
         "dislikeWeight": 1.5,
         "limit": 100,
-    }
+    },
+    "evolution": {
+        "visibleChildrenPerNode": 4,
+        "maxInitialRoots": 20,
+        "groupingSimilarity": 0.25,
+        "minimumSimilarity": 0.18,
+        "minimumSharedTags": 2,
+    },
+    "islands": {
+        "maxRecommendationNodes": 150,
+        "maxNeighborsPerSeed": 12,
+        "maxEdges": 500,
+        "minimumSimilarity": 0.12,
+    },
+}
+
+INT_SETTING_KEYS = {
+    "limit",
+    "visibleChildrenPerNode",
+    "maxInitialRoots",
+    "minimumSharedTags",
+    "maxRecommendationNodes",
+    "maxNeighborsPerSeed",
+    "maxEdges",
 }
 
 QID_RE = re.compile(r"^Q[1-9][0-9]*$")
@@ -1020,28 +1043,24 @@ def _insert_pairs_and_links(
 
 def settings_with_defaults(value: dict[str, Any] | None = None) -> dict[str, Any]:
     source = value if isinstance(value, dict) else {}
-    recommendation = source.get("recommendation")
-    if not isinstance(recommendation, dict):
-        recommendation = {}
-
-    defaults = DEFAULT_SETTINGS["recommendation"]
-    merged = {
-        "recommendation": {
-            "likeWeight": float(
-                recommendation.get("likeWeight", defaults["likeWeight"])
-            ),
-            "dislikeWeight": float(
-                recommendation.get("dislikeWeight", defaults["dislikeWeight"])
-            ),
-            "limit": int(recommendation.get("limit", defaults["limit"])),
-        }
-    }
-    if merged["recommendation"]["likeWeight"] < 0:
-        merged["recommendation"]["likeWeight"] = defaults["likeWeight"]
-    if merged["recommendation"]["dislikeWeight"] < 0:
-        merged["recommendation"]["dislikeWeight"] = defaults["dislikeWeight"]
-    if merged["recommendation"]["limit"] < 1:
-        merged["recommendation"]["limit"] = defaults["limit"]
+    merged: dict[str, Any] = {}
+    for section_name, defaults in DEFAULT_SETTINGS.items():
+        raw_section = source.get(section_name)
+        if not isinstance(raw_section, dict):
+            raw_section = {}
+        section: dict[str, Any] = {}
+        for key, default in defaults.items():
+            raw = raw_section.get(key, default)
+            try:
+                parsed = int(raw) if key in INT_SETTING_KEYS else float(raw)
+            except (TypeError, ValueError):
+                parsed = default
+            if parsed < 0:
+                parsed = default
+            if key == "limit" and parsed < 1:
+                parsed = default
+            section[key] = parsed
+        merged[section_name] = section
     return merged
 
 
@@ -1065,20 +1084,24 @@ def export_static_data(
     output_dir: Path,
     settings_path: Path | None = None,
 ) -> dict[str, int]:
+    from .evolution import build_evolution_export
+
     output_dir.mkdir(parents=True, exist_ok=True)
+    settings = load_settings(settings_path)
     db = connect_art(db_path)
     try:
         tags = _export_tags(db)
         entities_lookup = _export_entities_lookup(db)
         catalog = _export_catalog(db)
+        evolution = build_evolution_export(db, settings)
     finally:
         db.close()
 
-    settings = load_settings(settings_path)
     write_json(output_dir / "catalog.json", catalog)
     write_json(output_dir / "tags.json", tags)
     write_json(output_dir / "entities-lookup.json", entities_lookup)
     write_json(output_dir / "settings.json", settings)
+    write_json(output_dir / "evolution.json", evolution)
     for stale_name in ("entity-tags.json", "entity-links.json"):
         stale_path = output_dir / stale_name
         if stale_path.exists():
@@ -1089,6 +1112,7 @@ def export_static_data(
         "tags": len(tags),
         "entities_lookup": len(entities_lookup),
         "settings": 1,
+        "evolution": len(evolution["nodes"]),
     }
 
 
