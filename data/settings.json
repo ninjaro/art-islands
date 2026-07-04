@@ -1,4 +1,17 @@
 {
+  "evolution": {
+    "groupingSimilarity": 0.25,
+    "maxInitialRoots": 20,
+    "minimumSharedTags": 2,
+    "minimumSimilarity": 0.18,
+    "visibleChildrenPerNode": 4
+  },
+  "islands": {
+    "maxEdges": 500,
+    "maxNeighborsPerSeed": 12,
+    "maxRecommendationNodes": 150,
+    "minimumSimilarity": 0.12
+  },
   "recommendation": {
     "dislikeWeight": 1.5,
     "likeWeight": 1.0,

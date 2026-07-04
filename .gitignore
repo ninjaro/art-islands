@@ -57,3 +57,6 @@ layers/
 # Local audit output
 migration-audit.md
 migration-issues.json
+
+.claude/
+instructions.md

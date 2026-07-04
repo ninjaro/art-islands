@@ -12,7 +12,9 @@ button { cursor: pointer; }
 button:disabled { cursor: not-allowed; opacity: 0.55; }
 
 .app {
-  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .topbar {
@@ -23,6 +25,7 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
   padding: 16px 24px;
   background: #ffffff;
   border-bottom: 1px solid #d6d2c7;
+  flex-shrink: 0;
 }
 
 .brand h1 {
@@ -73,6 +76,7 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
   padding: 14px 24px;
   background: #e9e6dc;
   border-bottom: 1px solid #d6d2c7;
+  flex-shrink: 0;
 }
 
 .filters input,
@@ -88,7 +92,9 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 
 .table-wrap {
   padding: 18px 24px 32px;
-  overflow-x: auto;
+  overflow: auto;
+  flex: 1;
+  min-height: 0;
 }
 
 table {
@@ -123,6 +129,12 @@ tbody tr {
 }
 
 tbody tr:hover {
+  background: #f8f6f0;
+}
+
+tbody tr:focus-visible {
+  outline: 2px solid #2f5d8a;
+  outline-offset: -2px;
   background: #f8f6f0;
 }
 
@@ -335,6 +347,10 @@ tbody tr:hover {
 
 .recommendation-view {
   padding-top: 4px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .recommendation-head {
@@ -434,4 +450,386 @@ tbody tr:hover {
     width: 88px;
     height: 118px;
   }
+}
+
+/* Graph views (Evolution, Islands) */
+
+.graph-view {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+.graph-view .react-flow {
+  width: 100%;
+  height: 100%;
+}
+
+.graph-panel {
+  display: grid;
+  gap: 8px;
+  max-width: 430px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #d0ccc0;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.graph-disclaimer {
+  margin: 0;
+  color: #5f5a50;
+  font-size: 12px;
+}
+
+.graph-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.graph-toolbar button {
+  border: 1px solid #b9b4a8;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #20201e;
+  padding: 6px 9px;
+  font-size: 13px;
+}
+
+.graph-search {
+  position: relative;
+  flex: 1;
+  min-width: 150px;
+}
+
+.graph-search input {
+  width: 100%;
+  border: 1px solid #b9b4a8;
+  border-radius: 6px;
+  padding: 6px 9px;
+  font-size: 13px;
+}
+
+.graph-search-results {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: #ffffff;
+  border: 1px solid #b9b4a8;
+  border-radius: 6px;
+  box-shadow: 0 10px 24px rgba(32, 32, 30, 0.18);
+  display: grid;
+  gap: 2px;
+  max-height: 240px;
+  overflow: auto;
+}
+
+.graph-search-results button {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.graph-search-results button:hover,
+.graph-search-results button:focus-visible {
+  background: #efede7;
+}
+
+/* Evolution nodes */
+
+.evo-node {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.evo-open {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 220px;
+  border: 1px solid #b9b4a8;
+  border-radius: 6px;
+  background: #ffffff;
+  padding: 6px 8px;
+  font-size: 12px;
+  text-align: left;
+}
+
+.evo-open:hover {
+  border-color: #20201e;
+}
+
+.evo-kind {
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: #4f5c3f;
+}
+
+.evo-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.evo-year {
+  flex: 0 0 auto;
+  color: #69665d;
+  font-variant-numeric: tabular-nums;
+}
+
+.evo-toggle {
+  flex: 0 0 auto;
+  border: 1px solid #b9b4a8;
+  border-radius: 6px;
+  background: #efede7;
+  font-size: 11px;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
+.evo-placeholder {
+  border: 1px dashed #8d8779;
+  border-radius: 999px;
+  background: #f4f2ec;
+  color: #33312d;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 12px;
+}
+
+.evo-placeholder:hover {
+  border-color: #20201e;
+}
+
+.evo-fold {
+  font-weight: 400;
+  color: #69665d;
+}
+
+/* Islands nodes */
+
+.island-node {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 180px;
+  border: 2px solid #8d8779;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 6px 8px;
+  font-size: 12px;
+}
+
+.island-node.liked {
+  border-color: #3f7b57;
+  background: #eaf5ee;
+}
+
+.island-node.disliked {
+  border-color: #a45748;
+  border-radius: 2px;
+  background: #f9ebe7;
+}
+
+.island-node.recommended {
+  border-style: dashed;
+  border-color: #8d8779;
+  background: #f7f6f2;
+}
+
+.island-state {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.island-state.liked {
+  background: #3f7b57;
+  color: #ffffff;
+}
+
+.island-state.disliked {
+  background: #a45748;
+  color: #ffffff;
+  border-radius: 3px;
+}
+
+.island-state.recommended {
+  background: #e5e2d9;
+  color: #55524a;
+}
+
+.island-kind {
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: #4f5c3f;
+}
+
+.island-body {
+  min-width: 0;
+  flex: 1;
+  display: grid;
+}
+
+.island-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.island-year {
+  color: #69665d;
+  font-size: 11px;
+}
+
+.island-actions {
+  flex: 0 0 auto;
+  display: inline-flex;
+  gap: 3px;
+}
+
+.island-rate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 1px solid #bbb6aa;
+  border-radius: 5px;
+  background: #ffffff;
+  color: #25231f;
+  padding: 0;
+}
+
+.island-rate.like.active {
+  border-color: #3f7b57;
+  background: #dfeee4;
+  color: #245036;
+}
+
+.island-rate.dislike.active {
+  border-color: #a45748;
+  background: #f2dfda;
+  color: #743427;
+}
+
+/* Island component backgrounds */
+
+.island-bg {
+  border: 1px solid #ddd9cd;
+  border-radius: 16px;
+  background: rgba(233, 230, 220, 0.4);
+  position: relative;
+}
+
+.island-heading {
+  position: absolute;
+  top: -14px;
+  left: 14px;
+  border: 1px solid #b9b4a8;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #45423b;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+}
+
+/* Edge styles: explicit relations are solid and dark, inferred similarity
+   is lighter and dashed, so the difference is not color-only. */
+
+.react-flow__edge.island-edge-explicit path {
+  stroke: #4a4740;
+  stroke-width: 2;
+}
+
+.react-flow__edge.island-edge-inferred path {
+  stroke: #a9a494;
+  stroke-width: 1.4;
+  stroke-dasharray: 6 4;
+}
+
+.island-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 12px;
+  color: #45423b;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend-swatch {
+  width: 13px;
+  height: 13px;
+  border: 2px solid #8d8779;
+  border-radius: 50%;
+  background: #f7f6f2;
+}
+
+.legend-swatch.liked {
+  border-color: #3f7b57;
+  background: #eaf5ee;
+}
+
+.legend-swatch.disliked {
+  border-color: #a45748;
+  border-radius: 3px;
+  background: #f9ebe7;
+}
+
+.legend-swatch.recommended {
+  border-style: dashed;
+}
+
+.legend-line {
+  width: 20px;
+  height: 0;
+  border-top: 2px solid #4a4740;
+}
+
+.legend-line.inferred {
+  border-top-style: dashed;
+  border-top-color: #a9a494;
+}
+
+.island-stats {
+  color: #5f5a50;
+  font-size: 12px;
+  align-self: center;
+}
+
+/* Invisible connection handles: edges need them, users do not. */
+.hidden-handle {
+  opacity: 0;
+  pointer-events: none;
+  width: 2px;
+  height: 2px;
+  min-width: 0;
+  min-height: 0;
+  border: none;
+  background: transparent;
 }

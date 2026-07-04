@@ -1,0 +1,150 @@
+name: Data batch
+
+# Applies a declarative data-correction batch from an issue and opens a PR.
+# Runs only when a maintainer adds the approval label (or on manual dispatch),
+# never merely because an untrusted user opened an issue. Batch content is
+# parsed and validated as data; it is never executed.
+
+on:
+  issues:
+    types: [labeled]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: Issue number to process
+        required: true
+        type: number
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: data-batch-${{ github.event.issue.number || inputs.issue_number }}
+  cancel-in-progress: false
+
+jobs:
+  apply-batch:
+    if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'data-batch-approved'
+    runs-on: ubuntu-latest
+    env:
+      ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --quiet -e . pytest
+          npm ci
+
+      - name: Fetch issue body
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api "repos/${GITHUB_REPOSITORY}/issues/${ISSUE_NUMBER}" --jq .body > "${RUNNER_TEMP}/issue-body.txt"
+
+      - name: Extract and validate batch
+        id: extract
+        run: |
+          set -o pipefail
+          {
+            art-islands batch from-issue \
+              --body-file "${RUNNER_TEMP}/issue-body.txt" \
+              --output "${RUNNER_TEMP}/batch.json" &&
+            art-islands batch validate --file "${RUNNER_TEMP}/batch.json"
+          } 2>&1 | tee "${RUNNER_TEMP}/batch-log.txt"
+
+      - name: Apply batch to SQLite
+        id: apply
+        run: |
+          set -o pipefail
+          art-islands batch apply --file "${RUNNER_TEMP}/batch.json" \
+            2>&1 | tee "${RUNNER_TEMP}/apply-summary.json"
+
+      - name: Rebuild static exports
+        run: python -m art_islands export
+
+      - name: SQLite foreign-key check
+        run: |
+          python - <<'PY'
+          import sqlite3
+          db = sqlite3.connect("data/art-islands.sqlite")
+          rows = db.execute("pragma foreign_key_check").fetchall()
+          assert not rows, f"foreign key violations: {rows}"
+          print("foreign keys ok")
+          PY
+
+      - name: Validate generated JSON
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          for path in sorted(pathlib.Path("public/data").glob("*.json")):
+              json.loads(path.read_text(encoding="utf-8"))
+              print(f"ok {path}")
+          PY
+
+      - name: Run Python tests
+        run: python -m pytest tests -q
+
+      - name: Run JavaScript, graph, and export tests
+        run: |
+          npx tsc --noEmit
+          npx vitest run
+
+      - name: Build the React application
+        run: npm run build
+
+      - name: Create or update batch branch and pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BRANCH="data-batch/issue-${ISSUE_NUMBER}"
+          git config user.name "art-islands-data-bot"
+          git config user.email "art-islands-data-bot@users.noreply.github.com"
+          git checkout -B "$BRANCH"
+          git add data/art-islands.sqlite data/settings.json public/data
+          if git diff --cached --quiet; then
+            echo "no data changes to commit" | tee -a "${RUNNER_TEMP}/apply-summary.json"
+            gh issue comment "$ISSUE_NUMBER" --body "Batch validated successfully but produced no data changes (already applied?). No pull request needed."
+            exit 0
+          fi
+          git commit -m "Apply data batch from issue #${ISSUE_NUMBER}"
+          git push --force origin "$BRANCH"
+
+          EXISTING_PR=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number' || true)
+          SUMMARY=$(cat "${RUNNER_TEMP}/apply-summary.json")
+          PR_BODY=$(printf 'Applies the approved data-correction batch from #%s.\n\nApply summary:\n```json\n%s\n```\n\nValidation, tests, foreign-key checks, and the React build all passed in this workflow run.' "$ISSUE_NUMBER" "$SUMMARY")
+          if [ -n "$EXISTING_PR" ]; then
+            gh pr edit "$EXISTING_PR" --body "$PR_BODY"
+            PR_URL=$(gh pr view "$EXISTING_PR" --json url --jq .url)
+          else
+            PR_URL=$(gh pr create \
+              --title "Data batch from issue #${ISSUE_NUMBER}" \
+              --body "$PR_BODY" \
+              --base main \
+              --head "$BRANCH")
+          fi
+          gh issue comment "$ISSUE_NUMBER" --body "$(printf 'Batch validated and applied.\n\n```json\n%s\n```\n\nPull request: %s (not auto-merged; a maintainer must review and merge).' "$SUMMARY" "$PR_URL")"
+
+      - name: Report failure on the issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          LOG=""
+          if [ -f "${RUNNER_TEMP}/batch-log.txt" ]; then
+            LOG=$(tail -c 2000 "${RUNNER_TEMP}/batch-log.txt")
+          fi
+          gh issue comment "$ISSUE_NUMBER" --body "$(printf 'Data batch processing failed.\n\n```\n%s\n```\n\nSee the workflow run for details: %s/%s/actions/runs/%s' "$LOG" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID")"
