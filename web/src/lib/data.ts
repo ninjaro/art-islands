@@ -49,8 +49,8 @@ export async function loadV2Data(): Promise<V2Data | null> {
     entityTypes,
     relations,
     concepts,
-    advisories: advisories || [],
-    ratings: ratings || [],
+    advisories: advisories || { categories: [], advisories: [] },
+    ratings: ratings || { systems: [], ratings: [] },
     restrictions: restrictions || [],
   };
 }

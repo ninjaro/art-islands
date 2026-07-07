@@ -141,13 +141,6 @@ export interface EvolutionExport {
   nodes: EvolutionNode[];
 }
 
-export interface V2EntityText {
-  kind: "label" | "alias" | "description";
-  language: string | null;
-  value: string;
-  primary: boolean;
-}
-
 export interface V2Identifier {
   scheme: string;
   value: string;
@@ -162,7 +155,6 @@ export interface V2Entity {
   image?: string;
   catalogued: boolean;
   identifiers?: V2Identifier[];
-  texts?: V2EntityText[];
 }
 
 export interface V2Date {
@@ -258,10 +250,43 @@ export interface V2AgeRating {
   entityId: number;
   systemId: number;
   certificate: string;
-  minimumAge?: number;
-  editionLabel?: string;
-  descriptorsJson?: string;
-  ratingDate?: string;
+  minimumAge?: number | null;
+  editionLabel?: string | null;
+  descriptorsJson?: string | null;
+  ratingDate?: string | null;
+}
+
+export interface V2AgeRatingSystem {
+  id: number;
+  code: string;
+  countryCode?: string | null;
+  label: string;
+}
+
+export interface V2AgeRatingExport {
+  systems: V2AgeRatingSystem[];
+  ratings: V2AgeRating[];
+}
+
+export interface V2AdvisoryCategory {
+  id: number;
+  code: string;
+  label: string;
+}
+
+export interface V2Advisory {
+  id: number;
+  entityId: number;
+  categoryId: number;
+  conceptId?: number | null;
+  severity?: number | string | null;
+  intensity?: number | null;
+  uncertainty?: number | null;
+}
+
+export interface V2AdvisoryExport {
+  categories: V2AdvisoryCategory[];
+  advisories: V2Advisory[];
 }
 
 export interface V2Restriction {
@@ -286,8 +311,8 @@ export interface V2Data {
   };
   relations: V2Relation[];
   concepts: V2ConceptExport;
-  advisories: unknown[];
-  ratings: V2AgeRating[];
+  advisories: V2AdvisoryExport;
+  ratings: V2AgeRatingExport;
   restrictions: V2Restriction[];
 }
 
