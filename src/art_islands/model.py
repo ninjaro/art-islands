@@ -89,18 +89,33 @@ DEFAULT_SETTINGS = {
         "dislikeWeight": 1.5,
         "limit": 100,
     },
+    "features": {
+        "directConceptMultiplier": 1.0,
+        "creatorMultiplier": 0.55,
+        "directorMultiplier": 0.5,
+        "authorMultiplier": 0.55,
+        "producerMultiplier": 0.3,
+        "performerMultiplier": 0.25,
+        "organizationMultiplier": 0.2,
+        "contentGuideMultiplier": 0.25,
+    },
     "evolution": {
         "visibleChildrenPerNode": 4,
         "maxInitialRoots": 20,
         "groupingSimilarity": 0.25,
         "minimumSimilarity": 0.18,
-        "minimumSharedTags": 2,
+        "minimumSharedFeatures": 2,
+        "kindMismatchFactor": 0.6,
     },
     "islands": {
         "maxRecommendationNodes": 150,
-        "maxNeighborsPerSeed": 12,
+        "maxInferredNeighborsPerNode": 8,
         "maxEdges": 500,
         "minimumSimilarity": 0.12,
+    },
+    "browse": {
+        "defaultPageSize": 50,
+        "pageSizeOptions": [25, 50, 100],
     },
 }
 
@@ -108,10 +123,16 @@ INT_SETTING_KEYS = {
     "limit",
     "visibleChildrenPerNode",
     "maxInitialRoots",
-    "minimumSharedTags",
+    "minimumSharedFeatures",
     "maxRecommendationNodes",
-    "maxNeighborsPerSeed",
+    "maxInferredNeighborsPerNode",
     "maxEdges",
+    "defaultPageSize",
+}
+
+LEGACY_SETTING_ALIASES = {
+    "islands": {"maxNeighborsPerSeed": "maxInferredNeighborsPerNode"},
+    "evolution": {"minimumSharedTags": "minimumSharedFeatures"},
 }
 
 QID_RE = re.compile(r"^Q[1-9][0-9]*$")
@@ -1048,9 +1069,23 @@ def settings_with_defaults(value: dict[str, Any] | None = None) -> dict[str, Any
         raw_section = source.get(section_name)
         if not isinstance(raw_section, dict):
             raw_section = {}
+        else:
+            raw_section = dict(raw_section)
+        for legacy, current in LEGACY_SETTING_ALIASES.get(section_name, {}).items():
+            if current not in raw_section and legacy in raw_section:
+                raw_section[current] = raw_section[legacy]
+            raw_section.pop(legacy, None)
         section: dict[str, Any] = {}
         for key, default in defaults.items():
             raw = raw_section.get(key, default)
+            if isinstance(default, list):
+                parsed = default
+                if isinstance(raw, list):
+                    values = [entry for entry in raw if isinstance(entry, int) and entry > 0]
+                    if values and len(values) == len(raw):
+                        parsed = values
+                section[key] = list(parsed)
+                continue
             try:
                 parsed = int(raw) if key in INT_SETTING_KEYS else float(raw)
             except (TypeError, ValueError):
@@ -1061,6 +1096,12 @@ def settings_with_defaults(value: dict[str, Any] | None = None) -> dict[str, Any
                 parsed = default
             section[key] = parsed
         merged[section_name] = section
+    browse = merged["browse"]
+    if browse["defaultPageSize"] not in browse["pageSizeOptions"]:
+        default_size = DEFAULT_SETTINGS["browse"]["defaultPageSize"]
+        browse["defaultPageSize"] = (
+            default_size if default_size in browse["pageSizeOptions"] else browse["pageSizeOptions"][0]
+        )
     return merged
 
 

@@ -1,14 +1,29 @@
 {
+  "browse": {
+    "defaultPageSize": 50,
+    "pageSizeOptions": [25, 50, 100]
+  },
   "evolution": {
     "groupingSimilarity": 0.25,
+    "kindMismatchFactor": 0.6,
     "maxInitialRoots": 20,
-    "minimumSharedTags": 2,
+    "minimumSharedFeatures": 2,
     "minimumSimilarity": 0.18,
     "visibleChildrenPerNode": 4
   },
+  "features": {
+    "authorMultiplier": 0.55,
+    "contentGuideMultiplier": 0.25,
+    "creatorMultiplier": 0.55,
+    "directConceptMultiplier": 1.0,
+    "directorMultiplier": 0.5,
+    "organizationMultiplier": 0.2,
+    "performerMultiplier": 0.25,
+    "producerMultiplier": 0.3
+  },
   "islands": {
     "maxEdges": 500,
-    "maxNeighborsPerSeed": 12,
+    "maxInferredNeighborsPerNode": 8,
     "maxRecommendationNodes": 150,
     "minimumSimilarity": 0.12
   },

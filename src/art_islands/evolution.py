@@ -269,7 +269,9 @@ def build_evolution_export(
 ) -> dict[str, Any]:
     evolution_settings = settings.get("evolution", {})
     minimum_similarity = float(evolution_settings.get("minimumSimilarity", 0.18))
-    minimum_shared_tags = int(evolution_settings.get("minimumSharedTags", 2))
+    minimum_shared_tags = int(
+        evolution_settings.get("minimumSharedFeatures", evolution_settings.get("minimumSharedTags", 2))
+    )
 
     works = load_catalogued_works(db)
     records = compute_lineage(

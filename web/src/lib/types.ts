@@ -45,25 +45,44 @@ export interface RecommendationSettings {
   limit: number;
 }
 
+export interface FeatureSettings {
+  directConceptMultiplier: number;
+  creatorMultiplier: number;
+  directorMultiplier: number;
+  authorMultiplier: number;
+  producerMultiplier: number;
+  performerMultiplier: number;
+  organizationMultiplier: number;
+  contentGuideMultiplier: number;
+}
+
 export interface EvolutionSettings {
   visibleChildrenPerNode: number;
   maxInitialRoots: number;
   groupingSimilarity: number;
   minimumSimilarity: number;
-  minimumSharedTags: number;
+  minimumSharedFeatures: number;
+  kindMismatchFactor: number;
 }
 
 export interface IslandsSettings {
   maxRecommendationNodes: number;
-  maxNeighborsPerSeed: number;
+  maxInferredNeighborsPerNode: number;
   maxEdges: number;
   minimumSimilarity: number;
 }
 
+export interface BrowseSettings {
+  defaultPageSize: number;
+  pageSizeOptions: number[];
+}
+
 export interface Settings {
   recommendation: RecommendationSettings;
+  features: FeatureSettings;
   evolution: EvolutionSettings;
   islands: IslandsSettings;
+  browse: BrowseSettings;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -72,18 +91,33 @@ export const DEFAULT_SETTINGS: Settings = {
     dislikeWeight: 1.5,
     limit: 100,
   },
+  features: {
+    directConceptMultiplier: 1.0,
+    creatorMultiplier: 0.55,
+    directorMultiplier: 0.5,
+    authorMultiplier: 0.55,
+    producerMultiplier: 0.3,
+    performerMultiplier: 0.25,
+    organizationMultiplier: 0.2,
+    contentGuideMultiplier: 0.25,
+  },
   evolution: {
     visibleChildrenPerNode: 4,
     maxInitialRoots: 20,
     groupingSimilarity: 0.25,
     minimumSimilarity: 0.18,
-    minimumSharedTags: 2,
+    minimumSharedFeatures: 2,
+    kindMismatchFactor: 0.6,
   },
   islands: {
     maxRecommendationNodes: 150,
-    maxNeighborsPerSeed: 12,
+    maxInferredNeighborsPerNode: 8,
     maxEdges: 500,
     minimumSimilarity: 0.12,
+  },
+  browse: {
+    defaultPageSize: 50,
+    pageSizeOptions: [25, 50, 100],
   },
 };
 
@@ -267,24 +301,42 @@ export interface AppData {
   v2: V2Data | null;
 }
 
+const LEGACY_SETTING_ALIASES: Record<string, Record<string, string>> = {
+  islands: { maxNeighborsPerSeed: "maxInferredNeighborsPerNode" },
+  evolution: { minimumSharedTags: "minimumSharedFeatures" },
+};
+
 export function mergeSettings(raw: unknown): Settings {
   const source = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
-  const merged: Settings = {
-    recommendation: { ...DEFAULT_SETTINGS.recommendation },
-    evolution: { ...DEFAULT_SETTINGS.evolution },
-    islands: { ...DEFAULT_SETTINGS.islands },
-  };
-  for (const key of ["recommendation", "evolution", "islands"] as const) {
-    const section = source[key];
+  const merged = structuredClone(DEFAULT_SETTINGS) as unknown as Record<string, Record<string, unknown>>;
+  for (const sectionName of Object.keys(DEFAULT_SETTINGS) as (keyof Settings)[]) {
+    const section = source[sectionName];
     if (!section || typeof section !== "object") continue;
-    const target = merged[key] as unknown as Record<string, number>;
-    for (const [name, value] of Object.entries(section)) {
-      const num = Number(value);
-      if (name in target && Number.isFinite(num) && num >= 0) {
-        target[name] = num;
+    const incoming: Record<string, unknown> = { ...(section as Record<string, unknown>) };
+    for (const [legacy, current] of Object.entries(LEGACY_SETTING_ALIASES[sectionName] ?? {})) {
+      if (incoming[current] === undefined && incoming[legacy] !== undefined) incoming[current] = incoming[legacy];
+      delete incoming[legacy];
+    }
+    const target = merged[sectionName];
+    for (const [name, value] of Object.entries(incoming)) {
+      if (!(name in target)) continue;
+      if (Array.isArray(target[name])) {
+        const list = Array.isArray(value)
+          ? value.map(Number).filter((entry) => Number.isInteger(entry) && entry > 0)
+          : [];
+        if (list.length && Array.isArray(value) && list.length === value.length) target[name] = list;
+      } else {
+        const num = Number(value);
+        if (Number.isFinite(num) && num >= 0) target[name] = num;
       }
     }
   }
-  merged.recommendation.limit = Math.max(1, Math.floor(merged.recommendation.limit));
-  return merged;
+  const result = merged as unknown as Settings;
+  result.recommendation.limit = Math.max(1, Math.floor(result.recommendation.limit));
+  if (!result.browse.pageSizeOptions.includes(result.browse.defaultPageSize)) {
+    result.browse.defaultPageSize = result.browse.pageSizeOptions.includes(DEFAULT_SETTINGS.browse.defaultPageSize)
+      ? DEFAULT_SETTINGS.browse.defaultPageSize
+      : result.browse.pageSizeOptions[0];
+  }
+  return result;
 }

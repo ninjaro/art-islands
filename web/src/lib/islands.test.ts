@@ -85,7 +85,7 @@ describe("buildIslandsGraph", () => {
       big.push(work(id, [[10, 100, 0], [11, 100, 0], [(id % 6) + 50, 80, 0]]));
     }
     const bigIndex = buildTagIndex(big);
-    const config = settingsWith({ maxRecommendationNodes: 10, maxEdges: 15, maxNeighborsPerSeed: 3 });
+    const config = settingsWith({ maxRecommendationNodes: 10, maxEdges: 15, maxInferredNeighborsPerNode: 3 });
     const graph = buildIslandsGraph(big, bigIndex, { "1": 1, "2": -1 }, config);
     const recommended = graph.nodes.filter((node) => node.state === "recommended");
     expect(recommended.length).toBeLessThanOrEqual(10);

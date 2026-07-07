@@ -109,7 +109,7 @@ export function buildIslandsGraph(
       });
     }
     neighbors.sort((a, b) => b.similarity - a.similarity || a.source - b.source || a.target - b.target);
-    for (const edge of neighbors.slice(0, Math.max(0, Math.floor(config.maxNeighborsPerSeed)))) {
+    for (const edge of neighbors.slice(0, Math.max(0, Math.floor(config.maxInferredNeighborsPerNode)))) {
       candidateEdges.set(edgeKey(edge.source, edge.target), edge);
     }
   }
