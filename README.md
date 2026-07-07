@@ -15,7 +15,19 @@ browser's localStorage. There is no backend.
 
 ## Local installation
 
-Requires Python ≥ 3.11 and Node ≥ 20.
+Requires Python ≥ 3.11, Node ≥ 20, and Git LFS.
+
+This repository stores `data/art-islands.sqlite` in Git LFS (see
+`docs/decisions/0001-sqlite-git-lfs.md`). Install and enable LFS once before
+cloning or pulling database updates:
+
+```sh
+brew install git-lfs   # or your platform's package manager
+git lfs install
+git lfs pull           # if you cloned before installing LFS
+```
+
+Then:
 
 ```sh
 python -m venv .venv
