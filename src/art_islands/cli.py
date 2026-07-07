@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from . import batch as batch_module
+from . import v2 as v2_module
 from .model import (
     ENTITY_KIND_FILM,
     ENTITY_KIND_GAME,
@@ -57,6 +58,14 @@ def default_db_path() -> Path:
 
 def default_output_path() -> Path:
     return project_root() / "public" / "data"
+
+
+def default_v2_db_path() -> Path:
+    return default_db_path()
+
+
+def default_v2_output_path() -> Path:
+    return project_root() / "public" / "data" / "v2"
 
 
 def default_settings_path() -> Path:
@@ -159,7 +168,13 @@ def command_migrate(args) -> None:
 
 
 def command_export(args) -> None:
-    result = export_static_data(args.db, args.output, args.settings)
+    if args.version == 2:
+        db_path = default_v2_db_path() if args.db == default_db_path() else args.db
+        output_path = default_v2_output_path() if args.output == default_output_path() else args.output
+        result = v2_module.export_v2_static_data(db_path, output_path, args.settings)
+        args.output = output_path
+    else:
+        result = export_static_data(args.db, args.output, args.settings)
     for key, value in result.items():
         print(f"{key}={value}")
     print(f"output={args.output}")
@@ -266,6 +281,108 @@ def command_config_set(args) -> None:
     settings["recommendation"][json_key] = parsed_value
     save_settings(args.settings, settings)
     print(f"{args.key}={settings['recommendation'][json_key]}")
+
+
+def command_schema_status(args) -> None:
+    print(json.dumps(v2_module.schema_status(args.db), indent=2, sort_keys=True))
+
+
+def command_schema_migrate(args) -> None:
+    result = v2_module.migrate_schema(args.db, dry_run=args.dry_run)
+    print(json.dumps(result, indent=2, sort_keys=True))
+
+
+def command_db_v2_inventory(args) -> None:
+    inventory = v2_module.generate_inventory(project_root(), args.source_root)
+    current = v2_module.generate_current_database_report(project_root(), args.db)
+    print(
+        json.dumps(
+            {
+                "inventory": len(inventory["files"]),
+                "currentDatabase": current["path"],
+                "reports": str(project_root() / v2_module.WORKSPACE_REL / "reports"),
+            },
+            indent=2,
+            sort_keys=True,
+        )
+    )
+
+
+def command_db_v2_build_index(args) -> None:
+    result = v2_module.build_layer_index(
+        project_root(),
+        args.source_root,
+        layers=args.layer,
+        include_other=args.include_other,
+        qids=set(args.qid) if args.qid else None,
+        limit=args.limit,
+        resume=args.resume,
+        verbose=args.verbose,
+    )
+    print(json.dumps(result, indent=2, sort_keys=True))
+
+
+def command_db_v2_build_people_cache(args) -> None:
+    result = v2_module.build_people_cache(
+        project_root(),
+        args.source_root,
+        args.db,
+        qids=set(args.qid) if args.qid else None,
+        limit=args.limit,
+    )
+    print(json.dumps(result, indent=2, sort_keys=True))
+
+
+def command_db_v2_migrate(args) -> None:
+    result = v2_module.migrate_existing_database(
+        project_root(),
+        args.db,
+        args.target,
+        replace=args.replace,
+        dry_run=args.dry_run,
+        backup=args.backup,
+    )
+    print(json.dumps(result, indent=2, sort_keys=True))
+
+
+def command_db_v2_enrich_local(args) -> None:
+    result = v2_module.enrich_local(
+        project_root(),
+        args.db,
+        source_root=args.source_root,
+        qids=set(args.qid) if args.qid else None,
+        limit=args.limit,
+        dry_run=args.dry_run,
+        resume=args.resume,
+        verbose=args.verbose,
+    )
+    print(json.dumps(result, indent=2, sort_keys=True))
+
+
+def command_db_v2_enrich_remote(args) -> None:
+    result = v2_module.enrich_remote(
+        project_root(),
+        args.db,
+        qids=set(args.qid) if args.qid else None,
+        limit=args.limit,
+        offline=args.offline,
+        refresh_cache=args.refresh_cache,
+    )
+    print(json.dumps(result, indent=2, sort_keys=True))
+
+
+def command_db_v2_export(args) -> None:
+    result = v2_module.export_v2_static_data(args.db, args.output, args.settings)
+    for key, value in result.items():
+        print(f"{key}={value}")
+    print(f"output={args.output}")
+
+
+def command_db_v2_validate(args) -> None:
+    result = v2_module.validate_v2_database(project_root(), args.source_db, args.db)
+    print(json.dumps(result, indent=2, sort_keys=True))
+    if not result["ok"]:
+        raise SystemExit(1)
 
 
 def command_tag_set(args) -> None:
@@ -743,6 +860,7 @@ def parser() -> argparse.ArgumentParser:
 
     export = sub.add_parser("export")
     add_common_export_args(export)
+    export.add_argument("--version", type=int, choices=(1, 2), default=1)
     export.set_defaults(function=command_export)
 
     build = sub.add_parser("build")
@@ -797,6 +915,94 @@ def parser() -> argparse.ArgumentParser:
     config_set.add_argument("key", choices=sorted(CONFIG_KEYS))
     config_set.add_argument("value")
     config_set.set_defaults(function=command_config_set)
+
+    schema = sub.add_parser("schema")
+    schema_sub = schema.add_subparsers(dest="schema_command", required=True)
+    schema_status = schema_sub.add_parser("status")
+    schema_status.add_argument("--db", type=resolved_path, default=default_v2_db_path())
+    schema_status.set_defaults(function=command_schema_status)
+    schema_migrate = schema_sub.add_parser("migrate")
+    schema_migrate.add_argument("--db", type=resolved_path, default=default_v2_db_path())
+    schema_migrate.add_argument("--dry-run", action="store_true")
+    schema_migrate.set_defaults(function=command_schema_migrate)
+
+    db_v2 = sub.add_parser("db-v2")
+    db_v2_sub = db_v2.add_subparsers(dest="db_v2_command", required=True)
+
+    db_v2_inventory = db_v2_sub.add_parser("inventory")
+    db_v2_inventory.add_argument("--db", type=resolved_path, default=default_db_path())
+    db_v2_inventory.add_argument("--source-root", type=resolved_path, default=default_source_root())
+    db_v2_inventory.set_defaults(function=command_db_v2_inventory)
+
+    db_v2_build_index = db_v2_sub.add_parser("build-index")
+    db_v2_build_index.add_argument("--source-root", type=resolved_path, default=default_source_root())
+    db_v2_build_index.add_argument("--layer", action="append", default=[])
+    db_v2_build_index.add_argument("--include-other", action="store_true")
+    db_v2_build_index.add_argument("--qid", action="append", default=[])
+    db_v2_build_index.add_argument("--limit", type=parse_positive_int)
+    db_v2_build_index.add_argument("--resume", action="store_true")
+    db_v2_build_index.add_argument("--checkpoint", action="store_true")
+    db_v2_build_index.add_argument("--verbose", action="store_true")
+    db_v2_build_index.set_defaults(function=command_db_v2_build_index)
+
+    db_v2_people = db_v2_sub.add_parser("build-people-cache")
+    db_v2_people.add_argument("--db", type=resolved_path, default=default_db_path())
+    db_v2_people.add_argument("--source-root", type=resolved_path, default=default_source_root())
+    db_v2_people.add_argument("--qid", action="append", default=[])
+    db_v2_people.add_argument("--limit", type=parse_positive_int)
+    db_v2_people.add_argument("--resume", action="store_true")
+    db_v2_people.add_argument("--checkpoint", action="store_true")
+    db_v2_people.add_argument("--verbose", action="store_true")
+    db_v2_people.set_defaults(function=command_db_v2_build_people_cache)
+
+    db_v2_migrate = db_v2_sub.add_parser("migrate")
+    db_v2_migrate.add_argument("--db", type=resolved_path, default=default_db_path())
+    db_v2_migrate.add_argument("--target", type=resolved_path, default=default_v2_db_path())
+    db_v2_migrate.add_argument("--replace", action="store_true")
+    db_v2_migrate.add_argument("--dry-run", action="store_true")
+    db_v2_migrate.add_argument("--backup", action="store_true")
+    db_v2_migrate.add_argument("--limit", type=parse_positive_int)
+    db_v2_migrate.add_argument("--qid", action="append", default=[])
+    db_v2_migrate.add_argument("--offline", action="store_true")
+    db_v2_migrate.add_argument("--resume", action="store_true")
+    db_v2_migrate.add_argument("--checkpoint", action="store_true")
+    db_v2_migrate.add_argument("--verbose", action="store_true")
+    db_v2_migrate.set_defaults(function=command_db_v2_migrate)
+
+    db_v2_enrich_local = db_v2_sub.add_parser("enrich-local")
+    db_v2_enrich_local.add_argument("--db", type=resolved_path, default=default_v2_db_path())
+    db_v2_enrich_local.add_argument("--source-root", type=resolved_path, default=default_source_root())
+    db_v2_enrich_local.add_argument("--dry-run", action="store_true")
+    db_v2_enrich_local.add_argument("--limit", type=parse_positive_int)
+    db_v2_enrich_local.add_argument("--qid", action="append", default=[])
+    db_v2_enrich_local.add_argument("--offline", action="store_true")
+    db_v2_enrich_local.add_argument("--resume", action="store_true")
+    db_v2_enrich_local.add_argument("--checkpoint", action="store_true")
+    db_v2_enrich_local.add_argument("--verbose", action="store_true")
+    db_v2_enrich_local.set_defaults(function=command_db_v2_enrich_local)
+
+    db_v2_enrich_remote = db_v2_sub.add_parser("enrich-remote")
+    db_v2_enrich_remote.add_argument("--db", type=resolved_path, default=default_v2_db_path())
+    db_v2_enrich_remote.add_argument("--offline", action="store_true", default=True)
+    db_v2_enrich_remote.add_argument("--online", action="store_false", dest="offline")
+    db_v2_enrich_remote.add_argument("--refresh-cache", action="store_true")
+    db_v2_enrich_remote.add_argument("--limit", type=parse_positive_int)
+    db_v2_enrich_remote.add_argument("--qid", action="append", default=[])
+    db_v2_enrich_remote.add_argument("--resume", action="store_true")
+    db_v2_enrich_remote.add_argument("--checkpoint", action="store_true")
+    db_v2_enrich_remote.add_argument("--verbose", action="store_true")
+    db_v2_enrich_remote.set_defaults(function=command_db_v2_enrich_remote)
+
+    db_v2_export = db_v2_sub.add_parser("export")
+    db_v2_export.add_argument("--db", type=resolved_path, default=default_v2_db_path())
+    db_v2_export.add_argument("--output", type=resolved_path, default=default_v2_output_path())
+    db_v2_export.add_argument("--settings", type=resolved_path, default=default_settings_path())
+    db_v2_export.set_defaults(function=command_db_v2_export)
+
+    db_v2_validate = db_v2_sub.add_parser("validate")
+    db_v2_validate.add_argument("--source-db", type=resolved_path, default=default_db_path())
+    db_v2_validate.add_argument("--db", type=resolved_path, default=default_v2_db_path())
+    db_v2_validate.set_defaults(function=command_db_v2_validate)
 
     serve = sub.add_parser("serve-static")
     serve.add_argument("--root", type=resolved_path, default=Path("public"))

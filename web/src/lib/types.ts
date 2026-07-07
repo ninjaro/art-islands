@@ -107,6 +107,161 @@ export interface EvolutionExport {
   nodes: EvolutionNode[];
 }
 
+export interface V2EntityText {
+  kind: "label" | "alias" | "description";
+  language: string | null;
+  value: string;
+  primary: boolean;
+}
+
+export interface V2Identifier {
+  scheme: string;
+  value: string;
+  primary: boolean;
+}
+
+export interface V2Entity {
+  id: number;
+  label: string;
+  description?: string;
+  family?: "work" | "person" | "group" | "organization" | "place" | "concept" | "unknown";
+  image?: string;
+  catalogued: boolean;
+  completenessStatus?: string;
+  confidence?: number;
+  reviewState?: string;
+  identifiers?: V2Identifier[];
+  texts?: V2EntityText[];
+}
+
+export interface V2Date {
+  type: string;
+  value: string;
+  precision: number;
+  endValue?: string;
+  endPrecision?: number;
+  edition?: string;
+  rank?: string;
+  primary?: boolean;
+  confidence?: number;
+}
+
+export interface V2Measurement {
+  type: string;
+  number?: number;
+  text?: string;
+  unit?: string;
+  qualifier?: string;
+  confidence?: number;
+}
+
+export interface V2CatalogItem {
+  id: number;
+  label: string;
+  family?: string;
+  image?: string;
+  compatibilityDate?: string;
+  compatibilityDatePrecision?: number;
+  dates?: V2Date[];
+  contributors?: Record<string, number[]>;
+  concepts?: Record<string, number[]>;
+  measurements?: V2Measurement[];
+}
+
+export interface V2EntityTypeDefinition {
+  id: number;
+  code: string;
+  family: string;
+  label: string;
+  description: string | null;
+}
+
+export interface V2EntityTypeAssignment {
+  entityId: number;
+  typeId: number;
+  isPrimary: number;
+  confidence: number | null;
+}
+
+export interface V2Relation {
+  id: number;
+  source: number;
+  target: number;
+  type: string;
+  roleLabel?: string;
+  characterLabel?: string;
+  weight: number;
+  polarity: number;
+  confidence?: number;
+  manual: boolean;
+}
+
+export interface V2Concept {
+  id: number;
+  label: string;
+  description?: string;
+  category: string;
+  namespace?: string;
+  value?: string;
+  legacyTagId?: number;
+  classificationRule?: string;
+  confidence?: number;
+  reviewRecommended?: number;
+}
+
+export interface V2EntityConcept {
+  entityId: number;
+  conceptId: number;
+  weight: number;
+  polarity: number;
+  confidence: number | null;
+  manual: number;
+}
+
+export interface V2ConceptExport {
+  categories: { id: number; code: string; label: string }[];
+  concepts: V2Concept[];
+  entityConcepts: V2EntityConcept[];
+}
+
+export interface V2AgeRating {
+  id: number;
+  entityId: number;
+  systemId: number;
+  certificate: string;
+  minimumAge?: number;
+  editionLabel?: string;
+  descriptorsJson?: string;
+  ratingDate?: string;
+}
+
+export interface V2Restriction {
+  id: number;
+  entityId: number;
+  countryCode?: string;
+  regionLabel?: string;
+  restrictionType: string;
+  startDate?: string;
+  endDate?: string;
+  reason?: string;
+  editionLabel?: string;
+  status?: string;
+}
+
+export interface V2Data {
+  catalog: V2CatalogItem[];
+  entities: Record<string, V2Entity>;
+  entityTypes: {
+    definitions: V2EntityTypeDefinition[];
+    assignments: V2EntityTypeAssignment[];
+  };
+  relations: V2Relation[];
+  concepts: V2ConceptExport;
+  advisories: unknown[];
+  ratings: V2AgeRating[];
+  restrictions: V2Restriction[];
+}
+
 export interface AppData {
   catalog: CatalogItem[];
   catalogById: Map<number, CatalogItem>;
@@ -114,6 +269,7 @@ export interface AppData {
   tagById: Map<number, Tag>;
   lookup: Lookup;
   evolution: EvolutionExport | null;
+  v2: V2Data | null;
 }
 
 export function mergeSettings(raw: unknown): Settings {

@@ -1,6 +1,8 @@
 import { defineConfig } from "@playwright/test";
+import { existsSync } from "node:fs";
 
 const PORT = 4317;
+const HAS_LOCAL_CHROME = existsSync("/opt/google/chrome/chrome");
 
 // Tests run against the production build served under the GitHub Pages
 // project path, so base-path behavior is exercised on every run.
@@ -21,7 +23,7 @@ export default defineConfig({
         browserName: "chromium",
         // Locally reuse the installed Google Chrome; CI installs the
         // Playwright chromium build.
-        channel: process.env.CI ? undefined : "chrome",
+        channel: process.env.CI || !HAS_LOCAL_CHROME ? undefined : "chrome",
       },
     },
   ],

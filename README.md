@@ -47,6 +47,27 @@ settings, Islands graph caps) live in `data/settings.json` and are exported to
 `public/data/settings.json`. Other CLI commands: `migrate`, `build`, `enrich`,
 `tag set`, `config show|set`, `batch`, `serve-static`.
 
+## Database v2 migration
+
+The v2 migration is offline-first and keeps one-off tooling under
+`tools/db_v2_migration/`. It builds `data/art-islands-v2.sqlite` from the
+current database; it does not replace `data/art-islands.sqlite`.
+
+```sh
+art-islands db-v2 inventory
+art-islands db-v2 build-index --resume --limit 1000
+art-islands db-v2 build-people-cache --qid Q873 --limit 1
+art-islands db-v2 migrate --replace
+art-islands db-v2 export
+art-islands db-v2 validate
+```
+
+`db-v2 migrate` validates the source database, creates a timestamped backup,
+applies explicit schema migrations, migrates v1 rows into normalized v2 tables,
+and writes reports under `tools/db_v2_migration/reports/`. Full layer indexing
+can be run without `--limit`; use `--include-other` only when intentionally
+indexing the large `other_creative_work.jsonl` source.
+
 ## Production build
 
 ```sh

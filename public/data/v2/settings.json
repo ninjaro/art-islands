@@ -1,0 +1,1 @@
+{"recommendation":{"likeWeight":1.0,"dislikeWeight":1.5,"limit":100},"evolution":{"visibleChildrenPerNode":4,"maxInitialRoots":20,"groupingSimilarity":0.25,"minimumSimilarity":0.18,"minimumSharedTags":2},"islands":{"maxRecommendationNodes":150,"maxNeighborsPerSeed":12,"maxEdges":500,"minimumSimilarity":0.12}}

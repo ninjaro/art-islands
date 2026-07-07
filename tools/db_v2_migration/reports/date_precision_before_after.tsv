@@ -1,0 +1,3378 @@
+entity_id	label	old_date	old_precision	new_date_type	new_date	new_precision
+1	World War I	1914-07-28	3	point_in_time	1914-07-28	3
+2	World War II	1939-09-01	3	point_in_time	1939-09-01	3
+3	atomic bombings of Hiroshima and Nagasaki	1945-08-06	3	point_in_time	1945-08-06	3
+5	punk rock	1975-01-01	1	point_in_time	1975-01-01	1
+6	Moonmadness	1976-03-01	2	release	1976-03-01	2
+7	Percy	1971-01-01	1	release	1971-01-01	1
+8	Percy's Progress	1974-01-01	1	release	1974-01-01	1
+9	A Love Supreme	1965-02-01	2	release	1965-02-01	2
+10	May 68	1968-01-01	1	point_in_time	1968-01-01	1
+11	Pirates II: Stagnetti's Revenge	2008-09-27	3	release	2008-09-27	3
+12	Eraserhead	1977-01-01	1	release	1977-01-01	1
+14	London Calling	1979-12-14	3	release	1979-12-14	3
+15	Scream	1996-12-18	3	release	1996-12-18	3
+16	The Seventh Victim	1943-01-01	1	release	1943-01-01	1
+17	Deathdream	1974-08-29	3	release	1974-08-29	3
+18	Men of Israel	2009-01-01	1	release	2009-01-01	1
+20	MTV	1981-08-01	3	point_in_time	1981-08-01	3
+21	Invasion of the Body Snatchers	1956-02-05	3	release	1956-02-05	3
+22	Das indische Tuch	1963-01-01	1	release	1963-01-01	1
+23	The Tragical History of the Life and Death of Doctor Faustus	1604-01-01	1	publication	1604-01-01	1
+24	Stonewall riots	1969-06-28	3	point_in_time	1969-06-28	3
+25	Trzecia część nocy	1972-01-01	1	release	1972-01-01	1
+26	They Live	1988-11-04	3	release	1988-11-04	3
+27	Excession	1996-01-01	1	publication	1996-01-01	1
+28	glam rock	1969-01-01	1	point_in_time	1969-01-01	1
+29	New Line Cinema	1967-01-01	1	inception	1967-01-01	1
+31	O-Bi, O-Ba. Koniec cywilizacji	1985-01-01	1	release	1985-01-01	1
+32	The Picture of Dorian Gray	1890-01-01	1	publication	1890-01-01	1
+33	First Two 7s on a 12	1984-03-01	2	release	1984-03-01	2
+34	2001: A Space Odyssey	1968-01-01	1	release	1968-01-01	1
+35	Alien	1979-05-25	3	release	1979-05-25	3
+36	Dr. Strangelove	1964-01-01	1	release	1964-01-01	1
+37	Bram Stoker's Dracula	1992-11-13	3	release	1992-11-13	3
+38	Spartacus	1960-01-01	1	release	1960-01-01	1
+39	The Birds	1963-01-01	1	release	1963-01-01	1
+41	Chi l'ha vista morire?	1972-05-12	3	release	1972-05-12	3
+42	Dune	1984-12-14	3	release	1984-12-14	3
+43	Gay Sex in the 70s	2005-01-01	1	release	2005-01-01	1
+44	Slanted and Enchanted	1992-04-20	3	release	1992-04-20	3
+45	Creature from the Black Lagoon	1954-01-01	1	release	1954-01-01	1
+46	M	1931-01-01	1	release	1931-01-01	1
+47	Santo contra cerebro del mal	1961-01-01	1	release	1961-01-01	1
+48	The Invisible Man	1933-01-01	1	release	1933-01-01	1
+49	Berserk!	1967-01-01	1	release	1967-01-01	1
+50	Nothing But the Night	1972-01-01	1	release	1972-01-01	1
+51	Nosferatu – Eine Symphonie des Grauens	1922-02-17	3	release	1922-02-17	3
+52	Diary of a Nudist	1961-01-01	1	release	1961-01-01	1
+53	Das Cabinet des Dr. Caligari	1920-02-27	3	release	1920-02-27	3
+54	The Plague of the Zombies	1966-01-02	3	release	1966-01-02	3
+55	Nosferatu – Phantom der Nacht	1979-01-01	1	release	1979-01-01	1
+56	Fresh Fruit for Rotting Vegetables	1980-09-02	3	release	1980-09-02	3
+57	Carrie	1976-11-03	3	release	1976-11-03	3
+58	Psycho	1960-01-01	1	release	1960-01-01	1
+59	Der Zinker	1963-01-01	1	release	1963-01-01	1
+60	The United States of America	1967-01-01	1	point_in_time	1967-01-01	1
+61	Stranger than Fiction	1994-08-30	3	release	1994-08-30	3
+62	Entertainment!	1979-09-25	3	release	1979-09-25	3
+63	Universal Pictures	1912-04-30	3	inception	1912-04-30	3
+64	Energy	1989-01-01	1	release	1989-01-01	1
+65	Tales of the Unexpected	1979-03-24	3	broadcast_start	1979-03-24	3
+66	Ramones	1976-04-23	3	release	1976-04-23	3
+67	Empire	1965-03-06	3	release	1965-03-06	3
+68	Der Todesking	1989-01-01	1	release	1989-01-01	1
+70	Les Misérables	1862-01-01	1	publication	1862-01-01	1
+71	A Clockwork Orange	1971-01-01	1	release	1971-01-01	1
+72	The Wedding Banquet	1993-01-01	1	release	1993-01-01	1
+73	The Sixth Sense	1999-01-01	1	release	1999-01-01	1
+74	Zeichnungen des Patienten O. T.	1983-01-01	1	release	1983-01-01	1
+75	鉄男	1989-01-01	1	release	1989-01-01	1
+76	The Shining	1980-01-01	1	release	1980-01-01	1
+77	Bohemian Rhapsody	1975-10-31	3	publication	1975-10-31	3
+79	Jaws	1975-06-20	3	release	1975-06-20	3
+80	Seven	1995-09-15	3	release	1995-09-15	3
+81	Notre-Dame de Paris	1831-01-01	1	publication	1831-01-01	1
+82	3D Sex and Zen: Extreme Ecstasy	2011-01-01	1	release	2011-01-01	1
+83	A Night at the Opera	1975-11-21	3	release	1975-11-21	3
+84	Trout Mask Replica	1969-06-16	3	release	1969-06-16	3
+85	Solid Gold	1981-03-01	2	release	1981-03-01	2
+86	Ninety-three	1874-01-01	1	publication	1874-01-01	1
+87	ゴジラ対ヘドラ	1971-01-01	1	release	1971-01-01	1
+88	The Doors	1967-01-04	3	release	1967-01-04	3
+89	The Piper at the Gates of Dawn	1967-08-04	3	release	1967-08-04	3
+90	J. D.'s Revenge	1976-01-01	1	release	1976-01-01	1
+91	A Woman of No Importance	1893-01-01	1	inception	1893-01-01	1
+93	Eyes Wide Shut	1999-01-01	1	release	1999-01-01	1
+95	Salon Kitty	1976-03-02	3	release	1976-03-02	3
+96	The Thing	1982-01-01	1	release	1982-01-01	1
+97	In the Court of the Crimson King	1969-10-10	3	release	1969-10-10	3
+98	Bleach	1989-06-15	3	release	1989-06-15	3
+99	Dawn of the Dead	1978-09-02	3	release	1978-09-02	3
+100	Day of the Dead	1985-06-30	3	release	1985-06-30	3
+101	Sheer Heart Attack	1974-11-08	3	release	1974-11-08	3
+102	Kollaps	1981-01-01	1	release	1981-01-01	1
+103	Halloween	1978-10-25	3	release	1978-10-25	3
+104	Queen II	1974-03-08	3	release	1974-03-08	3
+105	The Blob	1958-01-01	1	release	1958-01-01	1
+106	Wild Thing	1966-01-01	1	publication	1966-01-01	1
+107	Go, Go, Second Time Virgin	1969-01-01	1	release	1969-01-01	1
+108	Confusion Is Sex	1983-02-01	2	release	1983-02-01	2
+109	Kimono My House	1974-01-01	1	release	1974-01-01	1
+110	Full Metal Jacket	1987-01-01	1	release	1987-01-01	1
+111	The Bedford Incident	1965-01-01	1	release	1965-01-01	1
+113	The Devil in Miss Jones	1973-01-01	1	release	1973-01-01	1
+114	Jabberwocky	1871-01-01	1	publication	1871-01-01	1
+115	London After Midnight	1927-01-01	1	release	1927-01-01	1
+116	This Nation's Saving Grace	1985-01-01	1	release	1985-01-01	1
+117	Plan 9 from Outer Space	1957-03-15	3	release	1957-03-15	3
+118	154	1979-09-01	2	release	1979-09-01	2
+119	The Velvet Underground & Nico	1967-03-12	3	release	1967-03-12	3
+120	Tragic Songs of Life	1956-10-01	2	release	1956-10-01	2
+121	Robot Monster	1953-01-01	1	release	1953-01-01	1
+122	Consider Phlebas	1987-01-01	1	publication	1987-01-01	1
+123	School's Out	1972-06-01	2	release	1972-06-01	2
+124	UNDERWATER LOVE -おんなの河童-	2011-01-01	1	release	2011-01-01	1
+125	Floodland	1987-11-13	3	release	1987-11-13	3
+126	Scream 2	1997-01-01	1	release	1997-01-01	1
+127	Paranoid	1970-09-18	3	release	1970-09-18	3
+128	Mulholland Drive	2001-01-01	1	release	2001-01-01	1
+129	The Elephant Man	1980-10-03	3	release	1980-10-03	3
+130	The Exorcist	1973-12-26	3	release	1973-12-26	3
+131	Napster	1999-01-01	1	inception	1999-01-01	1
+132	Vincebus Eruptum	1968-01-01	2	release	1968-01-01	2
+133	Dracula	1931-02-12	3	release	1931-02-12	3
+134	Frankenchrist	1985-10-01	3	release	1985-10-01	3
+135	Deranged	1974-01-01	1	release	1974-01-01	1
+136	Kind of Blue	1959-08-17	3	release	1959-08-17	3
+137	Il rosso segno della follia	1970-01-01	1	release	1970-01-01	1
+138	Our Finest Flowers	1992-01-01	1	release	1992-01-01	1
+139	The Hunchback of Notre Dame	1923-01-01	1	release	1923-01-01	1
+140	99 Women	1968-01-01	1	release	1968-01-01	1
+141	Lost Highway	1997-01-15	3	release	1997-01-15	3
+142	倩女幽魂	1987-07-18	3	release	1987-07-18	3
+143	倩女幽魂II：人間道	1990-01-01	1	release	1990-01-01	1
+144	倩女幽魂III：道道道	1991-01-01	1	release	1991-01-01	1
+145	A History of Violence	2005-05-16	3	release	2005-05-16	3
+146	Dragnet	1979-10-26	3	release	1979-10-26	3
+147	Surface Detail	2010-10-07	3	publication	2010-10-07	3
+148	I Know What You Did Last Summer	1997-10-17	3	release	1997-10-17	3
+149	死亡寫真	2004-11-04	3	release	2004-11-04	3
+150	Happy Birthday to Me	1981-01-01	1	release	1981-01-01	1
+151	Safe as Milk	1967-06-01	2	release	1967-06-01	2
+152	Abbott and Costello Meet Frankenstein	1948-06-15	3	release	1948-06-15	3
+153	King Kong	1933-01-01	1	release	1933-01-01	1
+155	Il portiere di notte	1974-04-03	3	release	1974-04-03	3
+156	Sébastien Roch	1890-01-01	1	publication	1890-01-01	1
+157	Interview with the Vampire: The Vampire Chronicles	1994-11-11	3	release	1994-11-11	3
+158	Verführung: Die grausame Frau	1985-01-01	1	release	1985-01-01	1
+159	Schramm	1993-01-01	1	release	1993-01-01	1
+160	A doppia faccia	1969-01-01	1	release	1969-01-01	1
+161	The House That Dripped Blood	1971-02-21	3	release	1971-02-21	3
+162	Passenger 57	1992-01-01	1	release	1992-01-01	1
+163	The Evil Dead	1981-01-01	1	release	1981-01-01	1
+164	Black Sabbath	1970-02-13	3	release	1970-02-13	3
+165	A Nightmare on Elm Street	1984-01-01	1	release	1984-01-01	1
+166	...E tu vivrai nel terrore! L'aldilà	1981-01-01	1	release	1981-01-01	1
+167	Вий	1967-11-27	3	release	1967-11-27	3
+168	Sorority House Massacre II	1990-01-01	1	release	1990-01-01	1
+169	True Heart	1997-01-01	1	release	1997-01-01	1
+170	Cosa avete fatto a Solange?	1972-03-09	3	release	1972-03-09	3
+171	Use of Weapons	1990-01-01	1	publication	1990-01-01	1
+172	Songs for Drella	1990-04-11	3	release	1990-04-11	3
+173	Bride of the Monster	1955-01-01	1	release	1955-01-01	1
+174	Pink Flag	1977-11-01	2	release	1977-11-01	2
+175	Strategies Against Architecture II	1991-05-21	3	release	1991-05-21	3
+176	Fright Night	1985-08-02	3	release	1985-08-02	3
+177	Low-Life	1985-05-13	3	release	1985-05-13	3
+178	The Faculty	1998-01-01	1	release	1998-01-01	1
+179	A Nightmare on Elm Street 3: Dream Warriors	1987-02-27	3	release	1987-02-27	3
+180	Maniac	1980-01-01	1	release	1980-01-01	1
+181	My Generation	1965-12-03	3	release	1965-12-03	3
+182	Morte sospetta di una minorenne	1975-01-01	1	release	1975-01-01	1
+183	The Stooges	1969-08-05	3	release	1969-08-05	3
+184	Naked Lunch	1959-01-01	1	publication	1959-01-01	1
+185	Faust IV	1973-09-21	3	release	1973-09-21	3
+186	Le Journal d'une femme de chambre	1900-01-01	1	publication	1900-01-01	1
+187	Near Dark	1987-01-01	1	release	1987-01-01	1
+188	Count Dracula	1970-01-01	1	release	1970-01-01	1
+189	Hasta el viento tiene miedo	1968-05-30	3	release	1968-05-30	3
+190	Afrodite Superstar	2006-01-01	1	release	2006-01-01	1
+191	The Brood	1979-05-25	3	release	1979-05-25	3
+192	Agents of Fortune	1975-01-01	1	release	1975-01-01	1
+193	…And Out Come the Wolves	1995-08-22	3	release	1995-08-22	3
+194	…But Seriously	1989-11-24	3	release	1989-11-24	3
+195	Pure Mania	1977-01-01	1	release	1977-01-01	1
+196	The Wolf Man	1941-01-01	1	release	1941-01-01	1
+197	Demon Wind	1990-01-01	1	release	1990-01-01	1
+198	Marquee Moon	1977-02-01	2	release	1977-02-01	2
+199	Assault on Precinct 13	1976-11-05	3	release	1976-11-05	3
+200	Hexen bis aufs Blut gequält	1970-01-01	1	release	1970-01-01	1
+201	Alraune	1928-01-01	1	release	1928-01-01	1
+202	Never Mind the Bollocks Here's the Sex Pistols	1977-10-28	3	release	1977-10-28	3
+203	Nicht der Homosexuelle ist pervers, sondern die Situation, in der er lebt	1970-01-01	1	release	1970-01-01	1
+204	Taxi zum Klo	1980-01-01	1	release	1980-01-01	1
+205	Dzieje grzechu	1975-01-01	1	release	1975-01-01	1
+208	Drácula contra Frankenstein	1972-10-04	3	release	1972-10-04	3
+209	The Dead Zone	1983-01-01	1	release	1983-01-01	1
+210	The Player of Games	1988-08-01	2	publication	1988-08-01	2
+211	Le notti erotiche dei morti viventi	1980-01-01	1	release	1980-01-01	1
+212	La chiave	1983-01-01	1	release	1983-01-01	1
+213	The Fly	1986-08-15	3	release	1986-08-15	3
+214	Les héroïnes du mal	1979-03-07	3	release	1979-03-07	3
+215	Contamination	1980-01-01	1	release	1980-01-01	1
+216	Barry Lyndon	1975-01-01	1	release	1975-01-01	1
+217	Columbine High School massacre	1999-04-20	3	point_in_time	1999-04-20	3
+218	Die Zärtlichkeit der Wölfe	1973-01-01	1	release	1973-01-01	1
+219	Jack the Ripper – Der Dirnenmörder von London	1976-10-01	3	release	1976-10-01	3
+220	Nekromantik 2	1991-01-01	1	release	1991-01-01	1
+221	Peeping Tom	1960-01-01	1	release	1960-01-01	1
+222	Sadomania – Hölle der Lust	1980-01-01	1	release	1980-01-01	1
+223	The Witch Hunter of Blackmoor	1969-01-01	1	release	1969-01-01	1
+224	Ace of Spades	1980-11-08	3	release	1980-11-08	3
+226	三更2	2004-01-01	1	release	2004-01-01	1
+228	Saw	2003-01-01	1	release	2003-01-01	1
+229	Anarchy in the U.K.	1976-11-26	3	publication	1976-11-26	3
+230	대괴수 용가리	1967-01-01	1	release	1967-01-01	1
+231	Spellbound	1945-01-01	1	release	1945-01-01	1
+232	Poltergeist	1982-01-01	1	release	1982-01-01	1
+233	Copycat	1995-10-27	3	release	1995-10-27	3
+234	The Little Shop of Horrors	1960-01-01	1	release	1960-01-01	1
+235	Motorpsycho	1965-01-01	1	release	1965-01-01	1
+236	The Lodger: A Story of the London Fog	1927-02-14	3	release	1927-02-14	3
+237	Deep Throat	1972-01-01	1	release	1972-01-01	1
+238	The Lost Boys	1987-07-31	3	release	1987-07-31	3
+239	Do or Die	1998-01-01	1	release	1998-01-01	1
+240	Downtown 81	1980-01-01	1	release	2001-01-01	1
+241	The Nightcomers	1971-08-30	3	release	1971-08-30	3
+242	Le Temps retrouvé	1998-01-01	1	release	1998-01-01	1
+244	La vergine, il toro e il capricorno	1977-01-01	1	release	1977-01-01	1
+245	Scalps	1983-01-01	1	release	1983-01-01	1
+246	Real Life	1978-06-01	2	release	1978-06-01	2
+247	El exilio de Gardel (Tangos)	1985-01-01	1	release	1985-01-01	1
+248	Battle in Outer Space	1959-01-01	1	release	1959-01-01	1
+249	Trans-Europ-Express	1966-01-01	1	release	1966-01-01	1
+250	Pump Up the Valuum	2000-01-01	1	release	2000-01-01	1
+251	The Golem: How He Came into the World	1920-10-29	3	release	1920-10-29	3
+252	Sulk	1982-05-14	3	release	1982-05-14	3
+253	White Light/White Heat	1968-01-30	3	release	1968-01-30	3
+254	La tarantola dal ventre nero	1971-01-01	1	release	1971-01-01	1
+255	The Terror State	2003-01-01	1	release	2003-01-01	1
+256	Flesh for Frankenstein	1973-11-30	3	release	1973-11-30	3
+257	Cape Fear	1962-01-01	1	release	1962-01-01	1
+258	リング	1998-01-31	3	release	1998-01-31	3
+259	Songs the Lord Taught Us	1980-05-01	2	release	1980-05-01	2
+260	Angels Over Broadway	1940-01-01	1	release	1940-01-01	1
+261	The Art of Walking	1980-06-01	2	release	1980-06-01	2
+262	Mio caro assassino	1972-01-01	1	release	1972-01-01	1
+263	Juliette	1797-01-01	1	publication	1797-01-01	1
+264	This Is Our Music	1990-01-01	1	release	1990-01-01	1
+265	Attack of the Killer Tomatoes	1978-10-04	3	release	1978-10-04	3
+266	The Giant Spider Invasion	1975-01-01	1	release	1975-01-01	1
+267	Angry Machines	1996-10-04	3	release	1996-10-04	3
+268	The Mummy	1959-01-01	1	release	1959-01-01	1
+269	Frankenstein	1931-11-21	3	release	1931-11-21	3
+270	Suspiria	1977-02-01	3	release	1977-02-01	3
+271	Animal Boy	1986-05-01	2	release	1986-05-01	2
+272	Animalize	1984-09-13	3	release	1984-09-13	3
+273	Das Schloss von Otranto	1764-01-01	1	publication	1764-01-01	1
+274	Anita – Tänze des Lasters	1988-02-25	3	release	1988-02-25	3
+275	Der Student von Prag	1913-08-22	3	release	1913-08-22	3
+276	Scanners	1981-01-14	3	release	1981-01-14	3
+277	Aladdin Sane	1973-04-13	3	release	1973-04-13	3
+278	Marines, Let's Go	1961-01-01	1	release	1961-01-01	1
+279	The Steel Helmet	1951-01-01	1	release	1951-01-01	1
+280	Three	2002-01-01	1	release	2002-01-01	1
+281	オーディション	1999-01-01	1	release	1999-01-01	1
+282	Das Wachsfigurenkabinett	1924-01-01	1	release	1924-01-01	1
+283	Klimt	2006-01-01	1	release	2006-01-01	1
+284	Surfer Rosa	1988-03-21	3	release	1988-03-21	3
+285	Bloodsport III	1997-01-01	1	release	1997-01-01	1
+286	You Really Got Me	1964-08-04	3	publication	1964-08-04	3
+288	You're Living All Over Me	1987-12-14	3	release	1987-12-14	3
+289	Pink Narcissus	1971-05-24	3	release	1971-05-24	3
+290	Suicide	1977-01-01	1	release	1977-01-01	1
+291	Vampyros Lesbos – Erbin des Dracula	1971-01-01	1	release	1971-01-01	1
+292	The Dark Mirror	1946-01-01	1	release	1946-01-01	1
+293	Szamanka	1996-05-10	3	release	1996-05-10	3
+294	Pod	1990-05-29	3	release	1990-05-29	3
+295	Martyrs	2008-05-01	2	release	2008-05-01	2
+296	Them!	1954-01-01	1	release	1954-01-01	1
+297	Factory Records	1978-01-01	1	inception	1978-01-01	1
+298	Debbie Does Dallas	1978-01-01	1	release	1978-01-01	1
+299	The Rocky Horror Show	1973-01-01	1	first_performance	1973-01-01	1
+300	Shout at the Devil	1983-09-26	3	release	1983-09-26	3
+301	Civil Rights Act of 1964	1964-07-02	3	point_in_time	1964-07-02	3
+302	Eaten Alive	1976-10-01	2	release	1976-10-01	2
+303	Meet The Residents	1974-04-01	3	release	1974-04-01	3
+304	Die blaue Hand	1967-01-01	1	release	1967-01-01	1
+305	三大怪獣 地球最大の決戦	1964-12-20	3	release	1964-12-20	3
+306	Can the Can	1973-01-01	1	publication	1973-01-01	1
+307	Chelsea Girl	1967-10-09	3	release	1967-10-09	3
+308	Il fantasma di Sodoma	1988-01-01	1	release	1988-01-01	1
+309	The Killing	1956-01-01	1	release	1956-01-01	1
+310	The Only Ones	1979-01-01	1	release	1979-01-01	1
+311	The Young Marrieds	1971-01-01	1	release	1971-01-01	1
+312	The Incubus	1982-01-01	1	release	1982-01-01	1
+313	Prayers on Fire	1981-04-06	3	release	1981-04-06	3
+314	Almost Transparent Blue	1976-07-09	3	publication	1976-07-09	3
+315	Concrete Island	1974-01-01	1	publication	1974-01-01	1
+316	Invasion of the Body Snatchers	1978-12-20	3	release	1978-12-20	3
+317	The Spiral Staircase	1946-01-01	1	release	1946-01-01	1
+318	The Collector	2009-01-01	1	release	2009-01-01	1
+319	Cocaine Nights	1996-01-01	1	publication	1996-01-01	1
+320	La frusta e il corpo	1963-08-29	3	release	1963-08-29	3
+321	Prince of Darkness	1987-01-01	1	release	1987-01-01	1
+322	Guncrazy	1992-01-01	1	release	1992-01-01	1
+323	The Devil's Daffodil	1961-01-01	1	release	1961-01-01	1
+324	The Dentist	1996-01-01	1	release	1996-01-01	1
+325	Roxy Music	1972-06-16	3	release	1972-06-16	3
+326	In the Flat Field	1980-10-01	3	release	1980-10-01	3
+327	Der schwarze Abt	1963-01-01	1	release	1963-01-01	1
+328	In on the Kill Taker	1993-01-01	1	release	1993-01-01	1
+329	The Wizard of Gore	1970-01-01	1	release	1970-01-01	1
+330	Rosemary's Baby	1968-01-01	1	release	1968-01-01	1
+331	Motion Picture Production Code	1930-01-01	1	point_in_time	1930-01-01	1
+332	Crazy Rhythms	1980-04-01	2	release	1980-04-01	2
+333	No More Heroes	1977-01-01	1	release	1977-01-01	1
+334	Phantasm	1979-01-01	2	release	1979-01-01	2
+335	Demonia	1990-01-01	1	release	1990-01-01	1
+336	Plastic Surgery Disasters	1982-11-01	2	release	1982-11-01	2
+337	Crazy Nights	1987-09-15	3	release	1987-09-15	3
+338	Transient Random-Noise Bursts with Announcements	1993-01-01	1	release	1993-01-01	1
+339	Stage Fright	1987-01-01	1	release	1987-01-01	1
+340	Edward II	1991-01-01	1	release	1991-01-01	1
+341	4 mosche di velluto grigio	1971-12-17	3	release	1971-12-17	3
+342	Night of the Living Dead	1968-01-01	1	release	1968-01-01	1
+343	Mail Order Bride	1964-01-01	1	release	1964-01-01	1
+344	The Fury	1978-03-10	3	release	1978-03-10	3
+345	The Crazies	1973-03-16	3	release	1973-03-16	3
+346	The Collector	1965-01-01	1	release	1965-01-01	1
+347	Some Friendly	1990-01-01	1	release	1990-01-01	1
+348	Wild in the Streets	1982-01-01	1	release	1982-01-01	1
+349	Aline et Valcour	1793-01-01	1	publication	1793-01-01	1
+350	Hed PE	1997-01-01	1	release	1997-01-01	1
+351	Nowhere	1997-01-01	1	release	1997-01-01	1
+352	Jewels	2007-01-01	1	release	2007-01-01	1
+353	Transformer	1972-11-08	3	release	1972-11-08	3
+354	Fire of Love	1981-08-31	3	release	1981-08-31	3
+355	モスラ対ゴジラ	1964-04-29	3	release	1964-04-29	3
+356	The Fuse	2005-01-01	1	release	2005-01-01	1
+357	Dead Ringers	1988-01-01	1	release	1988-01-01	1
+358	Wes Craven's New Nightmare	1994-01-01	1	release	1994-01-01	1
+359	Don't Open Till Christmas	1984-01-01	1	release	1984-01-01	1
+360	Night of the Living Dead	1979-01-01	1	publication	1979-01-01	1
+361	Emmanuelle 5	1987-01-01	1	release	1987-01-01	1
+363	SST Records	1978-01-01	1	inception	1978-01-01	1
+364	Night Gallery	1969-11-08	3	broadcast_start	1969-11-08	3
+365	Kaleidoscope	1980-08-01	3	release	1980-08-01	3
+367	Pretty Poison	1968-01-01	1	release	1968-01-01	1
+368	Chairs Missing	1978-08-01	2	release	1978-08-01	2
+369	The Dictators Go Girl Crazy!	1975-01-01	1	release	1975-01-01	1
+370	Dracula	1958-01-01	1	release	1958-01-01	1
+371	A Blade in the Dark	1983-01-01	1	release	1983-01-01	1
+372	Traci, I Love You	1987-01-29	3	release	1987-01-29	3
+373	The Blair Witch Project	1999-01-01	1	release	1999-01-01	1
+374	Maîtresse	1975-01-01	1	release	1975-01-01	1
+375	Atomizer	1986-01-01	1	release	1986-01-01	1
+376	Scorpio Rising	1963-01-01	1	release	1963-01-01	1
+377	Три истории	1997-02-18	3	release	1997-02-18	3
+378	The Deadly Spawn	1983-01-01	1	release	1983-01-01	1
+379	Young Frankenstein	1974-12-15	3	release	1974-12-15	3
+380	Nekromantik	1987-01-01	1	release	1987-01-01	1
+381	Bloodsport II: The Next Kumite	1996-01-01	1	release	1996-01-01	1
+382	Evilive	1982-12-01	2	release	1982-12-01	2
+383	SPL: Sha Po Lang	2005-01-01	1	release	2005-01-01	1
+384	Master of Reality	1971-07-21	3	release	1971-07-21	3
+385	Don't Look Now	1973-01-01	1	release	1973-01-01	1
+386	Blue Velvet	1986-01-01	1	release	1986-01-01	1
+387	Here Are The Sonics	1964-01-01	1	release	1964-01-01	1
+388	Tropic of Capricorn	1939-01-01	1	publication	1939-01-01	1
+389	Society	1989-01-01	1	release	1989-01-01	1
+390	La morte accarezza a mezzanotte	1972-01-01	1	release	1972-01-01	1
+391	Famous Monsters	1999-01-01	1	release	1999-01-01	1
+392	La 628-E8	1907-01-01	1	publication	1907-01-01	1
+393	Not Available	1974-01-01	1	release	1974-01-01	1
+394	Un bruit qui rend fou	1995-01-01	1	release	1995-01-01	1
+395	ガメラ対大悪獣ギロン	1969-01-01	1	release	1969-01-01	1
+396	The Sleep of Reason Produces Monsters (El sueño de la razón produce monstruos), from Los Caprichos (The Caprices)	1797-01-01	1	inception	1797-01-01	1
+397	Group Sex	1980-01-01	1	release	1980-01-01	1
+398	Il tuo vizio è una stanza chiusa e solo io ne ho la chiave	1972-01-01	1	release	1972-01-01	1
+399	Venus in Furs	1869-01-01	1	publication	1870-01-01	1
+400	Lisa e il diavolo	1974-01-01	1	release	1974-01-01	1
+401	The Rise and Fall of Ziggy Stardust and the Spiders from Mars	1972-06-06	3	release	1972-06-06	3
+402	Matter	2008-01-25	3	publication	2008-01-31	3
+403	Dracula A.D. 1972	1972-06-26	3	release	1972-06-26	3
+404	Nightmare Alley	1947-01-01	1	release	1947-01-01	1
+405	Liebesbriefe einer portugiesischen Nonne	1977-03-10	3	release	1977-03-10	3
+406	Prom Night	1980-07-18	3	release	1980-07-18	3
+407	Greatest Hits Volume 1	1980-01-01	1	release	1980-01-01	1
+408	April Fool's Day	1986-01-01	1	release	1986-01-01	1
+409	Female Convict Scorpion: Jailhouse 41	1972-01-01	1	release	1972-01-01	1
+410	The Torture Garden	1888-01-01	1	publication	1888-01-01	1
+411	Querelle	1982-09-16	3	release	1982-09-16	3
+412	L'uccello dalle piume di cristallo	1970-01-01	1	release	1970-01-01	1
+413	Das Testament des Dr. Mabuse	1933-01-01	1	release	1933-01-01	1
+414	Il gatto a nove code	1971-02-12	3	release	1971-02-12	3
+415	A Chinese Ghost Story: The Tsui Hark Animation	1997-01-01	1	release	1997-01-01	1
+416	Tales from the Crypt	1989-06-10	3	broadcast_start	1989-06-10	3
+417	Caravan	1968-10-01	2	release	1968-10-01	2
+418	色，戒	2007-01-01	1	release	2007-01-01	1
+419	L'insegnante	1975-07-11	3	release	1975-07-11	3
+420	Mad Monster Party	1967-01-01	1	release	1967-01-01	1
+421	Dangerous Liaisons	2005-01-01	1	release	2005-01-01	1
+422	The Black Scorpion	1957-01-01	1	release	1957-01-01	1
+423	39/Smooth	1990-04-13	3	release	1990-04-13	3
+424	Lonesome Cowboys	1968-11-01	2	release	1968-11-01	2
+425	Here Come the Warm Jets	1974-01-01	2	release	1974-01-01	2
+426	Slayed?	1972-01-01	1	release	1972-01-01	1
+427	HotMen CoolBoyz	2000-01-01	1	release	2000-01-01	1
+428	Black Monk Time	1966-03-01	2	release	1966-03-01	2
+429	Unknown Pleasures	1979-07-14	3	release	1979-07-14	3
+430	Motel Hell	1980-01-01	1	release	1980-01-01	1
+431	Асса	1987-10-01	2	release	1987-10-01	2
+432	Les Diaboliques	1954-01-01	1	release	1954-01-01	1
+433	The Twilight Zone	1959-10-02	3	broadcast_start	1959-10-02	3
+434	Inseminoid	1981-01-23	3	release	1981-01-23	3
+435	Road to Ruin	1978-09-22	3	release	1978-09-22	3
+436	Videodrome	1983-02-04	3	release	1983-02-04	3
+437	Paths of Glory	1957-01-01	1	release	1957-01-01	1
+438	Urban Legend	1998-01-01	1	release	1998-01-01	1
+439	Flesheater	1988-01-01	1	release	1988-01-01	1
+440	Les Raisins de la mort	1978-01-01	1	release	1978-01-01	1
+441	狗咬狗	2006-01-01	1	release	2006-01-01	1
+442	The Astro-Zombies	1968-01-01	1	release	1968-01-01	1
+443	Wild at Heart	1990-01-01	1	release	1990-01-01	1
+444	The Rocky Horror Picture Show	1975-01-01	1	release	1975-01-01	1
+445	Eastern Promises	2007-01-01	1	release	2007-01-01	1
+446	Asylum	1985-09-16	3	release	1985-09-16	3
+447	Crossing the Red Sea with The Adverts	1978-01-01	1	release	1978-01-01	1
+448	Live at the Witch Trials	1979-01-01	1	release	1979-01-01	1
+449	The Modern Lovers	1976-08-01	2	release	1976-08-01	2
+450	Germ Free Adolescents	1978-01-01	1	release	1978-01-01	1
+451	Pretenders	1979-12-27	3	release	1979-12-27	3
+452	Dub Housing	1978-11-01	2	release	1978-11-01	2
+453	(GI)	1979-10-01	2	release	1979-10-01	2
+454	Hunky Dory	1971-12-17	3	release	1971-12-17	3
+455	Meat Puppets II	1984-04-01	2	release	1984-04-01	2
+456	Non-Stop Erotic Cabaret	1981-11-27	3	release	1981-11-27	3
+457	The Infotainment Scan	1993-01-01	1	release	1993-01-01	1
+458	Closer	1980-07-01	2	release	1980-07-01	2
+459	My War	1984-01-01	1	release	1984-01-01	1
+460	Pink Prison	1999-01-01	1	release	1999-01-01	1
+461	À rebours	1884-01-01	1	publication	1884-01-01	1
+462	イン ザ・ミソスープ	1997-01-01	1	publication	1997-01-01	1
+463	Strange Fruit	1939-01-01	1	publication	1939-01-01	1
+464	Das Gasthaus an der Themse	1962-01-01	1	release	1962-01-01	1
+465	Terror Train	1980-10-03	3	release	1980-10-03	3
+466	Paprika	1991-01-01	1	release	1991-01-01	1
+467	Another Music in a Different Kitchen	1978-03-10	3	release	1978-03-10	3
+468	Stranglers IV (Rattus Norvegicus)	1977-04-15	3	release	1977-04-15	3
+469	Horses	1975-11-10	3	release	1975-11-10	3
+470	The Clash	1977-04-08	3	release	1977-04-08	3
+471	Prega il morto e ammazza il vivo	1971-01-01	1	release	1971-01-01	1
+472	Machine Gun Etiquette	1977-01-01	1	release	1977-01-01	1
+473	Sub Pop	1986-01-01	1	inception	1986-01-01	1
+474	Treasure	1984-11-12	3	release	1984-11-12	3
+475	Beneath the Valley of the Ultra-Vixens	1979-05-11	3	release	1979-05-11	3
+476	Black Christmas	1974-10-11	3	release	1974-10-11	3
+478	Berlin	1973-01-01	1	release	1973-01-01	1
+479	The Happy Prince and Other Tales	1888-01-01	1	publication	1888-01-01	1
+480	Gendernauts	1999-01-01	1	release	1999-01-01	1
+481	Billion Dollar Babies	1973-02-25	3	release	1973-02-25	3
+482	Birth of the Cool	1957-01-01	1	release	1957-01-01	1
+483	Bitches Brew	1970-03-30	3	release	1970-03-30	3
+484	Barbara Broadcast	1977-01-01	1	release	1977-01-01	1
+485	Basket Case	1982-04-02	3	release	1982-04-02	3
+486	Batman XXX	2010-05-21	3	release	2010-05-21	3
+487	Bat Pussy	1973-01-01	1	release	1996-01-01	1
+488	The Hunger	1983-04-29	3	release	1983-04-29	3
+489	Behind the Mask: The Rise of Leslie Vernon	2006-01-01	1	release	2006-01-01	1
+490	Behind the Green Door	1972-12-17	3	release	1972-12-17	3
+491	Bela Lugosi's Dead	1979-08-06	3	publication	1979-08-06	3
+492	Q819391	1946-01-01	1	inception	1946-01-01	1
+493	Built to Last	1989-10-31	3	release	1989-10-31	3
+494	Go to Heaven	1980-04-28	3	release	1980-04-28	3
+495	Fanny Hill	1964-01-01	1	release	1964-01-01	1
+496	Jazz at Massey Hall	1953-01-01	1	release	1953-01-01	1
+498	The Importance of Being Earnest	1895-02-14	3	first_performance	1895-02-14	3
+500	Sad Wings of Destiny	1976-03-23	3	release	1976-03-23	3
+501	Im Banne des Unheimlichen	1968-01-01	1	release	1968-01-01	1
+502	Station to Station	1976-01-23	3	release	1976-01-23	3
+503	The Trygon Factor	1966-01-01	1	release	1966-01-01	1
+504	Freak Out!	1966-06-27	3	release	1966-06-27	3
+505	Tremors	1990-01-01	1	release	1990-01-01	1
+506	Cheshire Cat	1994-01-01	1	release	1994-01-01	1
+507	The Omen	1976-06-06	3	release	1976-06-06	3
+508	I.K.U.	2001-01-01	1	release	2001-01-01	1
+509	Stained Class	1978-02-10	3	release	1978-02-10	3
+510	Crash	1996-01-01	1	release	1996-01-01	1
+511	Female Convict Scorpion: Beast Stable	1973-01-01	1	release	1973-01-01	1
+512	Intruder	1989-01-01	1	release	1989-01-01	1
+513	The Outer Limits	1963-09-16	3	broadcast_start	1963-09-16	3
+514	Hostel	2005-09-17	3	release	2005-09-17	3
+515	Motörhead	1977-08-21	3	release	1977-08-21	3
+516	Duck Stab / Buster & Glen	1978-11-01	2	release	1978-11-01	2
+517	Junkyard	1982-05-10	3	release	1982-05-10	3
+518	Heaven or Las Vegas	1990-09-17	3	release	1990-09-17	3
+519	The Velvet Underground	1969-03-01	2	release	1969-03-01	2
+520	Seventeen Seconds	1980-04-22	3	release	1980-04-22	3
+521	The Human Centipede (First Sequence)	2009-08-30	3	release	2009-08-30	3
+522	The Sound of Waves	1954-01-01	1	publication	1954-01-01	1
+523	Snuff	1976-01-01	1	release	1976-01-01	1
+525	ゴジラ	1954-11-03	3	release	1954-11-03	3
+526	暁の寺	1970-01-01	1	publication	1970-01-01	1
+527	奔馬	1969-01-01	1	publication	1969-01-01	1
+528	燃え尽きた地図	1967-09-30	3	publication	1967-09-30	3
+529	Inland Empire	2006-01-01	1	release	2006-01-01	1
+530	L'Homme qui rit	1860-01-01	1	publication	1869-01-01	1
+531	Crooked Rain, Crooked Rain	1994-01-01	1	release	1994-01-01	1
+532	Women in Cellblock 9	1978-03-17	3	release	1978-03-17	3
+534	Der Einstein des Sex	1999-01-01	1	release	1999-01-01	1
+535	Bride of Frankenstein	1935-01-01	1	release	1935-01-01	1
+537	Emanuelle in America	1977-01-05	3	release	1977-01-05	3
+538	Black Throat	1985-01-01	1	release	1985-01-01	1
+539	Blacula	1972-01-01	1	release	1972-01-01	1
+540	The Bloody Chamber	1979-01-01	1	publication	1979-01-01	1
+541	Blood Feast	1963-01-01	1	release	1963-01-01	1
+542	Blow Job	1964-01-01	1	release	1964-01-01	1
+543	Blue Movie	1969-06-13	3	release	1969-06-13	3
+544	Dracula: Prince of Darkness	1966-01-01	1	release	1966-01-01	1
+545	Scream Bloody Murder	1973-02-01	2	release	1973-02-01	2
+546	The Texas Chain Saw Massacre	1974-01-01	1	release	1974-01-01	1
+547	Sei donne per l'assassino	1964-01-01	1	release	1964-01-01	1
+548	Sleepaway Camp	1983-11-18	3	release	1983-11-18	3
+549	My Bloody Valentine	1981-02-11	3	release	1981-02-11	3
+550	Born in East L.A.	1987-01-01	1	release	1987-01-01	1
+551	Born in Flames	1983-02-20	3	release	1983-02-20	3
+552	Braindead	1992-01-01	1	release	1992-01-01	1
+553	Cut	1979-01-01	1	release	1979-01-01	1
+554	D.o.A.	1978-01-01	1	release	1978-01-01	1
+555	Damaged	1981-01-01	1	release	1981-01-01	1
+556	Daydream Nation	1988-10-01	2	release	1988-10-01	2
+557	Zombi 2	1979-08-25	3	release	1979-08-25	3
+558	Pornography	1982-05-04	3	release	1982-05-04	3
+559	Une fille pour les cannibales	1980-01-01	1	release	1980-01-01	1
+560	Upír z Feratu	1981-01-01	1	release	1981-01-01	1
+561	The Mummy	1932-01-01	1	release	1932-01-01	1
+562	The Burning	1981-05-08	3	release	1981-05-08	3
+563	Double Nickels on the Dime	1984-07-01	2	release	1984-07-01	2
+564	Čarodějův učeň	1978-03-01	3	release	1978-03-01	3
+566	Mask	1981-10-01	2	release	1981-10-01	2
+567	Письма мёртвого человека	1986-09-15	3	release	1986-09-15	3
+568	Juju	1981-06-06	3	release	1981-06-06	3
+569	The Modern Dance	1978-02-01	2	release	1978-02-01	2
+570	Raw Power	1973-02-07	3	release	1973-02-07	3
+571	The Accused	1949-01-01	1	release	1949-01-01	1
+572	La corta notte delle bambole di vetro	1971-10-28	3	release	1971-10-28	3
+573	Lorna	1964-01-01	1	release	1964-01-01	1
+574	Eyes of Laura Mars	1978-08-02	3	release	1978-08-02	3
+575	L’Abbé Jules	1888-01-01	1	publication	1888-01-01	1
+576	Organisation	1980-01-01	1	release	1980-01-01	1
+577	Bad Moon Rising	1985-01-01	1	release	1985-01-01	1
+578	The Phantom of the Opera	1925-01-01	1	release	1925-01-01	1
+579	The Fugs	1964-01-01	1	point_in_time	1964-01-01	1
+580	Contes immoraux	1973-11-24	3	release	1973-11-24	3
+581	盲獣	1969-01-25	3	release	1969-01-25	3
+582	Fear and Desire	1953-01-01	1	release	1953-01-01	1
+583	Cemetery Man	1994-01-01	1	release	1994-01-01	1
+584	The Shape of Jazz to Come	1959-10-01	2	release	1959-10-01	2
+585	Spider	2002-01-01	1	release	2002-01-01	1
+586	Lick It Up	1983-01-01	1	release	1983-01-01	1
+587	Shogun's Joys of Torture	1968-01-01	1	release	1968-01-01	1
+588	Chance Meeting on a Dissecting Table of a Sewing Machine and an Umbrella	1979-01-01	1	release	1979-01-01	1
+589	Werewolf of London	1935-01-01	1	release	1935-01-01	1
+590	Black Sails in the Sunset	1999-01-01	1	release	1999-01-01	1
+591	Child's Play	1988-01-01	1	release	1988-01-01	1
+592	Killer's Kiss	1955-01-01	1	release	1955-01-01	1
+593	The Craft	1996-01-01	1	release	1996-01-01	1
+594	Metal Box	1979-11-23	3	release	1979-11-23	3
+595	La dottoressa del distretto militare	1976-01-01	1	release	1976-01-01	1
+596	Disintegration	1989-05-02	3	release	1989-05-02	3
+597	Machine 15	2008-01-01	1	release	2008-01-01	1
+598	Možnosti dialogu	1983-01-01	1	release	1983-01-01	1
+599	Electric Warrior	1971-09-24	3	release	1971-09-24	3
+600	Hot in the Shade	1989-10-17	3	release	1989-10-17	3
+601	The Pleasure Principle	1979-09-07	3	release	1979-09-07	3
+602	Sister	1987-06-01	2	release	1987-06-01	2
+603	La ragazza che sapeva troppo	1963-01-01	1	release	1963-01-01	1
+604	La Mansión de los muertos vivientes	1982-01-01	1	release	1982-01-01	1
+605	Live Through This	1994-04-12	3	release	1994-04-12	3
+606	La ripetente fa l'occhietto al preside	1980-08-14	3	release	1980-08-14	3
+607	La liceale	1975-10-31	3	release	1975-10-31	3
+608	La liceale nella classe dei ripetenti	1978-08-10	3	release	1978-08-10	3
+609	The Crime of Dr. Crespi	1935-01-01	1	release	1935-01-01	1
+610	Cruising	1980-02-08	3	release	1980-02-08	3
+611	宇宙大怪獣ギララ	1967-01-01	1	release	1967-01-01	1
+612	Experiment in Terror	1962-01-01	1	release	1962-01-01	1
+613	Perpetuum Mobile	2004-01-01	1	release	2004-01-01	1
+614	Tarantula	1955-01-01	1	release	1955-01-01	1
+615	Aenigma	1987-01-01	1	release	1987-01-01	1
+616	Brighton Rock	1947-12-01	2	release	1947-12-01	2
+617	The Window	1949-01-01	1	release	1949-01-01	1
+618	Liberal Animation	1988-04-22	3	release	1988-04-22	3
+619	Trash	1970-01-01	1	release	1970-01-01	1
+620	The River Rat	1984-01-01	1	release	1984-01-01	1
+621	The Revenge of Frankenstein	1958-01-01	1	release	1958-01-01	1
+622	The Idiot	1977-03-18	3	release	1977-03-18	3
+623	Le Sexe qui parle	1975-01-01	1	release	1975-01-01	1
+624	Oi! The Album	1980-01-01	1	release	1980-01-01	1
+625	Macabre	2009-01-01	1	release	2009-01-01	1
+626	Spider-Man XXX: A Porn Parody	2011-08-01	3	release	2011-08-01	3
+627	Album – Generic Flipper	1982-03-30	3	release	1982-03-30	3
+628	EVOL	1986-01-01	1	release	1986-01-01	1
+629	The Hills Have Eyes	1977-07-22	3	release	1977-07-22	3
+630	Public Image	1978-12-08	3	release	1978-12-08	3
+631	For Your Pleasure	1973-03-23	3	release	1973-03-23	3
+632	Fatal Move	2008-02-07	3	release	2008-02-07	3
+633	Fun House	1970-12-01	2	release	1970-12-01	2
+634	喋血街頭	1990-08-17	3	release	1990-08-17	3
+635	Naked Killer	1992-01-01	1	release	1992-01-01	1
+636	CBGB	1973-01-01	1	point_in_time	1973-01-01	1
+637	Café Flesh	1982-01-01	1	release	1982-01-01	1
+638	Camp Cuddly Pines Powertool Massacre	2005-01-01	1	release	2005-01-01	1
+639	Candyman	1992-09-11	3	release	1992-09-11	3
+640	Captivity	2007-01-01	1	release	2007-01-01	1
+641	Kick Out the Jams	1969-01-01	1	release	1969-01-01	1
+642	Let It Be	1984-10-02	3	release	1984-10-02	3
+643	Killing Joke	1980-08-01	2	release	1980-08-01	2
+644	Out of Step	1983-04-01	2	release	1983-04-01	2
+645	Superfuzz Bigmuff	1988-10-01	2	publication	1988-10-01	2
+646	Repeater	1990-01-01	2	release	1990-01-01	2
+647	Carnival of Souls: The Final Sessions	1997-10-28	3	release	1997-10-28	3
+649	Hostel: Part II	2007-06-07	3	release	2007-06-07	3
+650	Flavia, la monaca musulmana	1974-06-12	3	release	1974-06-12	3
+651	Halloween H20: 20 Years Later	1998-01-01	1	release	1998-01-01	1
+652	Existenz	1999-01-01	1	release	1999-01-01	1
+653	Haus der Lüge	1989-09-04	3	release	1989-09-04	3
+654	Monamour	2005-01-01	1	release	2005-01-01	1
+655	Игла	1988-09-16	3	release	1988-09-16	3
+656	I Do Not Want What I Haven't Got	1990-03-20	3	release	1990-03-20	3
+657	Marquis de Sade: Justine	1969-04-03	3	release	1969-04-03	3
+658	The Locket	1946-01-01	1	release	1946-01-01	1
+659	The Psychedelic Sounds of the 13th Floor Elevators	1966-01-01	1	release	1966-01-01	1
+660	Talking Heads: 77	1977-09-19	3	release	1977-09-19	3
+661	Overkill	1979-03-24	3	release	1979-03-24	3
+662	Children of God	1987-10-19	3	release	1987-10-19	3
+663	Rid of Me	1993-04-05	3	release	1993-04-05	3
+664	Son of Frankenstein	1939-01-13	3	release	1939-01-13	3
+666	Sette note in nero	1977-08-10	3	release	1977-08-10	3
+667	玉蒲團II玉女心經	1996-01-01	1	release	1996-01-01	1
+668	The Atrocity Exhibition	1970-01-01	1	publication	1970-01-01	1
+669	Black Mama White Mama	1972-01-01	1	release	1972-01-01	1
+670	Theatre of Pain	1985-06-21	3	release	1985-06-21	3
+671	Invisible Lantern	1988-05-12	3	release	1988-05-12	3
+672	Women in Revolt	1971-12-01	2	release	1971-12-01	2
+673	Bride of Chucky	1998-01-01	1	release	1998-01-01	1
+674	Young Loud and Snotty	1977-01-01	1	release	1977-01-01	1
+675	S.F. Sorrow	1968-12-01	2	release	1968-12-01	2
+676	Heaven Up Here	1981-05-30	3	release	1981-05-30	3
+677	City of the Living Dead	1980-01-01	1	release	1980-01-01	1
+678	Crash	1973-06-01	2	publication	1973-06-01	2
+679	Operazione paura	1966-01-01	1	release	1966-01-01	1
+680	I Want to See the Bright Lights Tonight	1974-04-01	2	release	1974-04-01	2
+681	Faith	1981-04-14	3	release	1981-04-14	3
+682	Orgasmo nero	1980-01-01	1	release	1980-01-01	1
+683	Avere vent'anni	1978-07-14	3	release	1978-07-14	3
+684	The Final Terror	1983-01-01	1	release	1983-01-01	1
+685	The Crack	1979-01-01	1	release	1979-01-01	1
+686	Sette orchidee macchiate di rosso	1972-02-24	3	release	1972-02-24	3
+687	Radio Ethiopia	1976-10-01	2	release	1976-10-01	2
+688	5 bambole per la luna d'agosto	1970-01-01	1	release	1970-01-01	1
+689	Alice, Sweet Alice	1976-01-01	1	release	1976-01-01	1
+690	Assault! Jack the Ripper	1976-01-01	1	release	1976-01-01	1
+691	All'onorevole piacciono le donne	1972-03-16	3	release	1972-03-16	3
+692	My Own Private Idaho	1991-01-01	1	release	1991-01-01	1
+693	Constance	1998-01-01	1	release	1998-01-01	1
+694	The Man Who Sold the World	1970-11-04	3	release	1970-11-04	3
+695	Cop	1984-01-01	1	release	1984-01-01	1
+696	Emanuelle nera - Orient Reportage	1976-05-07	3	release	1976-05-07	3
+697	Locust Abortion Technician	1987-03-01	2	release	1987-03-01	2
+698	Lolita	1962-01-01	1	publication	1962-01-01	1
+699	The Night of the Hunter	1955-01-01	1	release	1955-01-01	1
+700	Trois vies et une seule mort	1996-01-01	1	release	1996-01-01	1
+701	The Sky's Gone Out	1982-10-19	3	release	1982-10-19	3
+702	The Immoral Mr. Teas	1959-01-01	1	release	1959-01-01	1
+703	Burning from the Inside	1983-07-01	2	release	1983-07-01	2
+704	Hot & Saucy Pizza Girls	1978-01-01	1	release	1978-01-01	1
+705	L'alcova	1985-01-21	3	release	1985-01-21	3
+706	The Wild One	1953-01-01	1	release	1953-01-01	1
+707	The Thing from Another World	1951-01-01	1	release	1951-01-01	1
+708	Turistas	2006-12-01	3	release	2006-12-01	3
+709	Creatures of the Night	1982-10-13	3	release	1982-10-13	3
+710	The Straight Story	1999-01-01	1	release	1999-01-01	1
+711	Give 'Em Enough Rope	1978-11-10	3	release	1978-11-10	3
+712	Music from The Elder	1981-11-16	3	release	1981-11-16	3
+713	Twin Peaks: Fire Walk with Me	1992-05-01	2	release	1992-05-01	2
+714	The Wicker Man	1973-12-06	3	release	1973-12-06	3
+715	Cross Road Blues	1937-01-01	1	publication	1937-01-01	1
+716	The Last House on the Left	1972-08-02	3	release	1972-08-02	3
+717	Milo Goes to College	1982-01-01	1	release	1982-01-01	1
+718	An Ideal Husband	1895-01-01	1	publication	1899-01-01	1
+719	All the Best Songs	2007-01-01	1	release	2007-01-01	1
+720	Oddities, Abnormalities and Curiosities	1995-01-01	1	release	1995-01-01	1
+721	The Loveless	1982-01-01	1	release	1982-01-01	1
+722	Curtains	1983-01-01	1	release	1983-01-01	1
+723	On Fire	1989-10-20	3	release	1989-10-20	3
+724	Salomé	1891-01-01	1	inception	1891-01-01	1
+725	Heat	1972-05-01	2	release	1972-05-01	2
+726	Satánico Pandemónium: La Sexorcista	1975-06-26	3	release	1975-06-26	3
+727	新宿事件	2009-01-01	1	release	2009-01-01	1
+728	Comédie de l'innocence	2000-09-01	3	release	2000-09-01	3
+729	When Your Heart Stops Beating	2006-01-01	1	release	2006-01-01	1
+730	Rites of Spring	1985-01-01	1	release	1985-01-01	1
+731	Hellraiser	1987-09-10	3	release	1987-09-10	3
+732	L'isola degli uomini pesce	1979-01-18	3	release	1979-01-18	3
+733	Flower and Snake	1974-01-01	1	release	1974-01-01	1
+734	Pretties for You	1969-06-25	3	release	1969-06-25	3
+735	大魔神	1966-01-01	1	release	1966-01-01	1
+736	Perché quelle strane gocce di sangue sul corpo di Jennifer?	1972-01-01	1	release	1972-01-01	1
+737	The Tomb of Ligeia	1964-01-01	1	release	1964-01-01	1
+738	Pumpkinhead	1988-01-01	1	release	1988-01-01	1
+739	Quella villa accanto al cimitero	1981-01-01	1	release	1981-01-01	1
+740	The Oracle	1985-01-01	1	release	1985-01-01	1
+741	The Pit and the Pendulum	1961-01-01	1	release	1961-01-01	1
+742	Phantom of the Paradise	1974-11-01	3	release	1974-11-01	3
+743	Das Phantom von Soho	1964-01-01	1	release	1964-01-01	1
+744	Das Ungeheuer von London-City	1964-01-01	1	release	1964-01-01	1
+745	Ilsa, the Wicked Warden	1977-01-21	3	release	1977-01-21	3
+746	Wspólny pokój	1960-02-08	3	release	1960-02-08	3
+747	Ukradená vzducholoď	1967-01-01	1	release	1967-01-01	1
+748	Deváté srdce	1979-01-01	1	release	1979-01-01	1
+749	Death Bed: The Bed That Eats	1977-01-01	1	release	1977-01-01	1
+750	Dementia 13	1963-01-01	1	release	1963-01-01	1
+751	Mr. Vampire	1985-01-01	1	release	1985-01-01	1
+752	The Scream	1978-11-13	3	release	1978-11-13	3
+753	New York Dolls	1973-07-27	3	release	1973-07-27	3
+754	The Slider	1972-06-21	3	release	1972-06-21	3
+755	Der Bucklige von Soho	1966-01-01	1	release	1966-01-01	1
+756	The Curse of the Werewolf	1961-01-01	1	release	1961-01-01	1
+757	Der Frosch mit der Maske	1959-01-01	1	release	1959-01-01	1
+758	Der Gorilla von Soho	1968-01-01	1	release	1968-01-01	1
+759	Der Hund von Blackwood Castle	1968-01-01	1	release	1968-01-01	1
+760	Der Mann mit dem Glasauge	1969-02-21	3	release	1969-02-21	3
+761	Der Mönch mit der Peitsche	1967-01-01	1	release	1967-01-01	1
+762	Lo squartatore di New York	1982-01-01	1	release	1982-01-01	1
+763	The Raven	1963-01-01	1	release	1963-01-01	1
+764	Nightmare	1964-01-01	1	release	1964-01-01	1
+765	Der Teufel kam aus Akasava	1971-01-01	1	release	1971-01-01	1
+766	La vittima designata	1971-04-22	3	release	1971-04-22	3
+767	Tower of Evil	1972-05-16	3	release	1972-05-16	3
+768	The Unknown	1927-01-01	1	release	1927-01-01	1
+769	The Fall of the House of Usher	1839-01-01	1	publication	1839-01-01	1
+770	Der Würger von Schloss Blackmoor	1963-01-01	1	release	1963-01-01	1
+771	The Night Visitor	1971-01-01	1	release	1971-01-01	1
+772	Der unheimliche Mönch	1965-01-01	1	release	1965-01-01	1
+773	The Uninvited	1944-01-01	1	release	1944-01-01	1
+774	春光乍洩	1997-05-17	3	release	1997-05-17	3
+775	Les Cent Vingt Journés de Sodome	1785-01-01	1	publication	1904-01-01	1
+776	Toilers of the Sea	1866-01-01	1	inception	1866-01-01	1
+777	Die Bande des Schreckens	1960-01-01	1	release	1960-01-01	1
+778	Die Bettwurst	1971-01-01	1	release	1971-01-01	1
+779	The Fly	1958-01-01	1	release	1958-01-01	1
+780	Fright	1971-09-18	3	release	1971-09-18	3
+781	Les Chants de Maldoror	1869-01-01	1	publication	1870-01-01	1
+782	The Anniversary	1968-01-01	1	release	1968-01-01	1
+783	Die Gruft mit dem Rätselschloss	1964-01-01	1	release	1964-01-01	1
+784	Hell in the Pacific	1968-01-01	1	release	1968-01-01	1
+785	Die Jungs vom Bahnhof Zoo	2011-01-01	1	release	2011-01-01	1
+786	In the Mouth of Madness	1994-01-01	1	release	1994-01-01	1
+787	Passi di danza su una lama di rasoio	1973-01-05	3	release	1973-01-05	3
+788	Moscow-Petushki	1969-01-01	1	publication	1970-01-01	1
+789	Le notti del terrore	1981-01-01	1	release	1981-01-01	1
+790	キングコング対ゴジラ	1962-08-11	3	release	1962-08-11	3
+791	Faster, Pussycat! Kill! Kill!	1965-01-01	1	release	1965-01-01	1
+792	I Start Counting	1969-01-01	1	release	1969-01-01	1
+793	Sisters	1972-11-18	3	release	1972-11-18	3
+794	La maschera del demonio	1960-01-01	1	release	1960-01-01	1
+795	I corpi presentano tracce di violenza carnale	1973-01-01	1	release	1973-01-01	1
+796	Die Tote aus der Themse	1971-01-01	1	release	1971-01-01	1
+797	Daughters of Satan	1972-01-01	1	release	1972-01-01	1
+798	Die Tür mit den sieben Schlössern	1962-01-01	1	release	1962-01-01	1
+799	Strait-Jacket	1964-01-01	1	release	1964-01-01	1
+800	The Gorgon	1964-01-01	1	release	1964-01-01	1
+801	Il fiume del grande caimano	1979-01-01	1	release	1979-01-01	1
+802	Bug-Jargal	1820-01-01	1	publication	1826-01-01	1
+803	Sugar Hill	1974-01-01	1	release	1974-01-01	1
+804	Die toten Augen von London	1961-01-01	1	release	1961-01-01	1
+805	La montagna del dio cannibale	1978-05-25	3	release	1978-05-25	3
+806	The Wild Angels	1966-01-01	1	release	1966-01-01	1
+807	The Glamorous Life of Sachiko Hanai	2003-01-01	1	release	2003-01-01	1
+808	La Femme publique	1984-01-01	1	release	1984-01-01	1
+809	Journal du voleur	1949-01-01	1	publication	1949-01-01	1
+810	Q1228431	1980-01-01	1	inception	1980-01-01	1
+811	Le colt cantarono la morte e fu... tempo di massacro	1966-08-10	3	release	1966-08-10	3
+812	La Marge	1976-09-22	3	release	1976-09-22	3
+813	Friday the 13th Part 2	1981-04-30	3	release	1981-04-30	3
+814	Friday the 13th Part III	1982-08-13	3	release	1982-08-13	3
+815	Friday the 13th	1980-05-09	3	release	1980-05-09	3
+816	Alfred Hitchcock Presents	1955-10-02	3	broadcast_start	1955-10-02	3
+817	Ultravox!	1977-01-01	1	release	1977-01-01	1
+818	De Profundis	1897-01-01	1	publication	1905-01-01	1
+819	Down by the Jetty	1975-01-01	1	release	1975-01-01	1
+820	Christmas Evil	1980-01-01	1	release	1980-01-01	1
+821	八仙飯店之人肉叉燒包	1993-01-01	1	release	1993-01-01	1
+822	The Brides of Dracula	1960-01-01	1	release	1960-01-01	1
+823	House of Dracula	1945-01-01	1	release	1945-01-01	1
+824	Twins of Evil	1971-10-03	3	release	1971-10-03	3
+825	But I'm a Cheerleader	1999-09-12	3	release	1999-09-12	3
+826	Up!	1976-10-01	2	release	1976-10-01	2
+827	餃子	2004-01-01	1	release	2004-01-01	1
+828	All or Nothing	2012-01-01	1	release	2012-01-01	1
+829	ゴジラの逆襲	1955-04-24	3	release	1955-04-24	3
+830	Earth A.D./Wolfs Blood	1983-12-01	2	release	1983-12-01	2
+831	Ebola Syndrome	1996-01-01	1	release	1996-01-01	1
+832	Repo Man	1984-03-02	3	release	1984-03-02	3
+833	Něco z Alenky	1988-01-01	1	release	1988-01-01	1
+834	Heavy Petting Zoo	1995-01-01	1	release	1995-01-01	1
+835	A Child Is Waiting	1963-01-01	1	release	1963-01-01	1
+836	Le segrete esperienze di Luca e Fanny	1980-01-01	1	release	1980-01-01	1
+837	Taste of Fear	1961-01-01	1	release	1961-01-01	1
+838	Nightbeast	1982-01-01	1	release	1982-01-01	1
+839	色情男女	1996-01-01	1	release	1996-01-01	1
+840	Woman on the Run	1950-01-01	1	release	1950-01-01	1
+841	Not the Bradys XXX	2007-09-18	3	release	2007-09-18	3
+842	Teenage Head	1971-01-01	1	release	1971-01-01	1
+843	Slip of the Tongue	1989-01-01	1	release	1989-01-01	1
+844	The Seventh Curse	1986-01-01	1	release	1986-01-01	1
+845	Hei tai yang 731	1988-12-01	3	release	1988-12-01	3
+846	Justine	1791-01-01	1	publication	1791-01-01	1
+847	Secondhand Daylight	1979-01-01	1	release	1979-01-01	1
+848	Leave Home	1977-01-10	3	release	1977-01-10	3
+849	Blast of Silence	1961-01-01	1	release	1961-01-01	1
+850	Punishment Park	1971-01-01	1	release	1971-01-01	1
+851	Rocket to Russia	1977-11-04	3	release	1977-11-04	3
+852	L'important c'est d'aimer	1975-02-12	3	release	1975-02-12	3
+854	Life Won't Wait	1998-01-01	1	release	1998-01-01	1
+855	Généalogies d'un crime	1997-01-01	1	release	1997-01-01	1
+856	Evil Laugh	1986-01-01	1	release	1986-01-01	1
+857	The Asphyx	1972-01-01	1	release	1972-01-01	1
+858	Exploding Plastic Inevitable	1966-01-01	1	inception	1966-01-01	1
+859	大怪獣空中戦 ガメラ対ギャオス	1967-01-01	1	release	1967-01-01	1
+860	Greed	1986-01-01	1	release	1986-01-01	1
+861	Fashionistas Safado: The Challenge	2006-01-01	1	release	2006-01-01	1
+862	Last Exit to Brooklyn	1964-01-01	1	publication	1964-01-01	1
+863	Money Money 2020	2003-09-30	3	release	2003-09-30	3
+864	Smell the Magic	1990-01-01	1	release	1990-01-01	1
+865	L7	1988-01-01	1	release	1988-01-01	1
+866	Free Jazz: A Collective Improvisation	1961-09-01	2	release	1961-09-01	2
+867	Mother's Day	1980-01-01	1	release	1980-01-01	1
+868	Film and TV School of the Academy of Performing Arts in Prague	1946-01-01	1	point_in_time	1946-01-01	1
+869	Three Imaginary Boys	1979-05-08	3	release	1979-05-08	3
+870	Filth	1983-01-01	1	release	1983-01-01	1
+871	Pleasant Dreams	1981-07-01	2	release	1981-07-01	2
+872	The Sex Files – A Dark XXX Parody	2009-09-30	3	release	2009-09-30	3
+873	First and Last and Always	1985-03-11	3	release	1985-03-11	3
+874	Five Hot Stories For Her	2007-01-01	1	release	2007-01-01	1
+875	The Runaways	1976-03-16	3	release	1976-03-16	3
+876	Machina II/The Friends & Enemies of Modern Music	2000-08-05	3	release	2000-08-05	3
+877	Mimic	1997-01-01	1	release	1997-01-01	1
+878	Fancy Pants	1950-01-01	1	release	1950-01-01	1
+879	Ghosted	2009-01-01	1	release	2009-01-01	1
+880	Flesh	1968-01-01	1	release	1968-01-01	1
+881	Flex Your Head	1982-01-01	2	release	1982-01-01	2
+882	Back in the USA	1970-01-15	3	release	1970-01-15	3
+883	Swoon	1992-01-01	1	release	1992-01-01	1
+884	L'Abîme des morts vivants	1981-01-01	1	release	1981-01-01	1
+886	Silent Night, Deadly Night	1984-01-01	1	release	1984-01-01	1
+887	Bad Brains	1982-02-05	3	release	1982-02-05	3
+888	Frankenstein Created Woman	1967-01-01	1	release	1967-01-01	1
+889	Frankenstein Meets the Wolf Man	1943-01-01	1	release	1943-01-01	1
+890	怪獣総進撃	1968-08-01	3	release	1968-08-01	3
+891	フランケンシュタインの怪獣 サンダ対ガイラ	1966-01-01	1	release	1966-01-01	1
+892	Frankenstein and the Monster from Hell	1974-05-02	3	release	1974-05-02	3
+893	House of Frankenstein	1944-01-01	1	release	1944-01-01	1
+894	The Curse of Frankenstein	1957-01-01	1	release	1957-01-01	1
+895	La Bête	1975-01-01	2	release	1975-01-01	2
+896	AFI	2004-11-02	3	release	2004-11-02	3
+897	Friday the 13th Part VI: Jason Lives	1986-01-01	1	release	1986-01-01	1
+898	Homicidal	1961-01-01	1	release	1961-01-01	1
+899	Max's Kansas City	1965-01-01	1	point_in_time	1965-01-01	1
+900	Państwowa Wyższa Szkoła Filmowa, Telewizyjna i Teatralna im. Leona Schillera w Łodzi	1948-03-16	3	point_in_time	1948-03-16	3
+901	Mondo Bizarro	1992-09-01	3	release	1992-09-01	3
+902	Subterranean Jungle	1983-02-28	3	release	1983-02-28	3
+903	Sleep	1964-01-17	3	release	1964-01-17	3
+904	Too Tough to Die	1984-10-01	2	release	1984-10-01	2
+905	Lady Windermere's Fan	1892-01-01	1	inception	1892-01-01	1
+906	Frogs	1972-01-01	1	release	1972-01-01	1
+907	Naked Came The Stranger	1975-01-01	1	release	1975-01-01	1
+908	Phenomena	1985-01-01	1	release	1985-01-01	1
+909	Pecker	1998-01-01	1	release	1998-01-01	1
+910	The Return of the Living Dead	1985-01-01	1	release	1985-01-01	1
+911	不良姐御伝 猪の鹿お蝶	1973-01-01	1	release	1973-01-01	1
+912	Quando le donne avevano la coda	1970-01-01	1	release	1970-01-01	1
+913	Space Nuts	2003-01-01	1	release	2003-01-01	1
+914	ガメラ 大怪獣空中決戦	1995-01-01	1	release	1995-01-01	1
+915	Ha!-Ha!-Ha!	1977-01-01	1	release	1977-01-01	1
+916	The Woman in the Window	1944-01-01	1	release	1944-01-01	1
+917	The Big Combo	1955-01-01	1	release	1955-01-01	1
+918	Tropic of Cancer	1934-01-01	1	publication	1934-01-01	1
+919	Histoire d'O	1954-01-01	1	publication	1954-01-01	1
+920	La Morte vivante	1982-01-01	1	release	1982-01-01	1
+921	M. Butterfly	1993-01-01	1	release	1993-01-01	1
+922	Profondo rosso	1975-03-07	3	release	1975-03-07	3
+923	The Return of Godzilla	1984-12-15	3	release	1984-12-15	3
+924	The Sum of Us	1994-01-01	1	release	1994-01-01	1
+925	Shivers	1975-09-01	2	release	1975-09-01	2
+926	Ghosthouse	1988-01-01	1	release	1988-01-01	1
+927	The Devil's Rejects	2005-01-01	1	release	2005-01-01	1
+928	Querelle de Brest	1947-01-01	1	publication	1947-01-01	1
+929	I Spit on Your Grave	1978-01-01	1	release	1978-01-01	1
+930	Gorgo	1961-01-01	1	release	1961-01-01	1
+931	Pirates	2005-09-26	3	release	2005-09-26	3
+932	The Most Dangerous Game	1932-09-16	3	release	1932-09-16	3
+933	Cat People	1942-01-01	1	release	1942-01-01	1
+934	Thirteen Women	1932-01-01	1	release	1932-01-01	1
+935	Night Must Fall	1937-01-01	1	release	1937-01-01	1
+936	The Vampire Lovers	1970-09-03	3	release	1970-09-03	3
+937	Supervixens	1975-04-02	3	release	1975-04-02	3
+938	The Party at Kitty and Stud's	1970-01-01	1	release	1970-01-01	1
+939	The Opening of Misty Beethoven	1976-01-01	1	release	1976-01-01	1
+940	The Tingler	1959-01-01	1	release	1959-01-01	1
+941	King & Country	1964-01-01	1	release	1964-01-01	1
+942	No New York	1978-01-01	1	release	1978-01-01	1
+943	重案組	1993-01-01	1	release	1993-01-01	1
+944	Upload	2007-01-01	1	release	2007-01-01	1
+945	Disco Godfather	1979-01-01	1	release	1979-01-01	1
+946	La dottoressa ci sta col colonnello	1980-12-19	3	release	1980-12-19	3
+947	Miami	1982-09-20	3	release	1982-09-20	3
+948	Buckcherry	1999-01-01	1	release	1999-01-01	1
+949	Her Name Was Lisa	1979-01-01	1	release	1979-01-01	1
+950	Le Frisson des vampires	1971-04-21	3	release	1971-04-21	3
+951	La dama rossa uccide sette volte	1972-01-01	1	release	1972-01-01	1
+952	High Art	1998-01-01	1	release	1998-01-01	1
+953	Hustler White	1996-02-01	2	release	1996-02-01	2
+954	Generation X	1978-01-01	1	release	1978-01-01	1
+955	Holy Money	1986-01-01	1	release	1986-01-01	1
+956	Buio Omega	1979-11-15	3	release	1979-11-15	3
+957	Wolf Creek	2005-01-01	1	release	2005-01-01	1
+958	I Walked with a Zombie	1943-01-01	1	release	1943-01-01	1
+959	Two Thousand Maniacs!	1964-03-20	3	release	1964-03-20	3
+960	Loaded	1970-11-01	2	release	1970-11-01	2
+961	L'Eden et après	1970-01-01	1	release	1970-01-01	1
+962	Glissements progressifs du plaisir	1974-01-01	1	release	1974-01-01	1
+963	Revolution Girl Style Now!	1991-01-01	1	release	1991-01-01	1
+964	Bend Sinister	1986-01-01	1	release	1986-01-01	1
+965	Naveed	1994-03-22	3	release	1994-03-22	3
+966	L'Homme qui ment	1968-03-27	3	release	1968-03-27	3
+967	Начальник Камчатки	1984-01-01	1	release	1984-01-01	1
+968	Звезда по имени Солнце	1989-01-01	1	release	1989-01-01	1
+969	Dream Quest	2000-01-01	1	release	2000-01-01	1
+970	Twitch of the Death Nerve	1971-01-01	1	release	1971-01-01	1
+971	Disorganized Crime	1989-01-01	1	release	1989-01-01	1
+972	In the Dark	1987-07-06	3	release	1987-07-06	3
+973	Alles wieder offen	2007-01-01	1	release	2007-01-01	1
+974	Insatiable	1980-01-01	1	release	1980-01-01	1
+975	Porno Holocaust	1981-01-01	1	release	1981-01-01	1
+976	Water Power	1976-01-01	1	release	1976-01-01	1
+977	It's Alive	1979-01-01	1	release	1979-01-01	1
+978	Stranger on the Third Floor	1940-08-16	3	release	1940-08-16	3
+979	Female Prisoner Scorpion: 701's Grudge Song	1973-01-01	1	release	1973-01-01	1
+980	Josefine Mutzenbacher – Wie sie wirklich war	1976-01-01	1	release	1976-01-01	1
+981	Jungfrau unter Kannibalen	1980-01-01	1	release	1980-01-01	1
+982	In Cold Blood	1967-01-01	1	release	1967-01-01	1
+983	Manson Family	1967-01-01	1	point_in_time	1967-01-01	1
+984	Thriller - en grym film	1973-05-01	2	release	1973-05-01	2
+985	Kiss	1963-01-01	1	release	1963-01-01	1
+986	BYO Split Series Volume V	2004-01-01	1	release	2004-01-01	1
+987	Cokie the Clown	2009-11-24	3	release	2009-11-24	3
+988	White Zombie	1932-01-01	1	release	1932-01-01	1
+989	Head over Heels	1983-10-31	3	release	1983-10-31	3
+990	New Day Rising	1985-01-01	2	release	1985-01-01	2
+991	Hells Angels on Wheels	1967-01-01	1	release	1967-01-01	1
+992	Easy Action	1970-03-27	3	release	1970-03-27	3
+993	Love It to Death	1971-03-09	3	release	1971-03-09	3
+994	Still Life (Talking)	1987-07-07	3	release	1987-07-07	3
+995	Spleen and Ideal	1985-11-01	2	release	1985-11-01	2
+996	Flip Your Wig	1985-09-01	2	release	1985-09-01	2
+997	Naked Lunch	1991-01-01	1	release	1991-01-01	1
+998	The Prowler	1981-01-01	1	release	1981-01-01	1
+999	Land Speed Record	1982-01-01	2	release	1982-01-01	2
+1000	Zen Arcade	1984-07-01	2	release	1984-07-01	2
+1001	Isolation	1984-10-18	3	release	1984-10-18	3
+1002	Squirm	1976-07-30	3	release	1976-07-30	3
+1003	Zaireeka	1997-10-28	3	release	1997-10-28	3
+1004	Terrore nello spazio	1965-09-15	3	release	1965-09-15	3
+1005	The Food of the Gods	1976-06-18	3	release	1976-06-18	3
+1006	Far Beyond These Castle Walls	1974-01-01	1	release	1974-01-01	1
+1007	Alice in Wonderland	1976-09-03	3	release	1976-09-03	3
+1008	Zero Patience	1993-09-11	3	release	1993-09-11	3
+1009	The Mighty Peking Man	1977-08-11	3	release	1977-08-11	3
+1010	Valerie a týden divů	1970-10-16	3	release	1970-10-16	3
+1011	Hell Night	1981-01-01	1	release	1981-01-01	1
+1012	Cesta do pravěku	1955-01-01	1	release	1955-01-01	1
+1013	Lynyrd Skynyrd 1991	1991-06-11	3	release	1991-06-11	3
+1014	Attack of the Crab Monsters	1956-01-01	1	release	1956-01-01	1
+1015	Possession	1981-05-25	3	release	1981-05-25	3
+1016	Warsaw Pact invasion of Czechoslovakia	1968-08-20	3	point_in_time	1968-08-20	3
+1017	White Trash, Two Heebs and a Bean	1992-01-01	1	release	1992-01-01	1
+1018	Punk in Drublic	1994-01-01	1	release	1994-01-01	1
+1019	Stranded	1973-01-01	1	release	1973-01-01	1
+1020	女囚701号/さそり	1972-01-01	1	release	1972-01-01	1
+1021	Latex	1995-01-01	1	release	1995-01-01	1
+1022	Mes nuits sont plus belles que vos jours	1989-01-01	1	release	1989-01-01	1
+1023	Tourist Trap	1979-01-01	1	release	1979-01-01	1
+1024	Secret Beyond the Door	1947-01-01	1	release	1947-01-01	1
+1025	Liquid Sky	1982-01-01	1	release	1982-01-01	1
+1026	Tenebrae	1982-10-28	3	release	1982-10-28	3
+1027	力王	1991-01-01	1	release	1991-01-01	1
+1028	The Hunting Party	1971-01-01	1	release	1971-01-01	1
+1029	Les Vampyres	2000-01-01	1	release	2000-01-01	1
+1030	Let's Go	1994-06-21	3	release	1994-06-21	3
+1031	Life in a Day	1979-04-20	3	release	1979-04-20	3
+1032	War All the Time	2003-01-01	1	release	2003-01-01	1
+1033	Terra em Transe	1967-01-01	1	release	1967-01-01	1
+1034	Na kometě	1970-01-01	1	release	1970-01-01	1
+1035	Счастье моё	2010-01-01	1	release	2010-01-01	1
+1036	Island of Lost Souls	1932-01-01	1	release	1932-01-01	1
+1037	Magic, Murder and the Weather	1981-01-01	1	release	1981-01-01	1
+1038	Deus e o Diabo na Terra do Sol	1964-07-10	3	release	1964-07-10	3
+1039	The Curse of the Cat People	1944-01-01	1	release	1944-01-01	1
+1040	The Beast from 20,000 Fathoms	1953-06-13	3	release	1953-06-13	3
+1041	Monster a Go-Go	1965-01-01	1	release	1965-01-01	1
+1042	Pawn Hearts	1971-10-01	2	release	1971-10-01	2
+1043	The Nanny	1965-01-01	1	release	1965-01-01	1
+1044	宇宙怪獣ガメラ	1980-01-01	1	release	1980-01-01	1
+1045	Martin	1978-01-01	1	release	1978-01-01	1
+1046	Charlotte Sometimes	1981-10-05	3	publication	1981-10-05	3
+1047	大怪獣ガメラ	1965-01-01	1	release	1965-01-01	1
+1048	Memories Within Miss Aggie	1974-05-01	3	release	1974-05-01	3
+1049	Acid Eaters	1993-12-01	3	release	1993-12-01	3
+1050	Easter	1978-03-03	3	release	1978-03-03	3
+1051	Mobilize	2002-01-01	1	release	2002-01-01	1
+1052	Desertshore	1970-12-20	3	release	1970-12-20	3
+1053	Washing Machine	1995-09-26	3	release	1995-09-26	3
+1054	A Thousand Leaves	1998-03-12	3	release	1998-03-12	3
+1055	Killer	1971-11-27	3	release	1971-11-27	3
+1056	Join Hands	1979-09-07	3	release	1979-09-07	3
+1057	Jimmy Eat World	1994-12-01	2	release	1994-12-01	2
+1058	Sex, Love and Rock 'n' Roll	2004-01-01	1	release	2004-01-01	1
+1059	X In Search of Space	1971-10-08	3	release	1971-10-08	3
+1060	Movement	1981-11-13	3	release	1981-11-13	3
+1061	Within the Realm of a Dying Sun	1987-07-27	3	release	1987-07-27	3
+1062	Damned Damned Damned	1977-02-18	3	release	1977-02-18	3
+1063	The Boy with the X-Ray Eyes	1995-01-01	1	release	1995-01-01	1
+1064	The End...	1974-11-01	2	release	1974-11-01	2
+1065	The Marble Index	1968-11-01	2	release	1968-11-01	2
+1066	So Long and Thanks for All the Shoes	1997-01-01	1	release	1997-01-01	1
+1067	S&M Airlines	1989-01-01	1	release	1989-01-01	1
+1068	Mommy's Little Monster	1983-01-01	1	release	1983-01-01	1
+1069	The Flowers of Romance	1981-04-10	3	release	1981-04-10	3
+1070	Grits Sandwiches for Breakfast	1990-12-30	3	release	1990-12-30	3
+1071	Reproduction	1979-01-01	1	release	1979-01-01	1
+1072	What'd I Say	1959-10-19	3	release	1959-10-19	3
+1073	Blank Generation	1977-09-01	2	release	1977-09-01	2
+1074	Lonely and Blue	1961-01-01	2	release	1961-01-01	2
+1075	Shock Corridor	1963-01-01	1	release	1963-01-01	1
+1076	Halber Mensch	1985-01-01	1	release	1985-01-01	1
+1077	Clan of Xymox	1985-07-01	3	release	1985-07-01	3
+1078	Propaganda	1974-01-01	1	release	1974-01-01	1
+1079	Those Who Do Not	1984-01-01	1	release	1984-01-01	1
+1080	Hex Enduction Hour	1982-03-08	3	release	1982-03-08	3
+1081	The Las Vegas Story	1984-01-01	1	release	1984-01-01	1
+1082	Big Beat from Badsville	1997-01-01	1	release	1997-01-01	1
+1083	Are You Are Missing Winner	2001-01-01	1	release	2001-01-01	1
+1084	At the Rock House	1961-12-01	2	release	1961-12-01	2
+1085	Beautiful Creatures	2001-01-01	1	release	2001-01-01	1
+1086	Silver Apples	1968-01-01	1	release	1968-01-01	1
+1087	Your Future Our Clutter	2010-01-01	1	release	2010-01-01	1
+1088	Middle Class Revolt	1994-01-01	1	release	1994-01-01	1
+1089	The Wonderful and Frightening World of The Fall	1984-01-01	1	release	1984-01-01	1
+1090	My Brother the Cow	1995-03-28	3	release	1995-03-28	3
+1091	I Wear the Face	1984-01-01	1	release	1984-01-01	1
+1092	Quatro	1974-01-01	1	release	1974-01-01	1
+1093	Only Theatre of Pain	1982-02-24	3	release	1982-02-24	3
+1094	ガメラ対大魔獣ジャイガー	1970-01-01	1	release	1970-01-01	1
+1095	The Black Album	1980-01-01	1	release	1980-01-01	1
+1096	Phantom Lady	1944-01-01	1	release	1944-01-01	1
+1097	ガメラ対深海怪獣ジグラ	1971-01-01	1	release	1971-01-01	1
+1098	大怪獣決闘 ガメラ対バルゴン	1966-01-01	1	release	1966-01-01	1
+1099	Кино	1991-01-12	3	release	1991-01-12	3
+1100	The Born Losers	1967-07-12	3	release	1967-07-12	3
+1101	Poison	1991-01-01	2	release	1991-01-01	2
+1102	Jak być kochaną	1963-01-11	3	release	1963-01-11	3
+1103	Emanuelle e gli ultimi cannibali	1977-10-21	3	release	1977-10-21	3
+1104	Nárcisz és Psyché	1980-12-22	3	release	1980-12-22	3
+1105	Про уродов и людей	1998-01-01	1	release	1998-01-01	1
+1106	The Affectionate Punch	1980-01-01	1	release	1980-01-01	1
+1107	Ercole al centro della Terra	1961-01-01	1	release	1961-01-01	1
+1108	Chelsea Girls	1965-01-01	1	release	1965-01-01	1
+1109	Neon Nights	1981-01-01	1	release	1981-01-01	1
+1110	The Naked Kiss	1964-01-01	1	release	1964-01-01	1
+1111	Neues vom Hexer	1965-01-01	1	release	1965-01-01	1
+1112	The Haunted Palace	1963-08-28	3	release	1963-08-28	3
+1113	New Wave Hookers	1985-01-01	1	release	1985-01-01	1
+1114	The Big Doll House	1971-04-30	3	release	1971-04-30	3
+1115	Хрусталёв, машину!	1998-01-01	1	release	1998-01-01	1
+1116	Motion Picture Association film rating system	1968-01-01	1	point_in_time	1968-01-01	1
+1117	Na srebrnym globie	1988-01-01	1	release	1988-01-01	1
+1118	Voyage of the Acolyte	1975-01-01	1	release	1975-01-01	1
+1119	Prophecy	1979-06-15	3	release	1979-06-15	3
+1120	Nothing to Hide	1981-01-01	1	release	1981-01-01	1
+1121	Una farfalla con le ali insanguinate	1971-09-10	3	release	1971-09-10	3
+1122	Lust for a Vampire	1971-01-01	1	release	1971-01-01	1
+1123	Giornata nera per l'ariete	1971-01-01	1	release	1971-01-01	1
+1124	La Morte cammina con i tacchi alti	1971-01-01	1	release	1971-01-01	1
+1125	Medusa	1986-11-01	3	release	1986-11-01	3
+1126	Humanoids from the Deep	1980-01-01	1	release	1980-01-01	1
+1127	The Robot vs. The Aztec Mummy	1958-01-01	1	release	1958-01-01	1
+1128	Sesso nero	1978-01-01	1	release	1978-01-01	1
+1129	The Slumber Party Massacre	1982-01-01	1	release	1982-01-01	1
+1130	Scream	1981-01-01	1	point_in_time	1981-01-01	1
+1131	The Original Soundtrack	1975-03-11	3	release	1975-03-11	3
+1132	The Green Slime	1968-07-06	3	release	1968-07-06	3
+1133	Fiend Without a Face	1958-01-01	1	release	1958-01-01	1
+1134	House of Usher	1960-01-01	1	release	1960-01-01	1
+1135	Necromania	1971-01-01	1	release	1971-01-01	1
+1136	Die, Monster	1965-01-01	1	release	1965-01-01	1
+1137	I Put a Spell on You	1956-01-01	1	publication	1956-01-01	1
+1138	Walk Among Us	1982-03-01	2	release	1982-03-01	2
+1139	Pretty on the Inside	1991-09-17	3	release	1991-09-17	3
+1140	Kiss Me Deadly	1955-01-01	1	release	1955-01-01	1
+1141	Rabid	1977-04-08	3	release	1977-04-08	3
+1142	All About Anna	2005-01-01	1	release	2005-01-01	1
+1143	The Leopard Man	1943-01-01	1	release	1943-01-01	1
+1144	Theatre of Blood	1973-03-16	3	release	1973-03-16	3
+1145	Dirty Diaries	2009-01-01	1	release	2009-01-01	1
+1146	The Watermelon Woman	1996-01-01	1	release	1996-01-01	1
+1147	Les Bonnes	1947-01-01	1	publication	1947-01-01	1
+1148	Hungry for Stink	1994-01-01	1	release	1994-01-01	1
+1149	The Incredibly True Adventure of Two Girls in Love	1995-01-23	3	release	1995-01-23	3
+1150	The Incredible Melting Man	1977-12-23	3	release	1977-12-23	3
+1151	Lalka	1968-01-01	1	release	1968-01-01	1
+1152	Permanent Vacation	1980-01-01	1	release	1980-01-01	1
+1153	L.A. Zombie	2010-01-01	1	release	2010-01-01	1
+1154	宴のあと	1960-01-01	1	publication	1960-01-01	1
+1155	愛の渇き	1950-01-01	1	publication	1950-01-01	1
+1156	Зелёный слоник	1999-01-01	1	release	1999-01-01	1
+1157	The Commercial Album	1980-01-01	1	release	1980-01-01	1
+1158	The Third Reich 'N' Roll	1976-02-01	2	release	1976-02-01	2
+1159	Fingerprince	1977-01-01	1	release	1977-01-01	1
+1160	天人五衰	1970-01-01	1	publication	1970-01-01	1
+1161	ガメラ3 邪神覚醒	1999-01-01	1	release	1999-01-01	1
+1162	Psychomania	1973-01-05	3	release	1973-01-05	3
+1163	All the Young Dudes	1972-09-08	3	release	1972-09-08	3
+1164	Some Things Never Change	1997-03-24	3	release	1997-03-24	3
+1165	La poliziotta fa carriera	1976-02-12	3	release	1976-02-12	3
+1166	The Ballad of Reading Gaol	1897-01-01	1	publication	1898-01-01	1
+1167	黑社會	2005-05-14	3	release	2005-05-14	3
+1168	Red to Kill	1994-01-01	1	release	1994-01-01	1
+1169	Roommates	1981-01-01	1	release	1981-01-01	1
+1170	The Pop Group	1977-01-01	1	point_in_time	1977-01-01	1
+1171	Run and Kill	1993-01-01	1	release	1993-01-01	1
+1172	The Amazing Mr. X	1948-01-01	1	release	1948-01-01	1
+1173	It Conquered the World	1956-01-01	1	release	1956-01-01	1
+1174	Груз 200	2007-06-14	3	release	2007-06-14	3
+1175	The Driller Killer	1979-01-01	1	release	1979-01-01	1
+1176	The Masque of the Red Death	1964-06-24	3	release	1964-06-24	3
+1177	Santo contra las mujeres vampiro	1962-10-11	3	release	1962-10-11	3
+1178	Les prédateurs de la nuit	1988-01-01	1	release	1988-01-01	1
+1179	Wowee Zowee	1995-04-11	3	release	1995-04-11	3
+1180	High-Rise	1975-01-01	1	publication	1975-01-01	1
+1182	In the City	1977-05-20	3	release	1977-05-20	3
+1183	Hyæna	1984-06-08	3	release	1984-06-08	3
+1184	黑社會２：以和為貴	2006-01-01	1	release	2006-01-01	1
+1185	Go Fish	1994-01-01	1	release	1994-01-01	1
+1186	Dancing Undercover	1986-01-01	1	release	1986-01-01	1
+1187	Brain Drain	1989-05-01	2	release	1989-05-01	2
+1188	Halfway to Sanity	1987-09-01	2	release	1987-09-01	2
+1189	I tre volti della paura	1963-01-01	1	release	1963-01-01	1
+1190	Sensations	1975-01-01	1	release	1975-01-01	1
+1191	Mr. Big	1989-01-01	1	release	1989-01-01	1
+1192	2019 - Dopo la caduta di New York	1983-01-01	1	release	1983-01-01	1
+1193	Tra(sgre)dire	2000-01-01	1	release	2000-01-01	1
+1194	Treasure Island	1985-01-01	1	release	1985-01-01	1
+1195	Twisted Nerve	1968-01-01	1	release	1968-01-01	1
+1196	Sur	1988-01-01	1	release	1988-01-01	1
+1197	Keep Them Confused	2005-01-01	1	release	2005-01-01	1
+1198	Steady Diet of Nothing	1991-01-01	1	release	1991-01-01	1
+1199	Good Charlotte	2000-01-01	1	release	2000-01-01	1
+1201	Otto; or Up with Dead People	2008-01-01	1	release	2008-01-01	1
+1202	Sanatorium pod Klepsydrą	1973-01-01	1	release	1973-01-01	1
+1203	Wolves in Wolves' Clothing	2006-01-01	1	release	2006-01-01	1
+1204	Experimental Jet Set, Trash and No Star	1994-05-03	3	release	1994-05-03	3
+1205	Alraune. Die Geschichte eines lebendigen Wesens	1911-01-01	1	publication	1911-01-01	1
+1206	Junkie	1951-01-01	1	publication	1953-01-01	1
+1207	Opera	1987-01-01	1	release	1987-01-01	1
+1208	Embrace	1987-01-01	1	release	1987-01-01	1
+1209	The Feel Good Record of the Year	2005-01-01	1	release	2005-01-01	1
+1210	Michael Lucas' La Dolce Vita	2006-01-01	1	release	2006-01-01	1
+1211	Jeopardy	1980-11-01	3	release	1980-11-01	3
+1212	Desolation Boulevard	1974-01-01	1	release	1974-01-01	1
+1213	Deadly Weapons	1974-04-01	2	release	1974-04-01	2
+1214	モスラ	1961-01-01	1	release	1961-01-01	1
+1215	Blood Feast 2: All U Can Eat	2002-01-01	1	release	2002-01-01	1
+1216	The Decline of Western Civilization	1981-07-01	3	release	1981-07-01	3
+1217	The Gore Gore Girls	1971-01-01	1	release	1971-01-01	1
+1218	We Have Come for Your Children	1978-01-01	1	release	1978-01-01	1
+1219	Terrifying Girls' High School: Lynch Law Classroom	1973-01-01	1	release	1973-01-01	1
+1220	Rękopis znaleziony w Saragossie	1965-01-01	1	release	1965-01-01	1
+1221	The Crazy World of Arthur Brown	1968-09-01	2	release	1968-09-01	2
+1222	Sonic Youth	1982-03-01	2	publication	1982-03-01	2
+1223	Mysteries of Lisbon	2010-09-12	3	release	2010-09-12	3
+1224	Quiet Days in Clichy	1956-01-01	1	publication	1956-01-01	1
+1225	Vynález zkázy	1958-01-01	1	release	1958-01-01	1
+1226	Wojna światów – następne stulecie	1981-01-01	1	release	1981-01-01	1
+1227	The Incredibly Strange Creatures Who Stopped Living and Became Mixed-Up Zombies	1964-01-01	1	release	1964-01-01	1
+1228	La Note bleue	1991-01-01	1	release	1991-01-01	1
+1229	When a Stranger Calls	1979-01-01	1	release	1979-01-01	1
+1230	Less Talk, More Rock	1996-04-23	3	release	1996-04-23	3
+1231	How to Clean Everything	1993-05-31	3	release	1993-05-31	3
+1232	Clownhouse	1989-01-01	1	release	1989-01-01	1
+1233	God in Three Persons	1988-01-01	1	release	1988-01-01	1
+1234	ガメラ対宇宙怪獣バイラス	1968-01-01	1	release	1968-01-01	1
+1235	Isle of the Dead	1945-01-01	1	release	1945-01-01	1
+1236	Gli orrori del castello di Norimberga	1972-01-01	1	release	1972-01-01	1
+1237	Finding the Rhythms	1996-01-01	1	release	1996-01-01	1
+1238	Queer	1951-01-01	1	publication	1951-01-01	1
+1239	Dance Me Outside	1994-01-01	1	release	1994-01-01	1
+1240	Imperial Wax Solvent	2008-04-01	2	release	2008-04-01	2
+1241	La Belle Captive	1983-01-01	1	release	1983-01-01	1
+1242	I Paralyze	1982-05-28	3	release	1982-05-28	3
+1243	午後の曳航	1963-01-01	1	publication	1963-01-01	1
+1244	Teenage Warning	1979-01-01	1	release	1979-01-01	1
+1245	Blue Jeans	1975-11-24	3	release	1975-11-24	3
+1246	The Suspect	1944-01-01	1	release	1944-01-01	1
+1247	The Being	1983-01-01	1	release	1983-01-01	1
+1248	The Boys	1977-09-09	3	release	1977-09-09	3
+1249	The Correct Use of Soap	1980-01-01	1	release	1980-01-01	1
+1250	Fashionistas	2002-01-01	1	release	2002-01-01	1
+1251	Fear in the Night	1972-01-01	1	release	1972-01-01	1
+1252	The Image	1975-01-01	1	release	1975-01-01	1
+1253	Empire of the Sun	1984-09-13	3	publication	1984-09-13	3
+1254	The Life and Times of Xaviera Hollander	1974-09-04	3	release	1974-09-04	3
+1255	The Masseuse	2004-01-01	1	release	2004-01-01	1
+1256	The Private Afternoons of Pamela Mann	1974-12-26	3	release	1974-12-26	3
+1257	Sevendust	1997-01-01	1	release	1997-01-01	1
+1258	The Story of Joanna	1975-11-26	3	release	1975-11-26	3
+1259	The Uranus Experiment	1999-01-01	1	release	1999-01-01	1
+1260	Revenge of the Creature	1955-03-29	3	release	1955-03-29	3
+1261	空の大怪獣ラドン	1956-01-01	1	release	1956-01-01	1
+1262	Il coltello di ghiaccio	1972-01-01	1	release	1972-01-01	1
+1263	Thor il conquistatore	1983-01-01	1	release	1983-01-01	1
+1264	Through the Looking Glass	1976-01-01	1	release	1976-01-01	1
+1265	O Dragão da Maldade contra o Santo Guerreiro	1969-05-20	3	release	1969-05-20	3
+1266	Forever and Counting	1997-01-01	1	release	1997-01-01	1
+1267	The Einstein Intersection	1967-01-01	1	publication	1967-01-01	1
+1268	Goldfinger	1996-02-01	2	release	1996-02-01	2
+1269	仮面の告白	1949-07-05	3	publication	1949-07-05	3
+1270	Tales of Terror	1962-01-01	1	release	1962-01-01	1
+1271	Jubilee	1978-02-01	2	release	1978-02-01	2
+1272	Too Much Too Soon	1974-05-01	2	release	1974-05-01	2
+1273	See No Evil	1971-01-01	1	release	1971-01-01	1
+1274	The Embryo Hunts in Secret	1966-01-01	1	release	1966-01-01	1
+1275	Singin' the Blues	1956-01-01	1	release	1956-01-01	1
+1276	Taking Tiger Mountain (By Strategy)	1974-11-01	2	release	1974-11-01	2
+1277	The Doom Generation	1995-01-26	3	release	1995-01-26	3
+1278	宇宙大怪獣ドゴラ	1964-01-01	1	release	1964-01-01	1
+1279	Matango	1963-01-01	1	release	1963-01-01	1
+1280	The Legend of Boggy Creek	1972-01-01	1	release	1972-01-01	1
+1281	The New What Next	2004-01-01	1	release	2004-01-01	1
+1282	Vermilion Sands	1971-01-01	1	publication	1971-01-01	1
+1283	金閣寺	1956-01-01	1	publication	1956-01-01	1
+1284	The Drowned World	1962-01-01	1	publication	1962-01-01	1
+1285	Head Games	1979-09-11	3	release	1979-09-11	3
+1286	The Body Snatcher	1945-01-01	1	release	1945-01-01	1
+1287	Gritos en la noche	1962-05-14	3	release	1962-05-14	3
+1288	Best of the Chrysalis Years	2002-01-01	1	release	2002-01-01	1
+1289	Vinyl	1965-01-01	1	release	1965-01-01	1
+1290	The Creature Walks Among Us	1956-01-01	1	release	1956-01-01	1
+1291	The Crawling Hand	1963-01-01	1	release	1963-01-01	1
+1292	Hard Rock Bottom	2002-01-01	1	release	2002-01-01	1
+1293	Just Before Dawn	1981-11-25	3	release	1981-11-25	3
+1294	Coaster	2006-01-01	1	release	2006-01-01	1
+1295	Wanda Whips Wall Street	1982-01-01	1	release	1982-01-01	1
+1296	Warm Leatherette	1978-11-01	2	publication	1978-11-01	2
+1297	Mr. Wonderful	1968-08-23	3	release	1968-08-23	3
+1298	Le Diable probablement	1977-01-01	1	release	1977-01-01	1
+1299	Такси-блюз	1990-05-11	3	release	1990-05-11	3
+1300	禁色	1951-01-01	1	publication	1951-01-01	1
+1301	ガメラ2 レギオン襲来	1996-01-01	1	release	1996-01-01	1
+1302	春の雪	1969-01-01	1	publication	1969-01-01	1
+1303	Land	2002-03-19	3	release	2002-03-19	3
+1305	Notre Dame des Fleurs	1943-01-01	1	publication	1943-01-01	1
+1306	New Rose	1976-01-01	1	publication	1976-01-01	1
+1307	KM31:Kilometro 31	2007-02-02	3	release	2007-02-02	3
+1308	Nervous Breakdown	1979-01-01	2	publication	1979-01-01	2
+1309	大魔神怒る	1966-08-13	3	release	1966-08-13	3
+1310	Ghostkeeper	1981-01-01	1	release	1981-01-01	1
+1311	Witchboard	1986-01-01	1	release	1986-01-01	1
+1312	Lekce Faust	1994-01-01	1	release	1994-01-01	1
+1313	La casa dalle finestre che ridono	1976-08-16	3	release	1976-08-16	3
+1314	No. 4	1999-01-01	1	release	1999-01-01	1
+1315	Blood for Dracula	1974-03-01	3	release	1974-03-01	3
+1316	L'Amour braque	1985-01-01	1	release	1985-01-01	1
+1317	The House on Sorority Row	1982-01-01	1	release	1982-01-01	1
+1318	For Blood and Empire	2006-01-01	1	release	2006-01-01	1
+1319	The Raspberry Reich	2004-01-17	3	release	2004-01-17	3
+1320	Surfin' Bird	1963-01-01	1	publication	1963-01-01	1
+1321	69	1987-01-01	1	publication	1987-01-01	1
+1322	Mad Detective	2007-01-01	1	release	2007-01-01	1
+1323	La Fidélité	2000-01-01	1	release	2000-01-01	1
+1324	地球防衛軍	1957-01-01	1	release	1957-01-01	1
+1325	実録阿部定	1975-02-08	3	release	1975-02-08	3
+1326	ゲゾラ・ガニメ・カメーバ 決戦!南海の大怪獣	1970-01-01	1	release	1970-01-01	1
+1327	The Hitch-Hiker	1953-01-01	1	release	1953-01-01	1
+1328	Slaughter High	1986-01-01	1	release	1986-01-01	1
+1329	Hang-Ups	1997-09-09	3	release	1997-09-09	3
+1330	Masque	1975-09-20	3	release	1975-09-20	3
+1331	For Monkeys	1997-01-01	1	release	1997-01-01	1
+1332	The War on Errorism	2003-01-01	1	release	2003-01-01	1
+1333	Static Age	1978-01-01	1	release	1978-01-01	1
+1334	Adventure	1978-04-01	2	release	1978-04-01	2
+1335	Così fan tutte	1992-01-01	1	release	1992-01-01	1
+1336	Corruption	1968-07-19	3	release	1968-07-19	3
+1337	No Division	1999-08-10	3	release	1999-08-10	3
+1338	Hard Sensation	1980-01-01	1	release	1980-01-01	1
+1339	The Monk	1796-01-01	1	publication	1796-01-01	1
+1340	大怪獣バラン	1958-01-01	1	release	1958-01-01	1
+1341	The Sadist	1963-01-01	1	release	1963-01-01	1
+1342	Zaat	1971-01-01	1	release	1971-01-01	1
+1343	Gappa: The Triphibian Monster	1967-01-01	1	release	1967-01-01	1
+1344	The Cat and the Canary	1939-01-01	1	release	1939-01-01	1
+1345	!!!	2001-01-01	1	release	2001-01-01	1
+1346	玉蒲團之偷情寶鑑	1991-01-01	1	release	1991-01-01	1
+1347	Night Songs	1986-06-09	3	release	1986-06-09	3
+1348	Secret Treaties	1974-01-01	1	release	1974-01-01	1
+1349	From the Ashes	2003-01-01	1	release	2003-01-01	1
+1350	Unknown Road	1993-08-17	3	release	1993-08-17	3
+1351	Underground Network	2001-04-24	3	release	2001-04-24	3
+1352	Tyranny and Mutation	1973-01-01	1	release	1973-01-01	1
+1353	Totally F***ed Up	1993-09-16	3	release	1993-09-16	3
+1354	Babel-17	1966-05-01	2	publication	1966-05-01	2
+1355	Gruppa krovi	1988-01-01	3	release	1988-01-01	3
+1356	Sing Sing Death House	2000-01-01	1	release	2000-01-01	1
+1357	Boggy Depot	1998-01-01	1	release	1998-01-01	1
+1358	The Funhouse	1981-03-13	3	release	1981-03-13	3
+1359	A Kiss in the Dreamhouse	1982-11-05	3	release	1982-11-05	3
+1360	Non si sevizia un paperino	1972-01-01	1	release	1972-01-01	1
+1361	Histoire de l'œil	1928-01-01	1	publication	1928-01-01	1
+1362	Eskimo	1979-09-01	2	release	1979-09-01	2
+1363	Talk Dirty to Me Part III	1984-01-01	1	release	1984-01-01	1
+1364	So Alone	1978-01-01	1	release	1978-01-01	1
+1365	The Big Steal	1950-01-01	1	release	1950-01-01	1
+1366	Spiklenci slasti	1996-01-01	1	release	1996-01-01	1
+1367	Szyfry	1966-01-01	1	release	1966-01-01	1
+1368	Monsters	1988-10-01	3	broadcast_start	1988-10-01	3
+1369	100 Broken Windows	2000-01-01	1	release	2000-01-01	1
+1370	13 Songs	1989-01-01	1	release	1989-01-01	1
+1371	A Date with Elvis	1986-01-01	1	release	1986-01-01	1
+1372	A Night at Birdland Vol. 1	1954-07-01	2	release	1954-07-01	2
+1373	Here Comes the Devil	2013-01-01	1	release	2013-01-01	1
+1374	And Soon the Darkness	1970-01-01	1	release	1970-01-01	1
+1375	Witchcraft Destroys Minds & Reaps Souls	1969-01-01	1	release	1969-01-01	1
+1376	Meet The Supremes	1962-12-09	3	release	1962-12-09	3
+1377	Unos á otros	1799-01-01	1	inception	1799-01-01	1
+1378	On Top of the Whale	1982-01-01	1	release	1982-01-01	1
+1379	Bikini Kill	1992-01-01	1	publication	1992-01-01	1
+1380	Billion Dollar Babies	1973-01-01	1	publication	1973-01-01	1
+1381	Bo Diddley	1955-01-01	1	publication	1955-01-01	1
+1382	Graduation Day	1981-01-01	1	release	1981-01-01	1
+1383	Bulldozer	1983-01-01	1	publication	1983-01-01	1
+1384	Daddy, Darling	1970-01-01	1	release	1970-01-01	1
+1385	Ce jour-là	2003-06-04	3	release	2003-06-04	3
+1386	Black Antlers	2004-01-01	1	release	2004-01-01	1
+1387	Colloque de chiens	1977-01-01	1	release	1977-01-01	1
+1388	Color Me Blood Red	1965-01-01	1	release	1965-01-01	1
+1389	The Living End	1992-01-01	1	release	1992-01-01	1
+1390	Creepozoids	1987-01-01	1	release	1987-01-01	1
+1391	Crumb Duck	1993-01-01	1	publication	1993-01-01	1
+1392	La noche de enfrente	2012-01-01	1	release	2012-01-01	1
+1393	Dangerous Seductress	1992-01-01	1	release	1992-01-01	1
+1394	Death Party	1983-01-01	1	publication	1983-01-01	1
+1395	Deceit	1981-01-01	1	release	1981-01-01	1
+1396	Day for My Love	1976-01-01	1	release	1976-01-01	1
+1397	The Balcony	1956-01-01	1	inception	1956-01-01	1
+1398	He Knows You're Alone	1980-08-29	3	release	1980-08-29	3
+1399	維多利亞壹號	2010-01-01	1	release	2010-01-01	1
+1400	Las momias de Guanajuato	1970-01-01	1	release	1970-01-01	1
+1401	Santo vs. the Diabolical Hatchet	1964-01-01	1	release	1964-01-01	1
+1402	The World of the Dead	1969-01-01	1	release	1969-01-01	1
+1403	団地妻　隣りのあえぎ	2001-01-01	1	release	2001-01-01	1
+1404	Erotic Ghost Story	1987-01-01	1	release	1987-01-01	1
+1405	Satan's Slave	1976-12-01	2	release	1976-12-01	2
+1406	De Sades Eugenie – Die Jungfrau und die Peitsche	1974-01-01	1	release	1974-01-01	1
+1407	放‧逐	2006-01-01	1	release	2006-01-01	1
+1408	Fascination	1979-01-01	1	release	1979-01-01	1
+1409	Feedback Is Payback	2002-01-01	1	release	2002-01-01	1
+1410	Women in Cages	1971-10-20	3	release	1971-10-20	3
+1411	Fiends of Dope Island	2003-01-01	1	release	2003-01-01	1
+1412	Flamejob	1994-01-01	1	release	1994-01-01	1
+1413	Ukamau	1966-01-01	1	release	1966-01-01	1
+1414	Self Entitled	2012-01-01	1	release	2012-01-01	1
+1415	Ruy Blas	1838-01-01	1	publication	1839-01-01	1
+1416	中國超人	1975-08-01	3	release	1975-08-01	3
+1418	George & James	1984-01-01	1	release	1984-01-01	1
+1419	Gradiva	2006-09-08	3	release	2006-09-08	3
+1420	Gravest Hits	1979-07-01	2	publication	1979-07-01	2
+1421	Gunmen	1988-01-01	1	release	1988-01-01	1
+1422	Habermann	2010-11-25	3	release	2010-11-25	3
+1423	Hangover Square	1945-01-01	1	release	1945-01-01	1
+1424	Deathwatch	1949-01-01	1	publication	1949-01-01	1
+1425	Have a Bad Day	1996-01-01	1	release	1996-01-01	1
+1426	The Toolbox Murders	1978-03-03	3	release	1978-03-03	3
+1427	Here We Go Round the Mulberry Bush	1968-01-04	3	release	1968-01-04	3
+1428	人皮燈籠	1982-01-01	1	release	1982-01-01	1
+1429	The Perfume of the Lady in Black	1974-03-29	3	release	1974-03-29	3
+1430	Interior. Leather Bar.	2013-01-19	3	release	2013-01-19	3
+1431	Spalovač mrtvol	1969-01-01	1	release	1969-01-01	1
+1432	Кочегар	2010-10-13	3	release	2010-10-13	3
+1433	All the Colors of the Dark	1972-01-01	1	release	1972-01-01	1
+1434	第一類型危險	1980-12-04	3	release	1980-12-04	3
+1435	L'Hypothèse du tableau volé	1979-01-01	1	release	1979-01-01	1
+1436	L'Immortelle	1963-01-01	1	release	1963-01-01	1
+1437	L'Impossible	1962-01-01	1	publication	1962-01-01	1
+1438	Incompreso	1966-01-01	1	release	1966-01-01	1
+1439	Złoto	1961-01-01	1	release	1961-01-01	1
+1440	A Idade da Terra	1980-11-17	3	release	1980-11-17	3
+1441	Lo strano vizio della signora Wardh	1971-01-15	3	release	1971-01-15	3
+1442	The Chase	1946-01-01	1	release	1946-01-01	1
+1443	L'Éveillé du pont de l'Alma	1985-01-01	1	release	1985-01-01	1
+1444	L'Œil qui ment	1993-01-01	1	release	1993-01-01	1
+1445	Panna a netvor	1978-01-01	1	release	1978-01-01	1
+1446	La Comtesse noire	1973-06-05	3	release	1973-06-05	3
+1447	The Crystal World	1966-01-01	1	publication	1966-01-01	1
+1448	Literature and evil	1957-01-01	1	publication	1957-01-01	1
+1449	Die Säge des Todes	1981-01-01	1	release	1981-01-01	1
+1450	Ruka	1965-01-01	1	release	1965-01-01	1
+1451	La Maison Nucingen	2008-01-01	1	release	2008-01-01	1
+1452	The Red House	1947-01-01	1	release	1947-01-01	1
+1453	La Nuit des horloges	2007-01-01	1	release	2007-01-01	1
+1454	La Nuit des traquées	1980-01-01	1	release	1980-01-01	1
+1455	The Accursed Share	1949-01-01	1	publication	1949-01-01	1
+1456	La coda dello scorpione	1971-08-16	3	release	1971-08-16	3
+1457	La Rose de fer	1972-01-01	1	release	1972-01-01	1
+1458	Голова	2003-01-01	1	release	2003-01-01	1
+1459	La Vampire nue	1970-01-01	1	release	1970-01-01	1
+1460	La Ville des pirates	1983-01-01	1	release	1983-01-01	1
+1461	La Vocation suspendue	1978-01-01	1	release	1978-01-01	1
+1462	Hollow Triumph	1948-01-01	1	release	1948-01-01	1
+1463	The Brainiac	1962-01-01	1	release	1962-01-01	1
+1464	Le Bleu du Ciel	1935-05-01	2	publication	1957-01-01	1
+1465	The Hearing Trumpet	1974-01-01	1	publication	1974-01-01	1
+1466	Le Jeu avec le feu	1975-02-15	3	release	1975-02-15	3
+1467	Le Locataire chimérique	1964-01-01	1	publication	1964-01-01	1
+1468	Le Masque de la Méduse	2009-01-01	1	release	2009-01-01	1
+1469	Le Nécrophile	1972-01-01	1	publication	1972-01-01	1
+1470	Pętla	1957-01-01	1	release	1957-01-01	1
+1471	The Flesh and Blood Show	1972-01-01	1	release	1972-01-01	1
+1472	Sen noci svatojánské	1959-01-01	1	release	1959-01-01	1
+1473	Le Théâtre de monsieur et madame Kabal	1967-01-01	1	release	1967-01-01	1
+1474	Le Viol du vampire	1968-01-01	1	release	1968-01-01	1
+1475	The Unsuspected	1947-01-01	1	release	1947-01-01	1
+1476	The Killer Is Loose	1956-01-01	1	release	1956-01-01	1
+1477	Pożegnania	1958-01-01	1	release	1958-01-01	1
+1478	Devil's Angels	1967-01-01	1	release	1967-01-01	1
+1479	犯された白衣	1967-01-01	1	release	1967-01-01	1
+1480	Les Démoniaques	1974-01-01	1	release	1974-01-01	1
+1481	Les Démons	1973-02-05	3	release	1973-02-05	3
+1482	Schock	1977-01-01	1	release	1977-01-01	1
+1483	Eugenie... the Story of Her Journey Into Perversion	1970-01-01	1	release	1970-01-01	1
+1484	Philosophy of the World	1969-01-01	1	release	1969-01-01	1
+1485	Honey to the B	1998-01-01	1	release	1998-01-01	1
+1487	Les Possédées du diable	1974-01-01	1	release	1974-01-01	1
+1488	The Savage Seven	1968-01-01	1	release	1968-01-01	1
+1489	Symptoms	1974-01-01	1	release	1974-01-01	1
+1490	Les Trois Couronnes du matelot	1983-01-01	1	release	1983-01-01	1
+1491	Les Trottoirs de Bangkok	1984-01-01	1	release	1984-01-01	1
+1492	Staré pověsti české	1952-01-01	1	release	1952-01-01	1
+1493	Les Âmes fortes	2001-05-20	3	release	2001-05-20	3
+1494	Look Mom No Head!	1991-01-01	1	release	1991-01-01	1
+1495	Lèvres de sang	1975-01-01	1	release	1975-01-01	1
+1496	Ecstasy of the Angels	1972-01-01	1	release	1972-01-01	1
+1497	サド侯爵夫人	1965-11-15	3	publication	1965-11-15	3
+1498	The Mafu Cage	1979-01-01	1	release	1979-01-01	1
+1499	12 Stones	2002-04-23	3	release	2002-04-23	3
+1500	Mars Audiac Quintet	1994-08-02	3	release	1994-08-02	3
+1501	Only in Amerika	2004-01-01	1	release	2004-01-01	1
+1502	What Makes a Man Start Fires?	1983-01-01	2	release	1983-01-01	2
+1503	Meat Puppets	1982-01-01	1	release	1982-01-01	1
+1504	BYO Split Series Volume I	1999-01-01	1	release	1999-01-01	1
+1505	The Fallen Sparrow	1943-01-01	1	release	1943-01-01	1
+1506	Hello Destiny	2008-04-22	3	release	2008-04-22	3
+1507	Flood	1990-01-15	3	release	1990-01-15	3
+1508	I, a Man	1967-01-01	1	release	1967-01-01	1
+1509	Capriccio	1987-01-01	1	release	1987-01-01	1
+1510	Teenage Depression	1976-01-01	1	release	1976-01-01	1
+1511	Bricks Are Heavy	1992-01-01	1	release	1992-01-01	1
+1512	The Burning World	1964-01-01	1	publication	1964-01-01	1
+1513	Giovannona Coscialunga disonorata con onore	1973-01-01	1	release	1973-01-01	1
+1514	Third Day	1996-01-01	1	release	1996-01-01	1
+1515	God Told Me To	1976-01-01	1	release	1976-01-01	1
+1516	La liceale seduce i professori	1979-08-09	3	release	1979-08-09	3
+1517	Telefono rosso	1986-01-01	1	release	1986-01-01	1
+1518	New World Orphans	2009-01-01	1	release	2009-01-01	1
+1519	Alien Dead	1980-01-01	1	release	1980-01-01	1
+1520	Quel gran pezzo dell'Ubalda tutta nuda e tutta calda	1972-01-01	1	release	1972-01-01	1
+1521	Veneno para las hadas	1986-01-01	1	release	1986-01-01	1
+1522	Mark of the Mole	1981-01-01	1	release	1981-01-01	1
+1523	Aladdin Sane	1973-04-13	3	publication	1973-04-13	3
+1524	Crime of Passion	1957-01-01	1	release	1957-01-01	1
+1525	Spanking Machine	1990-04-16	3	release	1990-04-16	3
+1526	Fontanelle	1992-01-01	1	release	1992-01-01	1
+1527	Monella	1998-01-01	1	release	1998-01-01	1
+1528	Morgiana	1972-01-01	1	release	1972-01-01	1
+1529	House of Mortal Sin	1975-01-01	1	release	1975-01-01	1
+1530	My Name Is Julia Ross	1945-01-01	1	release	1945-01-01	1
+1531	Nova	1968-01-01	1	publication	1968-01-01	1
+1532	The Sniper	1952-01-01	1	release	1952-01-01	1
+1533	...Off the Bone	1983-01-01	1	release	1983-01-01	1
+1534	Paranoiac	1960-01-01	1	release	1960-01-01	1
+1535	Bajaja	1950-01-01	1	release	1950-01-01	1
+1536	Black Spring	1936-01-01	1	publication	1936-01-01	1
+1537	Psychedelic Jungle	1981-01-01	1	release	1981-01-01	1
+1538	Don't Go in the House	1979-11-01	2	release	1979-11-01	2
+1539	R. P. M.	1970-01-01	1	release	1970-01-01	1
+1540	Never Take Sweets from a Stranger	1960-01-01	1	release	1960-01-01	1
+1541	Terror	1978-01-01	1	release	1978-01-01	1
+1542	Fragment of Fear	1970-01-01	1	release	1970-01-01	1
+1543	The Old Dark House	1963-01-01	1	release	1963-01-01	1
+1544	Re-Penetrator	2004-01-01	1	release	2004-01-01	1
+1545	L'assassino... è al telefono	1972-10-06	3	release	1972-10-06	3
+1546	The Psychopath	1966-01-01	1	release	1966-01-01	1
+1547	Requiem pour un vampire	1971-01-01	1	release	1971-01-01	1
+1548	Requiem for a Dream	1978-01-01	1	publication	1978-01-01	1
+1549	Blade	1998-01-01	1	release	1998-01-01	1
+1550	Frightmare	1974-01-01	1	release	1974-01-01	1
+1551	Venus in Furs	1969-01-01	1	release	1969-01-01	1
+1552	La via della prostituzione	1978-01-01	1	release	1978-01-01	1
+1553	Klaus Nomi	1981-01-01	1	release	1981-01-01	1
+1554	The Horror of Party Beach	1964-01-01	1	release	1964-01-01	1
+1555	Mystics in Bali	1981-01-01	1	release	1981-01-01	1
+1556	Santo in the Hotel of Death	1961-01-01	1	release	1961-01-01	1
+1557	Santo vs. the Zombies	1961-01-01	1	release	1961-01-01	1
+1558	Santo en el tesoro de Drácula	1969-01-01	1	release	1969-01-01	1
+1559	Santo Against the Strangler	1963-01-01	1	release	1963-01-01	1
+1560	Santo vs. Frankenstein's Daughter	1971-01-01	1	release	1971-01-01	1
+1561	Santo y Blue Demon contra Drácula y el hombre lobo	1973-01-01	1	release	1973-01-01	1
+1562	Santo y Blue Demon contra los monstruos	1970-01-01	1	release	1970-01-01	1
+1563	Schizo	1976-11-11	3	release	1976-11-11	3
+1564	School on Fire	1988-01-01	1	release	1988-01-01	1
+1565	Scream Blacula Scream	1973-01-01	1	release	1973-01-01	1
+1566	Script of the Bridge	1983-01-01	1	release	1983-01-01	1
+1567	Sex Jack	1970-01-01	1	release	1970-01-01	1
+1568	Sexus	1945-01-01	1	publication	1949-01-01	1
+1569	Simple Headphone Mind	1997-01-01	1	publication	1997-01-01	1
+1570	Singapore Sling	1990-01-01	1	release	1990-01-01	1
+1571	The Bitch	1979-01-01	1	release	1979-01-01	1
+1572	Something Weird	1967-01-01	1	release	1967-01-01	1
+1573	The Stud	1978-04-12	3	release	1978-04-12	3
+1575	Stars & Hank Forever: The American Composers Series	1986-01-01	1	release	1986-01-01	1
+1576	Stay Sick!	1990-01-01	1	release	1990-01-01	1
+1577	Song of the Bailing Man	1982-01-01	1	release	1982-01-01	1
+1578	Suburbia	1984-01-01	1	release	1984-01-01	1
+1579	Toys in the Attic	2009-01-01	1	release	2009-01-01	1
+1580	The Animals on Tour	1965-02-01	2	release	1965-02-01	2
+1581	The Big Bird Cage	1972-01-01	1	release	1972-01-01	1
+1582	The Big Bubble: Part Four of the Mole Trilogy	1983-01-01	1	release	1983-01-01	1
+1583	The Candy Snatchers	1973-01-01	1	release	1973-01-01	1
+1584	The Delta	1996-01-01	1	release	1996-01-01	1
+1585	The Devil Bat	1940-12-13	3	release	1940-12-13	3
+1586	The King & Eye	1989-01-01	1	release	1989-01-01	1
+1587	The Leather Boys	1964-01-01	1	release	1964-01-01	1
+1588	The Lineup	1958-01-01	1	release	1958-01-01	1
+1589	The Second Annual Report	1977-11-01	2	release	1977-11-01	2
+1590	The Tunes of Two Cities	1982-03-01	2	release	1982-03-01	2
+1591	The XXXorcist	2006-10-27	3	release	2006-10-27	3
+1592	This Heat	1979-01-01	1	release	1979-01-01	1
+1593	Troublesome Night	1997-01-01	1	release	1997-01-01	1
+1594	Fanatic	1965-01-01	1	release	1965-01-01	1
+1595	Hell Is a City	1960-01-01	1	release	1960-01-01	1
+1596	Астенический синдром	1989-12-01	3	release	1989-12-01	3
+1597	Vixen!	1968-01-01	1	release	1968-01-01	1
+1598	Vlčí bouda	1987-06-01	3	release	1987-06-01	3
+1599	Wormwood: Curious Stories from the Bible	1998-01-01	1	release	1998-01-01	1
+1600	!!Destroy-Oh-Boy!!	1993-01-01	1	release	1993-01-01	1
+1601	390° of Simulated Stereo	1981-01-01	1	release	1981-01-01	1
+1602	40 gradi all'ombra del lenzuolo	1976-01-09	3	release	1976-01-09	3
+1603	A Taste of Blood	1967-01-01	1	release	1967-01-01	1
+1604	Abby	1974-01-01	1	release	1974-01-01	1
+1605	Acid Bath	1984-01-01	1	release	1984-01-01	1
+1606	Action	1980-01-04	3	release	1980-01-04	3
+1607	Adam & Yves	1974-01-01	1	release	1974-01-01	1
+1608	Ashes	1985-01-01	1	release	1985-01-01	1
+1609	Invisible Invaders	1959-01-01	1	release	1959-01-01	1
+1610	Private Parts	1972-01-01	1	release	1972-01-01	1
+1611	The Devil's Plaything	1973-10-16	3	release	1973-10-16	3
+1612	Caligola... la storia mai raccontata	1982-01-01	1	release	1982-01-01	1
+1613	The Sporting Life	1994-09-06	3	release	1994-09-06	3
+1614	Love Camp 7	1969-01-01	1	release	1969-01-01	1
+1615	Can I Say	1986-06-01	2	release	1986-06-01	2
+1616	Black Snake	1973-01-01	1	release	1973-01-01	1
+1617	Catastrophe Ballet	1984-01-01	1	release	1984-01-01	1
+1618	Cherry, Harry & Raquel!	1969-11-26	3	release	1969-11-26	3
+1619	Chi lavora è perduto	1963-01-01	1	release	1963-01-01	1
+1620	Christ – The Album	1982-01-01	1	release	1982-01-01	1
+1621	近代能楽集	1956-04-30	3	publication	1956-04-30	3
+1622	Five Guns West	1955-01-01	1	release	1955-01-01	1
+1623	Город Зеро	1988-10-01	2	release	1988-10-01	2
+1624	Col cuore in gola	1966-01-01	1	release	1966-01-01	1
+1625	Collection I	1986-01-01	1	release	1986-01-01	1
+1626	Common Law Cabin	1967-01-01	1	release	1967-01-01	1
+1627	Concerto per pistola solista	1970-01-01	1	release	1970-01-01	1
+1628	Bend Over Boyfriend	1998-01-01	1	publication	1998-01-01	1
+1629	Così dolce... così perversa	1969-01-01	1	release	1969-01-01	1
+1630	Crema, cioccolata e pa... prika	1981-01-01	1	release	1981-01-01	1
+1631	Dark Ride	2006-01-01	1	release	2006-01-01	1
+1632	Def by Temptation	1990-01-01	1	release	1990-01-01	1
+1633	Dhalgren	1975-01-01	2	publication	1975-01-01	2
+1634	Do pivnice	1983-01-01	1	release	1983-01-01	1
+1635	Emanuelle - Perché violenza alle donne?	1977-09-16	3	release	1977-09-16	3
+1636	Emanuelle nera 2	1976-01-01	1	release	1976-01-01	1
+1637	Ende Neu	1996-01-01	1	release	1996-01-01	1
+1638	Europe in the Raw	1963-01-01	1	release	1963-01-01	1
+1639	Eva nera	1976-08-05	3	release	1976-08-05	3
+1640	Eve and the Handyman	1961-01-01	1	release	1961-01-01	1
+1641	Exit English	2003-01-01	1	release	2003-01-01	1
+1642	Fall Heads Roll	2005-01-01	1	release	2005-01-01	1
+1643	Fallo!	2003-01-01	1	release	2003-01-01	1
+1644	Emanuelle nera	1975-11-27	3	release	1975-11-27	3
+1645	Field Day	1988-02-01	2	release	1988-02-01	2
+1646	Wise Children	1991-01-01	1	publication	1991-01-01	1
+1647	Finders Keepers, Lovers Weepers!	1968-01-01	1	release	1968-01-01	1
+1648	Fünf auf der nach oben offenen Richterskala	1987-01-01	1	release	1987-01-01	1
+1649	Garlands	1982-09-01	3	release	1982-09-01	3
+1650	Giallo a Venezia	1979-01-01	1	release	1979-01-01	1
+1651	Good Morning and... Goodbye!	1967-01-01	1	release	1967-01-01	1
+1652	Una lucertola con la pelle di donna	1971-01-01	1	release	1971-01-01	1
+1653	Homo Eroticus	1971-01-01	1	release	1971-01-01	1
+1654	Horse Rotorvator	1986-01-01	1	release	1986-01-01	1
+1655	Heroes and Villains	1969-01-01	1	publication	1969-01-01	1
+1656	Il disco volante	1964-12-23	3	release	1964-12-23	3
+1657	Il dolce corpo di Deborah	1968-03-20	3	release	1968-03-20	3
+1658	Il piacere	1985-01-01	1	release	1985-01-01	1
+1659	Immagini di un convento	1979-01-01	1	release	1979-01-01	1
+1660	Interno di un convento	1978-01-26	3	release	1978-01-26	3
+1661	Invasion of the Blood Farmers	1972-01-01	1	release	1972-01-01	1
+1662	Is Nothing Sacred?	1983-09-01	2	release	1983-09-01	2
+1663	It'll End in Tears	1984-01-01	1	release	1984-01-01	1
+1664	Ko Ko	1945-01-01	1	publication	1945-01-01	1
+1665	L'assassino ha riservato nove poltrone	1974-01-01	1	release	1974-01-01	1
+1666	L'assassino è costretto ad uccidere ancora	1975-01-01	1	release	1975-01-01	1
+1667	L'etrusco uccide ancora	1972-01-01	1	release	1972-01-01	1
+1668	L'infermiera	1975-01-01	1	release	1975-01-01	1
+1669	L'infermiera di notte	1979-02-07	3	release	1979-02-07	3
+1670	L'insegnante viene a casa	1978-11-28	3	release	1978-11-28	3
+1671	The Rats Are Coming! The Werewolves Are Here!	1972-01-01	1	release	1972-01-01	1
+1672	L'uomo che guarda	1994-01-01	1	release	1994-01-01	1
+1673	The Magic Toyshop	1967-01-01	1	publication	1967-01-01	1
+1674	The Child	1977-03-01	2	release	1977-03-01	2
+1675	Watcher in the Attic	1976-01-01	1	release	1976-01-01	1
+1676	The Town That Dreaded Sundown	1976-12-24	3	release	1976-12-24	3
+1677	La compagna di banco	1977-08-12	3	release	1977-08-12	3
+1678	La cugina	1974-01-01	1	release	1974-01-01	1
+1679	La liceale, il diavolo e l'acqua santa	1979-12-07	3	release	1979-12-07	3
+1680	La moglie in vacanza... l'amante in città	1980-01-01	1	release	1980-01-01	1
+1681	La moglie vergine	1975-12-20	3	release	1975-12-20	3
+1682	La monaca del peccato	1986-01-01	1	release	1986-01-01	1
+1683	The Passion of New Eve	1977-01-01	1	publication	1977-01-01	1
+1684	La poliziotta a New York	1981-11-21	3	release	1981-11-21	3
+1685	La poliziotta della squadra del buon costume	1979-08-10	3	release	1979-08-10	3
+1686	La professoressa di scienze naturali	1976-01-01	1	release	1976-01-01	1
+1687	La recta provincia	2007-01-01	1	broadcast_start	2007-01-01	1
+1688	Cérémonie d'amour	1987-01-01	1	release	1987-01-01	1
+1689	High Finance Woman	1991-01-01	1	release	1991-01-01	1
+1690	La soldatessa alla visita militare	1977-09-02	3	release	1977-09-02	3
+1691	La soldatessa alle grandi manovre	1978-12-07	3	release	1978-12-07	3
+1692	La vacanza	1971-01-01	1	release	1971-01-01	1
+1693	La vera storia della monaca di Monza	1980-07-03	3	release	1980-07-03	3
+1694	Prisoner of Paradise	1980-01-01	1	release	1980-01-01	1
+1695	Cities of the Red Night	1981-01-01	1	publication	1981-01-01	1
+1696	Le foto proibite di una signora per bene	1970-01-01	1	release	1970-01-01	1
+1697	The Infernal Desire Machines of Doctor Hoffman	1972-01-01	1	publication	1972-01-01	1
+1698	Le monache di Sant'Arcangelo	1973-01-25	3	release	1973-01-25	3
+1699	Bloodthirsty Butchers	1970-01-01	1	release	1970-01-01	1
+1700	Manhattan Baby	1982-01-01	1	release	1982-01-01	1
+1701	Millennium People	2003-01-01	1	publication	2003-01-01	1
+1702	Miranda	1985-01-01	1	release	1985-01-01	1
+1703	Mondo Topless	1966-01-01	1	release	1966-01-01	1
+1704	Mudhoney	1965-01-01	1	release	1965-01-01	1
+1705	Murderock - Uccide a passo di danza	1984-01-01	1	release	1984-01-01	1
+1706	My Son, the Folk Singer	1962-01-01	1	release	1962-01-01	1
+1707	N. a pris les dés...	1971-01-01	1	release	1971-01-01	1
+1708	Nelle pieghe della carne	1970-01-01	1	release	1970-01-01	1
+1709	Nero su bianco	1969-01-01	1	release	1969-01-01	1
+1710	New Picnic Time	1979-09-01	2	release	1979-09-01	2
+1711	Nights at the Circus	1984-03-04	3	publication	1984-03-04	3
+1712	Nova Express	1964-01-01	1	publication	1964-01-01	1
+1713	Nude per l'assassino	1975-01-01	1	release	1975-01-01	1
+1714	OC Confidential	2005-07-12	3	release	2005-07-12	3
+1715	Orgasmo	1969-01-01	1	release	1969-01-01	1
+1716	Frauengefängnis	1976-04-23	3	release	1976-04-23	3
+1717	Phantasmagoria	1985-07-01	2	release	1985-07-01	2
+1718	Prison Bound	1988-01-01	1	release	1988-01-01	1
+1719	Quella età maliziosa	1975-03-01	3	release	1975-03-01	3
+1720	Rivelazioni di un maniaco sessuale al capo della squadra mobile	1972-08-11	3	release	1972-08-11	3
+1721	Rock for Light	1983-04-15	3	release	1983-04-15	3
+1722	La Hora de los Hornos	1968-01-01	1	release	1968-01-01	1
+1723	Scared to Dance	1979-01-01	1	release	1979-01-01	1
+1724	Senso '45	2002-01-01	1	release	2002-01-01	1
+1725	Separates	1978-01-01	1	release	1978-01-01	1
+1726	Sette scialli di seta gialla	1972-01-01	1	release	1972-01-01	1
+1727	She-Devils on Wheels	1968-01-01	1	release	1968-01-01	1
+1728	Sie tötete in Ekstase	1970-01-01	1	release	1970-01-01	1
+1729	Silence Is Sexy	2000-01-01	1	release	2000-01-01	1
+1730	La mano de un hombre muerto	1962-01-01	1	release	1962-01-01	1
+1731	Social Distortion	1990-01-01	1	release	1990-01-01	1
+1732	Solamente nero	1978-01-01	1	release	1978-01-01	1
+1733	Somewhere Between Heaven and Hell	1992-01-01	1	release	1992-01-01	1
+1734	Spasmo	1974-02-16	3	release	1974-02-16	3
+1735	Spogliamoci così, senza pudor	1976-12-03	3	release	1976-12-03	3
+1736	Storia di una monaca di clausura	1973-11-09	3	release	1973-11-09	3
+1737	Suor Emanuelle	1977-08-10	3	release	1977-08-10	3
+1738	Tabula Rasa	1993-01-01	1	release	1993-01-01	1
+1739	Tales from the Hood	1995-01-01	1	release	1995-01-01	1
+1740	Terminal Tower	1985-01-01	1	release	1985-01-01	1
+1741	That's Life	1978-11-01	2	release	1978-11-01	2
+1742	The Alien Factor	1978-01-01	1	release	1978-01-01	1
+1743	The Bat Whispers	1930-01-01	1	release	1930-01-01	1
+1744	The Charm of the Highway Strip	1994-04-18	3	release	1994-04-18	3
+1745	The Faust Tapes	1973-01-01	1	release	1973-01-01	1
+1746	The Ideal Copy	1987-04-01	2	release	1987-04-01	2
+1747	The Litanies of Satan	1982-02-25	3	publication	1982-02-25	3
+1748	The Lords of the New Church	1982-07-01	2	release	1982-07-01	2
+1749	The Method to Our Madness	1984-01-01	1	release	1984-01-01	1
+1750	The Saints Are Coming: The Best of The Skids	2007-01-01	1	release	2007-01-01	1
+1751	The Uh-Oh! Show	2009-01-01	1	release	2009-01-01	1
+1752	Thriller	1960-09-13	3	broadcast_start	1960-09-13	3
+1753	A Quiet Week in the House	1969-01-01	1	release	1969-01-01	1
+1754	Top Model	1988-01-01	1	release	1988-01-01	1
+1755	UK Decay	1979-01-01	1	point_in_time	1979-01-01	1
+1756	Hello America	1981-06-04	3	publication	1981-06-04	3
+1757	Mesto na zemle	2001-07-12	3	release	2001-07-12	3
+1758	Christina chez les morts vivants	1971-01-01	1	release	1971-01-01	1
+1759	Eleven Days, Eleven Nights	1986-01-01	1	release	1986-01-01	1
+1760	Vapors	1963-01-01	1	release	1963-01-01	1
+1761	Vulgaria	2012-01-01	1	release	2012-01-01	1
+1762	West End Blues	1928-01-01	1	publication	1928-01-01	1
+1763	Wig Out at Denko's	1987-07-01	2	release	1987-07-01	2
+1764	Wild Gals of the Naked West	1961-01-01	1	release	1961-01-01	1
+1765	Yes Sir, I Will	1983-01-01	1	release	1983-01-01	1
+1766	4	2004-09-10	3	release	2004-09-10	3
+1767	A Pagan Day	1984-01-01	1	release	1984-01-01	1
+1768	Allegory and Self	1988-01-01	1	release	1988-01-01	1
+1769	Black Ships Ate the Sky	2006-05-15	3	release	2006-05-15	3
+1770	Cerebral Caustic	1995-01-01	1	release	1995-01-01	1
+1771	Dreams Less Sweet	1983-01-01	1	release	1983-01-01	1
+1772	Force the Hand of Chance	1982-01-01	1	release	1982-01-01	1
+1773	Grotesque	1980-11-17	3	release	1980-11-17	3
+1774	Hell Is Invisible... Heaven Is Her/e	2007-01-01	1	release	2007-01-01	1
+1775	ファッション・ヘル	2010-01-01	1	release	2010-01-01	1
+1776	No Thyself	2011-01-01	1	release	2011-01-01	1
+1777	Radio Silence	1989-01-01	1	release	1989-01-01	1
+1778	Reformation Post TLC	2007-01-01	1	release	2007-01-01	1
+1779	Room to Live	1982-09-27	3	release	1982-09-27	3
+1780	Song and Legend	1983-01-01	1	release	1983-01-01	1
+1781	The Ape of Naples	2005-01-01	1	release	2005-01-01	1
+1782	The Real New Fall LP	2003-10-27	3	release	2003-10-27	3
+1783	The Unutterable	2000-01-01	1	release	2000-01-01	1
+1784	Themes 2	1985-01-01	1	release	1985-01-01	1
+1785	Thunder Perfect Mind	1992-07-28	3	release	1992-07-28	3
+1786	Towards Thee Infinite Beat	1990-01-01	1	release	1990-01-01	1
+1787	Trip Reset	1996-01-01	1	release	1996-01-01	1
+1788	Zvuki Mu (album)	1989-01-01	1	release	1989-01-01	1
+1789	Adaptatsiya	1992-01-01	1	point_in_time	1992-01-01	1
+1790	Армагеддон-попс	1989-01-01	1	release	1989-01-01	1
+1791	Бакенбарды	1990-01-01	1	release	1990-01-01	1
+1792	Banda Chetyryoh	1995-12-01	2	point_in_time	1995-12-01	2
+1793	The Ticket That Exploded	1962-01-01	1	publication	1962-01-01	1
+1794	Vampyres	1974-01-01	1	release	1974-01-01	1
+1795	Взломщик	1987-01-01	1	release	1987-01-01	1
+1796	Nam's Angels	1970-01-01	1	release	1970-01-01	1
+1797	Гадкие лебеди	2006-06-17	3	release	2006-06-17	3
+1798	Golem	1980-01-01	1	release	1980-01-01	1
+1799	Господин оформитель	1988-12-01	2	release	1988-12-01	2
+1800	Группа крови	1988-01-01	1	publication	1988-01-01	1
+1801	Q4155582	1992-01-01	1	release	1992-01-01	1
+1802	Girls Nite Out	1982-01-01	1	release	1982-01-01	1
+1803	Dream Demon	1988-01-01	1	release	1988-01-01	1
+1804	Demons of the Mind	1972-01-01	1	release	1972-01-01	1
+1805	The Children	1980-01-01	1	release	1980-01-01	1
+1806	The Wild Boys	1969-01-01	1	publication	1971-01-01	1
+1807	Q4164445	2004-01-01	1	release	2004-01-01	1
+1808	Дом под звёздным небом	1991-01-01	1	release	1991-01-01	1
+1809	The Snorkel	1958-01-01	1	release	1958-01-01	1
+1810	El diabolico doctor Z	1966-01-01	1	release	1966-01-01	1
+1812	Жопа	1990-01-01	1	release	1990-01-01	1
+1813	天使のはらわた 赤い教室	1979-01-01	1	release	1979-01-01	1
+1814	Forbidden Door	2009-01-22	3	release	2009-01-22	3
+1815	Замок	1994-12-26	3	release	1994-12-26	3
+1816	The Western Lands	1987-01-01	1	publication	1987-01-01	1
+1817	Centurians of Rome	1981-01-01	1	release	1981-01-01	1
+1818	Zachem snyatsya sny?	2007-01-01	1	release	2007-01-01	1
+1819	Здорово и вечно	1989-01-01	1	release	1989-01-01	1
+1820	Инструкция по выживанию	1990-01-01	1	release	1990-01-01	1
+1821	Instruktsiya po Vyzhivaniyu	1985-01-01	1	point_in_time	1985-01-01	1
+1822	Q4204008	1974-01-01	1	release	1974-01-01	1
+1823	Трудно быть богом	2013-11-13	3	release	2013-11-13	3
+1824	Йя-Хха	1986-01-01	1	release	1986-01-01	1
+1825	Kiks	1991-01-01	1	release	1991-01-01	1
+1827	Q4230048	1992-01-01	1	release	1992-01-01	1
+1830	The Initiation	1984-01-01	1	release	1984-01-01	1
+1831	Q4242872	1988-01-01	1	release	1988-01-01	1
+1832	La horripilante bestia humana	1969-02-06	3	release	1969-02-06	3
+1833	Q4290587	1974-01-01	1	release	1974-01-01	1
+1834	わが友ヒットラー	1968-12-10	3	publication	1968-12-10	3
+1835	Мышеловка	1987-01-01	1	release	1987-01-01	1
+1836	The Soft Machine	1961-01-01	1	publication	1961-01-01	1
+1837	A Home of Our Own	1993-01-01	1	release	1993-01-01	1
+1838	Невыносимая лёгкость бытия	1997-01-01	1	release	1997-01-01	1
+1839	Некрофилия	1987-01-01	1	release	1987-01-01	1
+1840	The Zero Boys	1986-01-01	1	release	1986-01-01	1
+1842	Confessions of a Driving Instructor	1976-01-01	1	release	1976-01-01	1
+1843	The Severed Arm	1973-01-01	1	release	1973-01-01	1
+1844	Daddy, Father Frost Is Dead	1991-01-01	1	release	1991-01-01	1
+1845	Boys in the Sand	1971-12-29	3	release	1971-12-29	3
+1846	Bloody Birthday	1981-01-01	1	release	1981-01-01	1
+1847	Livery Stable Blues	1917-01-01	1	publication	1917-01-01	1
+1848	20 Jazz Funk Greats	1979-12-01	2	release	1979-12-01	2
+1850	Poganaya molodyozh'	1985-01-01	1	release	1985-01-01	1
+1852	Посетитель музея	1989-07-16	3	release	1989-07-16	3
+1853	Final Exam	1981-01-01	1	release	1981-01-01	1
+1854	Q4379262	1975-01-01	1	release	1975-01-01	1
+1855	Продано!	1989-01-01	1	release	1989-01-01	1
+1856	The Place of Dead Roads	1983-01-01	1	publication	1983-01-01	1
+1857	Q4381593	1988-01-01	1	release	1988-01-01	1
+1858	Прыг-скок	1990-01-01	1	release	1992-01-01	1
+1859	Психоделия Tomorrow	2001-10-01	2	release	2001-10-01	2
+1860	Пыль	2005-06-20	3	release	2005-06-20	3
+1861	Five Bottles of Vodka	2001-01-01	1	release	2001-01-01	1
+1862	Q4391535	2005-01-01	1	release	2005-01-01	1
+1863	Rok	1987-01-01	1	release	1987-01-01	1
+1864	Русская симфония	1994-01-01	1	release	1994-01-01	1
+1865	Русское поле экспериментов	1989-01-01	1	release	1989-01-01	1
+1866	Love and Pain and the Whole Damn Thing	1973-01-01	1	release	1973-01-01	1
+1867	Q4402952	1976-01-01	1	release	1976-01-01	1
+1868	Серебряные головы	1998-01-01	1	release	1998-01-01	1
+1869	Hammer and Sickle (film)	1994-01-01	1	release	1994-01-01	1
+1870	The Glory Stompers	1967-11-22	3	release	1967-11-22	3
+1871	Death Screams	1982-01-01	1	release	1982-01-01	1
+1872	Q4427643	1989-01-01	1	release	1989-01-01	1
+1873	Солнцеворот	1997-01-01	1	release	1997-01-01	1
+1875	Сто лет одиночества	1993-01-01	1	release	1993-01-01	1
+1876	Super-Cannes	1999-01-01	1	publication	2000-01-01	1
+1877	Taboo	1982-01-01	1	release	1982-01-01	1
+1878	Так закалялась сталь	1988-01-01	1	release	1988-01-01	1
+1879	Therese and Isabelle	1968-01-01	1	release	1968-01-01	1
+1880	Трагедия в стиле рок	1989-04-01	2	release	1989-04-01	2
+1881	Трактористы 2	1992-01-01	1	release	1992-01-01	1
+1882	Transnadyozhnost	1990-01-01	1	release	1990-01-01	1
+1884	Убитые молнией	2002-01-01	1	release	2002-01-01	1
+1885	Фонтан	1988-01-01	1	release	1988-01-01	1
+1886	Khronika pikiruyushchego bombardirovshchika	1989-01-01	1	release	1989-01-01	1
+1888	Чёрная роза — эмблема печали, красная роза — эмблема любви	1990-01-15	3	release	1990-01-15	3
+1890	Шагреневая кость	1992-01-01	1	release	1992-01-01	1
+1891	Equinox	1970-01-01	1	release	1970-01-01	1
+1892	...If I Die, I Die	1982-01-01	1	release	1982-01-01	1
+1893	09-15-2000, Brussels	2002-01-01	1	release	2002-01-01	1
+1894	11	1989-01-01	1	release	1989-01-01	1
+1895	1999	1999-01-25	3	release	1999-01-25	3
+1896	24 Horas de Sexo Explícito	1985-01-01	1	release	1985-01-01	1
+1898	2 Hype	1988-01-01	1	release	1988-01-01	1
+1899	2x45	1982-05-01	2	release	1982-05-01	2
+1900	93 'til Infinity	1993-01-01	1	release	1993-01-01	1
+1901	The Key to Joy Is Disobedience	2003-01-01	1	release	2003-01-01	1
+1902	A Chinese Torture Chamber Story	1994-01-01	1	release	1994-01-01	1
+1903	A Closed Book	2010-01-01	1	release	2010-01-01	1
+1904	A Few Small Repairs	1996-01-01	1	release	1996-01-01	1
+1905	A History of the Blue Movie	1970-01-01	1	release	1970-01-01	1
+1906	A Lonely Cow Weeps at Dawn	2003-01-01	1	release	2003-01-01	1
+1907	A Night at the Adonis	1978-01-01	1	release	1978-01-01	1
+1908	A Night to Dismember	1983-01-01	1	release	1983-01-01	1
+1909	A Perfect Mystery	2000-01-01	1	release	2000-01-01	1
+1911	A Trip to Marineville	1979-01-01	1	release	1979-01-01	1
+1912	A Very Short Life	2009-01-01	1	release	2009-01-01	1
+1913	Ein Virus kennt keine Moral	1986-01-16	3	release	1986-01-16	3
+1914	Abnormal Family: Older Brother's Bride	1984-01-01	1	release	1984-01-01	1
+1915	ആദ്യപാപം	1988-01-01	1	release	1988-01-01	1
+1916	Adultery Diary: One More Time While I'm Still Wet	1996-01-01	1	release	1996-01-01	1
+1917	Advantage	1983-01-01	1	release	1983-01-01	1
+1918	Adventures of a Plumber's Mate	1978-05-18	3	release	1978-05-18	3
+1919	Adventures of a Private Eye	1977-05-13	3	release	1977-05-13	3
+1920	Adventures of a Taxi Driver	1976-05-23	3	release	1976-05-23	3
+1921	Alchemical Playschool	2006-01-01	1	release	2006-01-01	1
+1922	Aleph at Hallucinatory Mountain	2009-01-01	1	release	2009-01-01	1
+1923	Alfie Darling	1975-01-01	1	release	1975-01-01	1
+1924	Alice EP	1983-03-01	2	publication	1983-03-01	2
+1925	Alien Soundtracks	1977-01-01	1	release	1977-01-01	1
+1926	Alien from the Darkness	1996-01-01	1	release	1996-01-01	1
+1927	All the King's Horses	2002-01-01	1	release	2002-01-01	1
+1928	All the King's Men	2002-01-01	1	release	2002-01-01	1
+1929	All the Pretty Little Horses	1996-01-01	1	release	1996-01-01	1
+1930	Ambiguous	2003-01-01	1	release	2003-01-01	1
+1931	Among the Living	1941-01-01	1	release	1941-01-01	1
+1932	Anarchy in Japansuke	1999-01-01	1	release	1999-01-01	1
+1933	Angels Die Hard	1970-07-08	3	release	1970-07-08	3
+1934	Another Kind of Blues	1979-09-14	3	release	1979-09-14	3
+1935	Any Day Now	1988-01-01	1	release	1988-01-01	1
+1936	Apartment Wife: Affair In the Afternoon	1971-01-01	1	release	1971-01-01	1
+1937	Arabian Knights	1981-07-24	3	publication	1981-07-24	3
+1938	Die Armee der Liebenden oder Aufstand der Perversen	1979-03-12	3	release	1979-03-12	3
+1939	Assault	1971-01-01	1	release	1971-01-01	1
+1940	Asylum	1985-01-01	1	release	1985-01-01	1
+1941	At the Chelsea Nightclub	1979-01-01	1	release	1979-01-01	1
+1942	Attack of the Puppet People	1958-01-01	1	release	1958-01-01	1
+1943	Attacked!!	1978-01-01	1	release	1978-01-01	1
+1944	Au Pair Girls	1972-07-01	2	release	1972-07-01	2
+1945	オーディション	1997-01-01	1	publication	1997-01-01	1
+1946	Axe Victim	1974-01-01	1	release	1974-01-01	1
+1947	Aye, and Gomorrah	1967-10-01	2	publication	1967-10-01	2
+1948	Bad Girls Go to Hell	1965-01-01	1	release	1965-01-01	1
+1949	Bad Music for Bad People	1984-01-01	1	release	1984-01-01	1
+1950	Banned Book: Flesh Futon	1975-01-01	1	release	1975-01-01	1
+1951	Beads from a Petal	1972-01-01	1	release	1972-01-01	1
+1952	Beast of Blood	1970-05-06	3	release	1970-05-06	3
+1953	Beast of the Yellow Night	1971-01-01	1	release	1971-01-01	1
+1954	Beat Rhythm News	1979-01-01	1	release	1979-01-01	1
+1955	Beauty No. 2	1965-01-01	1	release	1965-01-01	1
+1956	Bed Dance	1967-01-01	1	release	1967-01-01	1
+1957	Bedlam	1946-01-01	1	release	1946-01-01	1
+1958	Before the Blackout	2005-01-01	1	release	2005-01-01	1
+1959	Behind the Green Door: the Sequel	1986-01-01	1	release	1986-01-01	1
+1960	Behind the Nudist Curtain	1964-01-01	1	release	1964-01-01	1
+1961	Besieged City	2008-01-01	1	release	2008-01-01	1
+1962	Beyond Thee Infinite Beat	1990-01-01	1	release	1990-01-01	1
+1963	Beyond the Season	1992-08-25	3	release	1992-08-25	3
+1964	Big Guns	1987-01-01	1	release	1987-01-01	1
+1965	Bike Boy	1967-01-01	1	release	1967-01-01	1
+1966	Billennium	1961-01-01	1	publication	1961-01-01	1
+1967	Bitter Sweet	2004-01-01	1	release	2004-01-01	1
+1968	Black Joy	2004-08-03	3	release	2004-08-03	3
+1969	降頭	1975-10-02	3	release	1975-10-02	3
+1970	Black Magic 2	1976-01-01	1	release	1976-01-01	1
+1971	Blast-Off Girls	1967-01-01	1	release	1967-01-01	1
+1972	Blaze Starr Goes Nudist	1962-01-01	1	release	1962-01-01	1
+1973	Blissful Genuine Sex: Penetration!	1995-01-01	1	release	1995-01-01	1
+1974	Blood Freak	1972-01-01	1	release	1972-01-01	1
+1975	Blood Rage	1987-01-01	1	release	1987-01-01	1
+1976	Blood Rites	1968-01-01	1	release	1968-01-01	1
+1977	Blood and Guts in High School	1984-01-01	1	publication	1984-01-01	1
+1978	Yawar Mallku	1969-01-01	1	release	1969-01-01	1
+1979	Blue Film Woman	1969-01-01	1	release	1969-01-01	1
+1980	Body and Soul	1991-01-01	1	release	1991-01-01	1
+1981	Bordellet	1972-07-10	3	release	1972-07-10	3
+1982	Борис Годунов	1989-01-01	1	release	1989-01-01	1
+1983	Bouquet of Black Orchids	1993-01-01	1	release	1993-01-01	1
+1984	Brave and Crazy	1989-09-11	3	release	1989-09-11	3
+1985	Brides of Blood	1968-01-01	1	release	1968-01-01	1
+1986	Brighter Now	1982-12-07	3	release	1982-12-07	3
+1987	Buddies	1985-01-01	1	release	1985-01-01	1
+1988	The Second You Sleep	2002-01-01	1	release	2002-01-01	1
+1989	Burning Oil	1984-01-01	1	release	1984-01-01	1
+1990	Burst City	1982-01-01	1	release	1982-01-01	1
+1991	Buy	1979-01-01	1	release	1979-01-01	1
+1992	C.C. and Company	1970-01-01	1	release	1970-01-01	1
+1993	Caged Fury	1989-01-01	1	release	1989-01-01	1
+1994	Calling the Public	2001-01-01	1	release	2001-01-01	1
+1995	Camille 2000	1969-01-01	1	release	1969-01-01	1
+1996	Candy Stripers	1978-01-01	1	release	1978-01-01	1
+1997	Career Suicide	2007-01-01	1	release	2007-01-01	1
+1998	Cast a Dark Shadow	1955-09-20	3	release	1955-09-20	3
+1999	Castle Orgies	1971-01-01	1	release	1971-01-01	1
+2000	Cathedral Engine	1994-01-01	1	release	1994-01-01	1
+2001	Chemical Playschool 10	1997-01-01	1	release	1997-01-01	1
+2002	Christ and the Pale Queens Mighty in Sorrow	1988-01-01	1	release	1988-01-01	1
+2003	Chronopolis	1960-01-01	1	publication	1960-01-01	1
+2004	Stadt der verlorenen Seelen	1983-02-05	3	release	1983-02-05	3
+2005	修道女ルナの告白	1976-01-08	3	release	1976-01-08	3
+2006	Loretta Lynn	1971-01-04	3	release	1971-01-04	3
+2007	Code	1987-01-01	1	release	1987-01-01	1
+2008	Coed Report: Yuko's White Breasts	1971-01-01	1	release	1971-01-01	1
+2009	Cofralandes, Chilean Rhapsody	2002-01-01	1	release	2002-01-01	1
+2010	Coil Presents Time Machines	2000-01-01	1	release	2000-01-01	1
+2011	Colossal Youth	1980-02-01	2	release	1980-02-01	2
+2012	Come Away with ESG	1983-01-01	1	release	1983-01-01	1
+2013	Come Play with Me	1977-01-01	1	release	1977-01-01	1
+2014	Commuter Husbands	1973-01-01	1	release	1973-01-01	1
+2015	Confessions from a Holiday Camp	1977-01-01	1	release	1977-01-01	1
+2016	Confessions from the David Galaxy Affair	1979-01-01	1	release	1979-01-01	1
+2017	Confessions of a Pop Performer	1975-01-01	1	release	1975-01-01	1
+2018	Confessions of a Window Cleaner	1974-01-01	1	release	1974-01-01	1
+2019	Constant Shallowness Leads to Evil	2000-01-01	1	release	2000-01-01	1
+2020	dissolution of the Soviet Union	1991-12-26	3	point_in_time	1991-12-26	3
+2022	Crazy Fruit	1981-01-01	1	release	1981-01-01	1
+2023	Crazy Love	1993-01-01	1	release	1993-01-01	1
+2024	銀平町シネマブルース	1980-05-24	3	release	1980-05-24	3
+2025	Crescendo	1970-01-01	1	release	1970-01-01	1
+2026	Crime and Punishment U.S.A.	1959-01-01	1	release	1959-01-01	1
+2027	Crushed Velvet Apocalypse	1990-01-01	1	release	1990-01-01	1
+2028	Crystal Mass	2000-01-01	1	release	2000-01-01	1
+2029	Curse	1983-01-01	1	release	1983-01-01	1
+2030	D.O.A.: A Rite of Passage	1980-01-01	1	release	1980-01-01	1
+2031	Dance with Me	1981-01-01	1	release	1981-01-01	1
+2032	江戸川乱歩全集　恐怖奇形人間	1969-01-01	1	release	1969-01-01	1
+2033	El libro de piedra	1969-07-18	3	release	1969-07-18	3
+2034	Dawn	1987-01-01	1	release	1987-01-01	1
+2035	Daydream	1981-01-01	1	release	1981-01-01	1
+2036	Días de campo	2004-01-01	1	release	2004-01-01	1
+2037	Death of a Scoundrel	1956-01-01	1	release	1956-01-01	1
+2038	Demonio azul	1965-01-01	1	release	1965-01-01	1
+2039	Tres tristes tigres	1968-01-01	1	release	1968-01-01	1
+2040	Devil Fetus	1983-01-01	1	release	1983-01-01	1
+2041	Diabeł	1988-03-01	2	release	1988-03-01	2
+2042	Dialogues of Exiles	1975-01-01	1	release	1975-01-01	1
+2043	Diamanda Galás	1984-01-01	1	release	1984-01-01	1
+2044	Different Strokes	1997-01-01	1	release	1997-01-01	1
+2045	Disconnected	2007-06-29	3	release	2007-06-29	3
+2046	Docteur Jekyll et les femmes	1981-01-01	1	release	1981-01-01	1
+2047	Don't Answer the Phone	1980-01-01	1	release	1980-01-01	1
+2048	Don't Go in the Woods	1981-01-01	1	release	1981-01-01	1
+2049	Don't Go to Strangers	1960-01-01	1	release	1960-01-01	1
+2050	Double Agent 73	1974-01-01	1	release	1974-01-01	1
+2051	Dr. Black, Mr. Hyde	1976-01-01	1	release	1976-01-01	1
+2052	Dr. Lamb	1992-01-01	1	release	1992-01-01	1
+2053	Driftglass	1971-01-01	1	publication	1971-01-01	1
+2054	Drinking Gasoline	1985-01-01	1	publication	1985-01-01	1
+2055	Droid	1988-01-01	1	release	1988-01-01	1
+2056	Each Time I Kill	2007-01-01	1	release	2007-01-01	1
+2057	Effects	2005-01-01	1	release	2005-01-01	1
+2058	Heebie Jeebies	1926-01-01	1	publication	1926-01-01	1
+2059	El Monstruo resucitado	1953-01-01	1	release	1953-01-01	1
+2060	El Paso Wrecking Corp.	1978-01-01	1	release	1978-01-01	1
+2061	El vampiro	1957-10-04	3	release	1957-10-04	3
+2062	El fantasma del convento	1934-01-01	1	release	1934-01-01	1
+2063	El mundo de los vampiros	1961-01-01	1	release	1961-01-01	1
+2064	Elva	2002-01-29	3	release	2002-01-29	3
+2065	Elvira's Movie Macabre	1981-09-26	3	broadcast_start	1981-09-26	3
+2066	Emily	1976-01-01	1	release	1976-01-01	1
+2067	Emmanuelle in Soho	1981-01-01	1	release	1981-01-01	1
+2069	Stranded	1887-01-01	1	publication	1887-01-01	1
+2070	En route	1895-01-01	1	publication	1895-01-01	1
+2071	Endless Night	1972-10-05	3	release	1972-10-05	3
+2072	England Dan & John Ford Coley	1971-01-01	1	release	1971-01-01	1
+2073	処女のはらわた	1986-01-01	1	release	1986-01-01	1
+2074	¡Miren que graves!	1799-01-01	1	inception	1799-01-01	1
+2075	Si quebró el cántaro	1799-01-01	1	inception	1799-01-01	1
+2076	Que viene el coco	1799-01-01	1	inception	1799-01-01	1
+2077	Exposé	1976-01-01	1	release	1976-01-01	1
+2078	Eye Spy with My Little Eye	2002-01-01	1	release	2002-01-01	1
+2079	Fairy in a Cage	1977-01-01	1	release	1977-01-01	1
+2080	Famous Monsters of Filmland	1958-01-01	1	inception	1958-01-01	1
+2081	Fangoria	1979-01-01	1	inception	1979-01-01	1
+2082	Fantasm Comes Again	1977-01-01	1	release	1977-01-01	1
+2083	Fantasm	1976-01-01	1	release	1976-01-01	1
+2084	さらば箱舟	1984-01-01	1	release	1984-01-01	1
+2085	Farmer's Daughters	1975-01-01	1	release	1975-01-01	1
+2086	Fascination: Portrait of a Lady	1977-01-01	1	release	1977-01-01	1
+2087	Fatal Games	1984-01-01	1	release	1984-01-01	1
+2088	Female Cats	1983-12-23	3	release	1983-12-23	3
+2089	Female Ninja Magic: 100 Trampled Flowers	1974-01-01	1	release	1974-01-01	1
+2090	Femmes de Sade	1976-01-01	1	release	1976-01-01	1
+2091	Fetisch	1983-04-11	3	release	1983-04-11	3
+2092	Fireside Favourites	1980-01-01	1	release	1980-01-01	1
+2093	Fist of Fury 1991	1991-01-01	1	release	1991-01-01	1
+2094	For Those Who Would Walk with the Gods	2001-01-01	1	release	2001-01-01	1
+2095	For the Sake of the Song	1968-01-01	1	release	1968-01-01	1
+2096	Forced Entry	1973-01-01	1	release	1973-01-01	1
+2097	Forced Entry	1975-01-01	1	release	1975-01-01	1
+2098	Suicide: Alan Vega and Martin Rev	1980-05-01	2	release	1980-05-01	2
+2099	¿Está Vm… pues, Como digo… eh! Cuidado! si no!...	1799-01-01	1	inception	1799-01-01	1
+2100	Freddy King Sings	1961-01-01	1	release	1961-01-01	1
+2101	Frisk	1991-05-01	3	publication	1991-05-01	3
+2102	From Hell It Came	1957-01-01	1	release	1957-01-01	1
+2103	From Here You'll Watch the World Go By	1995-01-01	1	release	1995-01-01	1
+2104	Fu bo	2003-01-01	1	release	2003-01-01	1
+2105	Fulham Fallout	1978-01-01	1	release	1978-01-01	1
+2106	薔薇の葬列	1969-09-13	3	release	1969-09-13	3
+2107	Pompes funèbres	1948-01-01	1	publication	1948-01-01	1
+2108	Fäbodjäntan	1978-09-22	3	release	1978-09-22	3
+2109	Ganja & Hess	1973-01-01	1	release	1973-01-01	1
+2110	Gaslight	1940-01-01	1	release	1940-01-01	1
+2111	Gay USA	1978-01-01	1	release	1978-01-01	1
+2112	Gerontophilia	2013-08-28	3	release	2013-08-28	3
+2113	Ghost of a Dog	1990-01-01	1	release	1990-01-01	1
+2114	Aguarda que te unten	1799-01-01	1	inception	1799-01-01	1
+2115	Mucho hay que chupar	1799-01-01	1	inception	1799-01-01	1
+2116	Gingerbread Man	1994-01-01	1	release	1994-01-01	1
+2117	Girls School Screamers	1986-01-01	1	release	1986-01-01	1
+2118	Give the Lady What She Wants	1958-01-01	1	release	1958-01-01	1
+2119	¡Lo que puede un sastre!	1799-01-01	1	inception	1799-01-01	1
+2120	Godstar	1985-01-01	1	publication	1985-01-01	1
+2121	Goldilocks and the Three Bares	1963-01-01	1	release	1963-01-01	1
+2122	Gong Tau: An Oriental Black Magic	2007-01-01	1	release	2007-01-01	1
+2123	Goodbye Gemini	1970-01-01	1	release	1970-01-01	1
+2124	Goto, l'île d'amour	1968-01-01	1	release	1968-01-01	1
+2125	Greatest of the Delta Blues Singers	1965-01-01	1	release	1965-01-01	1
+2126	Groovy, Laidback and Nasty	1990-01-01	1	release	1990-01-01	1
+2127	Group Marriage	1973-01-01	1	release	1973-01-01	1
+2128	Groupie Girl	1969-01-01	1	release	1969-01-01	1
+2129	Hai!	1982-01-01	1	release	1982-01-01	1
+2130	Half Machine Lip Moves	1979-01-01	1	release	1979-01-01	1
+2131	Hallway of the Gods	1997-01-01	1	release	1997-01-01	1
+2132	Hannibal Brooks	1969-01-01	1	release	1969-01-01	1
+2133	Linda maestra!	1799-01-01	1	inception	1799-01-01	1
+2134	Счастливые дни	1991-01-01	1	release	1991-01-01	1
+2135	A caza de dientes	1799-01-01	1	inception	1799-01-01	1
+2136	Las rinde el sueño	1799-01-01	1	inception	1799-01-01	1
+2137	Hardcore	1977-01-01	1	release	1977-01-01	1
+2138	Tú que no puedes	1799-01-01	1	inception	1799-01-01	1
+2139	Harlot	1971-01-01	1	release	1971-01-01	1
+2140	Al conde Palatino	1799-01-01	1	inception	1799-01-01	1
+2141	Allá vá eso	1799-01-01	1	inception	1799-01-01	1
+2142	Ruega por ella	1799-01-01	1	inception	1799-01-01	1
+2143	Somos lo que hay	2010-01-01	1	release	2010-01-01	1
+2144	Have a Nice Trip	2003-01-01	1	release	2003-01-01	1
+2145	Aquellos polvos	1799-01-01	1	inception	1799-01-01	1
+2147	Hell Hath No Fury	2008-01-01	1	release	2008-01-01	1
+2148	Bien tirada está	1799-01-01	1	inception	1799-01-01	1
+2149	Buen viaje	1799-01-01	1	inception	1799-01-01	1
+2150	Fourth Drawer Down	1981-10-01	2	release	1981-10-01	2
+2151	Hideout in the Sun	1960-01-01	1	release	1960-01-01	1
+2152	High Wall	1947-01-01	1	release	1947-01-01	1
+2153	Chitón	1799-01-01	1	inception	1799-01-01	1
+2154	Despacha, que dispiertan	1799-01-01	1	inception	1799-01-01	1
+2155	Devota profesion	1799-01-01	1	inception	1799-01-01	1
+2156	Dios la perdone. Y era su madre	1799-01-01	1	inception	1799-01-01	1
+2157	Dos monjes	1934-01-01	1	release	1934-01-01	1
+2158	El amor y la muerte	1799-01-01	1	inception	1799-01-01	1
+2159	El de la Rollona	1799-01-01	1	inception	1799-01-01	1
+2160	El sí pronuncian y la mano alargan al primero que llega	1799-01-01	1	inception	1799-01-01	1
+2161	El vergonzoso	1799-01-01	1	inception	1799-01-01	1
+2162	Ensayos	1799-01-01	1	inception	1799-01-01	1
+2163	Esto sí que es leer	1799-01-01	1	inception	1799-01-01	1
+2164	Están calientes	1801-01-01	1	inception	1801-01-01	1
+2165	Il fiore della passione	1991-01-01	1	release	1991-01-01	1
+2166	Francisco Goya y Lucientes, Pintor	1799-01-01	1	inception	1799-01-01	1
+2167	Corrección	1799-01-01	1	inception	1799-01-01	1
+2168	Hollywood Heartbreakers	1985-01-01	1	release	1985-01-01	1
+2169	Home Before Midnight	1978-01-01	1	release	1978-01-01	1
+2170	Homotopy to Marie	1982-01-01	1	release	1982-01-01	1
+2171	Hasta la muerte	1799-01-01	1	inception	1799-01-01	1
+2172	Hong Kong Bronx	2008-01-01	1	release	2008-01-01	1
+2173	Hilan delgado	1799-01-01	1	inception	1799-01-01	1
+2174	Horror Vacui - Die Angst vor der Leere	1984-01-01	1	release	1984-01-01	1
+2175	Horse and Woman and Dog	1990-01-01	1	release	1990-01-01	1
+2176	How to Destroy Angels (Remixes and Re-Recordings)	1992-01-01	1	release	1992-01-01	1
+2177	How to Destroy Angels	1984-01-01	1	publication	1984-01-01	1
+2178	Island	1991-11-01	2	release	1991-11-01	2
+2179	Hunters	1995-01-01	1	release	1995-01-01	1
+2180	Lemora	1975-01-01	1	release	1975-01-01	1
+2181	Hysteria	1965-01-01	1	release	1965-01-01	1
+2182	La filiación	1799-01-01	1	inception	1799-01-01	1
+2183	Ich bin meine eigene Frau	1992-10-31	3	release	1992-10-31	3
+2184	Los Chinchillas	1799-01-01	1	inception	1799-01-01	1
+2185	Idaho Transfer	1973-01-01	1	release	1973-01-01	1
+2186	Mala Noche	1799-01-01	1	inception	1799-01-01	1
+2187	Imperium	1987-01-01	1	release	1987-01-01	1
+2188	Mejor es holgar	1799-01-01	1	inception	1799-01-01	1
+2190	Muchachos al avío	1799-01-01	1	inception	1799-01-01	1
+2191	Information Overload Unit	1981-01-01	1	release	1981-01-01	1
+2192	Initium	1984-01-01	1	release	1984-01-01	1
+2193	L'expérience intérieure	1943-01-01	1	publication	1943-01-01	1
+2194	Insect and Individual Silenced	1981-01-01	1	release	1981-01-01	1
+2195	Nadie nos ha visto	1799-01-01	1	inception	1799-01-01	1
+2196	Nadie se conoce	1799-01-01	1	inception	1799-01-01	1
+2197	Ni así la distingue	1799-01-01	1	inception	1799-01-01	1
+2198	Ni más ni menos	1799-01-01	1	inception	1799-01-01	1
+2199	No grites, tonta	1799-01-01	1	inception	1799-01-01	1
+2200	No hubo remedio	1799-01-01	1	inception	1799-01-01	1
+2201	No te escaparás	1799-01-01	1	inception	1799-01-01	1
+2202	Internal Salvation	2007-01-01	1	release	2007-01-01	1
+2203	Obsequio al maestro	1799-01-01	1	inception	1799-01-01	1
+2204	International Language	1993-01-01	1	release	1993-01-01	1
+2205	Porque fue sensible	1799-01-01	1	inception	1799-01-01	1
+2206	Island of Jewels	1986-01-01	1	release	1986-01-01	1
+2207	Itoshino Half Moon	1987-01-01	1	release	1987-01-01	1
+2208	Jack The Tab / Tekno Acid Beat	1990-01-01	1	release	1990-01-01	1
+2209	Se repulen	1799-01-01	1	inception	1799-01-01	1
+2210	Si amanece, nos vamos	1799-01-01	1	inception	1799-01-01	1
+2211	Sopla	1799-01-01	1	inception	1799-01-01	1
+2212	Soplones	1799-01-01	1	inception	1799-01-01	1
+2213	Subir y bajar	1799-01-01	1	inception	1799-01-01	1
+2214	Tal para cual	1799-01-01	1	inception	1799-01-01	1
+2215	Sundel Bolong	1981-08-02	3	release	1981-08-02	3
+2216	Todos caerán	1799-01-01	1	inception	1799-01-01	1
+2217	Jane from Occupied Europe	1980-01-01	1	release	1980-01-01	1
+2218	Trágala perro	1799-01-01	1	inception	1799-01-01	1
+2219	Tántalo	1799-01-01	1	inception	1799-01-01	1
+2220	Volaverunt	1799-01-01	1	inception	1799-01-01	1
+2221	Y se le quema la casa	1799-01-01	1	inception	1799-01-01	1
+2222	Ya es hora	1799-01-01	1	inception	1799-01-01	1
+2223	Ya tienen asiento	1799-01-01	1	inception	1799-01-01	1
+2224	Ya van desplumados	1799-01-01	1	inception	1799-01-01	1
+2225	¡Qual la descañonan!	1799-01-01	1	inception	1799-01-01	1
+2226	¡Pobrecitas!	1799-01-01	1	inception	1799-01-01	1
+2227	¡Quién lo creyera!	1799-01-01	1	inception	1799-01-01	1
+2228	¡Que pico de oro!	1799-01-01	1	inception	1799-01-01	1
+2229	¡Qué sacrificio!	1799-01-01	1	inception	1799-01-01	1
+2230	¡Y aún no se van!	1799-01-01	1	inception	1799-01-01	1
+2231	¿De qué mal morirá?	1799-01-01	1	inception	1799-01-01	1
+2232	¿Donde vá mamá?	1799-01-01	1	inception	1799-01-01	1
+2233	¿No hay quién nos desate?	1799-01-01	1	inception	1799-01-01	1
+2234	¿Por qué esconderlos?	1799-01-01	1	inception	1799-01-01	1
+2235	¿Quién más rendido?	1799-01-01	1	inception	1799-01-01	1
+2236	¿Si sabrá más el discípulo?	1799-01-01	1	inception	1799-01-01	1
+2237	Jimmy, the Boy Wonder	1966-01-01	1	release	1966-01-01	1
+2238	Jobriath	1973-01-01	1	release	1973-01-01	1
+2239	John Cougar	1979-01-01	1	release	1979-01-01	1
+2241	Just for the Hell of It	1968-01-01	1	release	1968-01-01	1
+2242	Ride a White Swan	1970-10-09	3	publication	1970-10-09	3
+2243	Kangaroo Notebook	1996-04-01	2	publication	1996-04-01	2
+2244	Kansas City Trucking Co.	1976-01-01	1	release	1976-01-01	1
+2245	Keep It Up Downstairs	1976-01-01	1	release	1976-01-01	1
+2246	Bellos consejos	1799-01-01	1	inception	1799-01-01	1
+2247	Killer's Moon	1978-01-01	1	release	1978-01-01	1
+2248	Femme dangereuse	1989-01-01	1	release	1989-01-01	1
+2249	Kinky Business	1985-01-01	1	release	1985-01-01	1
+2250	Kleine Krieg	1981-01-01	1	release	1981-01-01	1
+2251	Kärleksön	1977-01-01	1	release	1977-01-01	1
+2252	Kōichirō Uno's Wet and Swinging	1984-01-01	1	release	1984-01-01	1
+2253	L’Abbé C.	1950-01-01	1	publication	1950-01-01	1
+2254	砂の女	1962-06-08	3	publication	1962-06-08	3
+2255	L'Oblat	1903-01-01	1	publication	1903-01-01	1
+2256	L.A. Tool & Die	1979-01-01	1	release	1979-01-01	1
+2257	LA Plays Itself	1972-01-01	1	release	1972-01-01	1
+2258	Labi Siffre	1970-01-01	1	release	1970-01-01	1
+2259	Lady Black Rose	1978-01-01	1	release	1978-01-01	1
+2260	Lady Moonflower	1976-01-01	1	release	1976-01-01	1
+2261	AC4	2009-01-01	1	release	2009-01-01	1
+2262	Leichenschrei	1982-01-01	1	release	1982-01-01	1
+2263	Les Paumées du Petit Matin	1981-01-01	1	release	1981-01-01	1
+2264	Let Me Die a Woman	1978-01-01	1	release	1978-01-01	1
+2265	Let Me Tell Ya 'bout Black Chicks	1985-01-01	1	release	1985-01-01	1
+2266	Let My Puppets Come	1976-01-01	1	release	1976-01-01	1
+2267	Mémoire des apparences	1986-01-01	1	release	1986-01-01	1
+2268	Lisa, Lisa	1977-01-01	1	release	1977-01-01	1
+2269	Litoral	2008-01-01	1	release	2008-01-01	1
+2270	Lokis. Rękopis profesora Wittembacha	1970-01-01	1	release	1970-01-01	1
+2271	Love's Secret Domain	1991-01-01	1	release	1991-01-01	1
+2272	Love	1971-01-01	1	publication	1971-01-01	1
+2273	Love Actually... Sucks!	2011-01-01	1	release	2011-01-01	1
+2274	Love Hunter	1972-01-01	1	release	1972-01-01	1
+2275	Love Torn in a Dream	2000-08-28	3	release	2000-08-28	3
+2276	Lucretia My Reflection	1988-06-01	2	publication	1988-06-01	2
+2277	Lusty Sisters	1972-01-01	1	release	1972-01-01	1
+2278	Madman	1982-01-01	1	release	1982-01-01	1
+2279	Making Time	1966-01-01	1	publication	1966-01-01	1
+2280	Malachai	1993-01-01	1	release	1993-01-01	1
+2282	Malediction	1993-01-01	1	publication	1993-01-01	1
+2283	Mammame	1986-01-01	1	release	1986-01-01	1
+2284	Manoel dans l'île des merveilles	1984-01-01	1	release	1985-01-01	1
+2285	Mantis in Lace	1968-06-30	3	release	1968-06-30	3
+2286	Maximum Security	1985-01-01	1	release	1985-01-01	1
+2287	Memories of the Space Age	1988-01-01	1	publication	1988-01-01	1
+2288	Memory Serves	1981-01-01	1	release	1981-01-01	1
+2289	Messiah of Evil	1973-01-01	1	release	1973-01-01	1
+2290	Micro-Phonies	1984-01-01	1	release	1984-01-01	1
+2291	Mix-Up	1979-10-23	3	release	1979-10-23	3
+2292	Moloch: or, This Gentile World	1992-01-01	1	publication	1992-01-01	1
+2293	Mona the Virgin Nymph	1970-01-01	1	release	1970-01-01	1
+2294	Murder by Contract	1958-01-01	1	release	1958-01-01	1
+2295	Music for Cats	1998-01-01	1	release	1998-01-01	1
+2296	Musick to Play in the Dark Vol. 2	2000-01-01	1	release	2000-01-01	1
+2297	Musick to Play in the Dark Vol. 1	1999-01-01	1	release	1999-01-01	1
+2298	My Wife's Lover	1992-01-01	1	release	1992-01-01	1
+2299	Más negro que la noche	1975-12-25	3	release	1975-12-25	3
+2300	Nature Unveiled	1984-01-01	1	release	1984-01-01	1
+2301	Nemesis Online	1998-01-01	1	release	1998-01-01	1
+2302	Neon Maniacs	1986-01-01	1	release	1986-01-01	1
+2303	Neurosia – 50 Jahre pervers	1995-11-02	3	release	1995-11-02	3
+2304	New Tokyo Decadence – The Slave	2007-01-01	1	release	2007-01-01	1
+2305	Nightdreams	1981-01-01	1	release	1981-01-01	1
+2306	Nights in Black Leather	1973-01-01	1	release	1973-01-01	1
+2307	Nite Flights	1978-01-01	1	release	1978-01-01	1
+2308	No Skin Off My Ass	1991-01-01	1	release	1991-01-01	1
+2309	Nude on the Moon	1961-01-01	1	release	1961-01-01	1
+2310	Odyshape	1981-01-01	1	release	1981-01-01	1
+2311	Off White	1979-01-01	1	release	1979-01-01	1
+2312	Oil Lamps	1971-01-01	1	release	1971-01-01	1
+2313	Once Upon a Girl	1976-01-01	1	release	1976-01-01	1
+2314	Only Dreaming	1981-01-01	1	release	1981-01-01	1
+2315	Oryu's Passion: Bondage Skin	1975-01-01	1	release	1975-01-01	1
+2316	Our Last Album?	2004-01-01	1	release	2004-01-01	1
+2317	Paint Your Wagon	1986-01-01	1	release	1986-01-01	1
+2318	Paris Is Burning	1990-01-01	1	release	1990-01-01	1
+2319	田園に死す	1974-01-01	1	release	1974-01-01	1
+2320	Patrick Sky	1965-01-01	1	release	1965-01-01	1
+2321	Pause for a Hoarse Horse	1971-01-01	1	release	1971-01-01	1
+2322	Peak Hour	1993-01-01	1	release	1993-01-01	1
+2323	Pengabdi Setan	1982-01-01	3	release	1982-01-01	3
+2324	Penitentiary Blues	1969-01-01	1	release	1969-01-01	1
+2325	Phases and Stages	1974-03-01	2	release	1974-03-01	2
+2326	Pink Tush Girl	1978-01-01	1	release	1978-01-01	1
+2327	Plague Mass	1991-04-01	3	release	1991-04-01	3
+2328	Playgirls International	1963-01-01	1	release	1963-01-01	1
+2329	Playing with a Different Sex	1981-01-01	1	release	1981-01-01	1
+2330	Plutonium Blonde	2008-01-01	1	release	2008-01-01	1
+2331	Poor Pretty Eddie	1975-01-01	1	release	1975-01-01	1
+2332	Popcorn	1991-01-01	1	release	1991-01-01	1
+2333	Poppy Variations	2004-01-01	1	release	2004-01-01	1
+2334	Positive	1990-01-01	1	release	1990-01-01	1
+2335	Possessed	1983-01-09	3	release	1983-01-09	3
+2336	Possessed II	1984-01-01	1	release	1984-01-01	1
+2338	Press Color	1979-01-01	1	release	1979-01-01	1
+2339	Press the Eject and Give Me the Tape	1982-01-01	1	release	1982-01-01	1
+2340	Prey	1978-01-01	1	release	1978-01-01	1
+2341	Ptooff!	1967-01-01	1	release	1967-01-01	1
+2342	Queen of Siam	1980-01-01	1	release	1980-01-01	1
+2343	廟街皇后	1990-01-01	1	release	1990-01-01	1
+2344	Radiation	1999-01-01	1	release	1999-01-01	1
+2345	レイプ25時 暴姦	1977-01-01	1	release	1977-01-01	1
+2346	Raped by an Angel	1993-01-01	1	release	1993-01-01	1
+2347	Red Mecca	1981-01-01	1	release	1981-01-01	1
+2348	Retreat Through the Wet Wasteland	1973-01-01	1	release	1973-01-01	1
+2349	復仇者之死	2010-01-01	1	release	2010-01-01	1
+2350	Revenge	1971-01-01	1	release	1971-01-01	1
+2351	Rien	1994-01-01	1	release	1994-01-01	1
+2352	Robotrix	1991-01-01	1	release	1991-01-01	1
+2353	Rocktober Blood	1984-01-01	1	release	1984-01-01	1
+2354	Roman P.	1984-01-01	1	publication	1984-01-01	1
+2355	Rope Hell	1978-01-01	1	release	1978-01-01	1
+2356	Rope and Breasts	1983-01-07	3	release	1983-01-07	3
+2357	Rope and Skin	1979-01-01	1	release	1979-01-01	1
+2358	Rosie Dixon – Night Nurse	1978-01-01	1	release	1978-01-01	1
+2359	Rozstanie	1961-01-01	1	release	1961-01-01	1
+2360	Running Wild	1988-01-01	1	publication	1988-01-01	1
+2361	Saint of the Pit	1986-01-01	1	release	1986-01-01	1
+2362	Samhain III: November-Coming-Fire	1986-01-01	1	release	1986-01-01	1
+2363	Satan Was a Lady	1975-01-01	1	release	1975-01-01	1
+2364	Savage Weekend	1979-01-01	1	release	1979-01-01	1
+2365	Sběrné surovosti	1965-01-01	1	release	1965-01-01	1
+2366	Scatology	1984-01-01	1	release	1984-01-01	1
+2367	School Girl	1971-01-01	1	release	1971-01-01	1
+2368	聖獣学園	1974-02-16	3	release	1974-02-16	3
+2369	Score	1973-01-01	1	release	1973-01-01	1
+2370	Scratch Acid	1984-01-01	1	publication	1984-01-01	1
+2371	Scum of the Earth!	1963-01-01	1	release	1963-01-01	1
+2372	Seconds Late for the Brighton Line	2010-01-01	1	release	2010-01-01	1
+2373	Secret of the Blue Room	1933-01-01	1	release	1933-01-01	1
+2374	Seeding of a Ghost	1983-01-01	1	release	1983-01-01	1
+2375	Sense and Sensuality	1982-06-01	2	release	1982-06-01	2
+2376	Serial Rape: Perverted Experiment	1990-01-01	1	release	1990-01-01	1
+2377	Seven Days' Leave	1942-01-01	1	release	1942-01-01	1
+2378	Sex and Zen III	1998-01-01	1	release	1998-01-01	1
+2380	Shadow Weaver	1992-01-01	1	release	1992-01-01	1
+2381	Shattered Image	1998-08-28	3	release	1998-08-28	3
+2382	Story of O	1975-08-28	3	release	1975-08-28	3
+2383	She'll Follow You Anywhere	1971-01-01	1	release	1971-01-01	1
+2384	Öyle Bir Kadın Ki	1979-01-01	1	release	1979-01-01	1
+2387	Shock Troops	1983-01-01	1	release	1983-01-01	1
+2388	Shriek of the Mutilated	1974-01-01	1	release	1974-01-01	1
+2389	Signals, Calls, and Marches	1981-01-01	1	publication	1981-01-01	1
+2390	Silence = Death	1990-01-01	1	release	1990-01-01	1
+2391	Silent Night, Bloody Night	1972-11-17	3	release	1972-11-17	3
+2392	Single File	2000-01-01	1	release	2000-01-01	1
+2393	Skin Gang	1999-01-01	1	release	1999-01-01	1
+2394	Sleater-Kinney	1995-01-01	1	release	1995-01-01	1
+2395	Sleep Has His House	2000-01-01	1	release	2000-01-01	1
+2396	So Dark the Night	1946-01-01	1	release	1946-01-01	1
+2397	Soliloquy for Lilith	1988-01-01	1	release	1988-01-01	1
+2398	Songs My Father Left Me	1969-01-01	1	release	1969-01-01	1
+2399	Spaced Out	1979-01-01	1	release	1979-01-01	1
+2400	Spiral Insana	1986-01-01	1	release	1986-01-01	1
+2401	Spiral Scratch	1977-01-29	3	publication	1977-01-29	3
+2402	Stars in My Pocket Like Grains of Sand	1984-12-01	2	publication	1984-12-01	2
+2403	Steady On	1989-01-01	1	release	1989-01-01	1
+2404	Stolen & Contaminated Songs	1992-01-01	1	release	1992-01-01	1
+2405	Stone	1974-06-28	3	release	1974-06-28	3
+2406	Straight on Till Morning	1972-01-01	1	release	1972-01-01	1
+2407	Strategies Against Architecture '80–'83	1984-01-01	1	release	1984-01-01	1
+2408	Strategies Against Architecture III	2001-01-01	1	release	2001-01-01	1
+2409	Strategies Against Architecture IV	2010-01-01	1	release	2010-01-01	1
+2410	Street of Chance	1942-01-01	1	release	1942-01-01	1
+2411	Necronomicon – Geträumte Sünden	1968-01-01	1	release	1968-01-01	1
+2412	Super 8½	1993-01-01	1	release	1993-01-01	1
+2413	Super Hornio Brothers	1993-05-03	3	release	1993-05-03	3
+2414	Svengoolie	1970-09-18	3	start	1970-09-18	3
+2415	Swastikas for Noddy	1988-01-01	1	release	1988-01-01	1
+2416	T.N.T. Jackson	1974-01-01	1	release	1974-01-01	1
+2418	Talk about the Weather	1985-01-01	1	release	1985-01-01	1
+2419	Tally Brown, New York	1979-05-04	3	release	1979-05-04	3
+2420	Tattooed Flower Vase	1976-01-01	1	release	1976-01-01	1
+2421	Terror Is a Man	1959-01-01	1	release	1959-01-01	1
+2422	Terror at Tenkiller	1986-01-01	1	release	1986-01-01	1
+2423	That Boy	1974-01-01	1	release	1974-01-01	1
+2424	That Man: Peter Berlin	2005-01-01	1	release	2005-01-01	1
+2425	That Total Age	1987-01-01	1	release	1987-01-01	1
+2426	The 33D Invader	2011-01-01	1	release	2011-01-01	1
+2427	The Adventures of Lucky Pierre	1961-01-01	1	release	1961-01-01	1
+2428	The Amazing Transplant	1970-01-01	1	release	1970-01-01	1
+2429	The Amorous Milkman	1975-01-01	1	release	1975-01-01	1
+2430	The Ascension	1981-01-01	1	release	1981-01-01	1
+2432	The Bawdy Adventures of Tom Jones	1976-05-10	3	release	1976-05-10	3
+2433	The Blank Generation	1976-01-01	1	release	1976-01-01	1
+2434	The Boogens	1981-01-01	1	release	1981-01-01	1
+2435	魔	1983-01-01	1	release	1983-01-01	1
+2436	The Burglar	1957-01-01	1	release	1957-01-01	1
+2437	The Cat	1992-01-01	1	release	1992-01-01	1
+2438	The Cathedral	1898-01-01	1	publication	1898-01-01	1
+2439	The Colossus of Maroussi	1941-01-01	1	publication	1941-01-01	1
+2441	The Concentration City	1957-01-01	1	publication	1957-01-01	1
+2442	The Covenant, The Sword, and the Arm of the Lord	1985-11-01	2	release	1985-11-01	2
+2443	The Crackdown	1983-08-01	2	release	1983-08-01	2
+2444	The Crew	1984-01-01	1	release	1984-01-01	1
+2445	The Curse of the Doll People	1961-01-01	1	release	1961-01-01	1
+2446	La maldición de la Llorona	1961-01-01	1	release	1961-01-01	1
+2447	The Day of Creation	1987-01-01	1	publication	1987-01-01	1
+2448	The Day of Forever	1966-01-01	1	publication	1966-01-01	1
+2449	The Demon	1976-01-01	1	publication	1976-01-01	1
+2450	The Devil's Sword	1984-01-01	1	release	1984-01-01	1
+2451	The Dorm That Dripped Blood	1982-01-01	1	release	1982-01-01	1
+2452	The Dragon Experience	2003-01-01	1	release	2003-01-01	1
+2453	The Evictors	1979-04-18	3	release	1979-04-18	3
+2454	Baron Prášil	1961-01-01	1	release	1962-01-01	1
+2455	The Forest	1982-01-01	1	release	1982-01-01	1
+2456	The Full Treatment	1960-01-01	1	release	1960-01-01	1
+2457	The Galaxy Invader	1985-04-01	2	release	1985-04-01	2
+2458	The Ghost of Each Room	2001-01-01	1	release	2001-01-01	1
+2459	The Girl, the Body, and the Pill	1967-01-01	1	release	1967-01-01	1
+2460	The Golden Age	1989-01-01	1	release	1989-01-01	1
+2461	The Golden Boat	1990-01-01	1	release	1990-01-01	1
+2462	The Golden Hare with a Voice of Silver	2002-01-01	1	release	2002-01-01	1
+2463	The Good, The Bad & The 4-Skins	1982-01-01	1	release	1982-01-01	1
+2464	The Gruesome Twosome	1967-01-01	1	release	1967-01-01	1
+2465	The House of Morecock	2001-01-01	1	release	2001-01-01	1
+2466	The House of the Seven Hawks	1959-01-01	1	release	1959-01-01	1
+2467	The Human Menagerie	1973-11-01	2	release	1973-11-01	2
+2468	The Imp	1981-01-01	1	release	1981-01-01	1
+2469	The Jade Pussycat	1977-01-01	1	release	1977-01-01	1
+2470	The Kid from Left Field	1953-01-01	1	release	1953-01-01	1
+2471	The Kitchen Tapes	1983-01-01	1	release	1983-01-01	1
+2472	The Last Man to Fly	1992-01-01	1	release	1992-01-01	1
+2473	The Last Trick	1964-01-01	1	release	1964-01-01	1
+2474	The Lickerish Quartet	1970-10-13	3	release	1970-10-13	3
+2475	The Lost Domain	2005-06-01	3	release	2005-06-01	3
+2476	The Love Ban	1973-01-01	1	release	1973-01-01	1
+2477	The Mad Doctor of Blood Island	1969-01-01	1	release	1969-01-01	1
+2478	The Magic Serpent	1966-01-01	1	release	1966-01-01	1
+2479	The Magickal Mystery D Tour EP	1986-01-01	1	publication	1986-01-01	1
+2480	The Maniac	1963-01-01	1	release	1963-01-01	1
+2481	The Maria Dimension	1991-01-01	1	release	1991-01-01	1
+2482	The Mini-Skirt Mob	1968-01-01	1	release	1968-01-01	1
+2483	Miracle de la rose	1946-01-01	1	publication	1946-01-01	1
+2484	The Mutilator	1985-01-01	1	release	1985-01-01	1
+2485	The New Backwards	2008-01-01	1	release	2008-01-01	1
+2486	The Nine Ages of Nakedness	1969-01-01	1	release	1969-01-01	1
+2487	The Original Sound of Sheffield '83/'87	2001-01-01	1	release	2001-01-01	1
+2488	The Pendulum, the Pit and Hope	1983-01-01	1	release	1983-01-01	1
+2489	Krysař	1985-01-01	1	release	1985-01-01	1
+2490	The Playbirds	1978-01-01	1	release	1978-01-01	1
+2491	The Prey	1983-11-04	3	release	1983-11-04	3
+2492	The Raincoats	1979-11-03	3	release	1979-11-03	3
+2493	The Rape After	1984-01-01	1	release	1984-01-01	1
+2494	The Redeemer: Son of Satan	1978-01-01	1	release	1978-01-01	1
+2495	The Return of the Durutti Column	1980-01-01	2	release	1980-01-01	2
+2496	The Rising of the Moon	1956-01-01	1	release	1956-01-01	1
+2497	The Room	1971-01-01	1	publication	1971-01-01	1
+2498	The Satisfiers of Alpha Blue	1980-01-01	1	release	1980-01-01	1
+2499	The Seeds	1966-01-01	1	release	1966-01-01	1
+2500	The Sex Thief	1973-01-01	1	release	1973-01-01	1
+2501	Dværgen	1973-12-01	2	release	1973-12-01	2
+2503	The Slayer	1982-10-01	2	release	1982-10-01	2
+2504	Der Zauberlehrling	1907-01-01	1	publication	1907-01-01	1
+2505	The Sound-Sweep	1960-01-01	1	publication	1960-01-01	1
+2506	A Star Called the Sun	1989-01-01	1	publication	1989-01-01	1
+2507	The Statue	1971-01-01	1	release	1971-01-01	1
+2508	The Sylvie and Babs Hi-Fi Companion	1985-01-01	1	release	1985-01-01	1
+2509	The Tenement Year	1988-01-01	1	release	1988-01-01	1
+2510	The Territory	1981-01-01	1	release	1981-01-01	1
+2511	The Texas Vibrator Massacre	2008-01-01	1	release	2008-01-01	1
+2512	The Thrill Killers	1964-01-01	1	release	1964-01-01	1
+2513	The Tower	1984-01-01	1	release	1984-01-01	1
+2514	The Twilight People	1972-01-01	1	release	1972-01-01	1
+2515	The Unlimited Dream Company	1979-10-01	2	publication	1979-10-01	2
+2516	The Unseen	1980-01-01	1	release	1980-01-01	1
+2517	The Untold Story 2	1998-01-01	1	release	1998-01-01	1
+2518	The Ups and Downs of a Handyman	1975-01-01	1	release	1975-01-01	1
+2519	The Vampira Show	1954-04-30	3	broadcast_start	1954-04-30	3
+2520	The Velvet Vampire	1971-01-01	1	release	1971-01-01	1
+2521	The Vision and the Voice	1983-01-01	1	release	1983-01-01	1
+2522	The Voice of America	1980-07-01	2	release	1980-07-01	2
+2523	The Voices of Time	1960-10-01	2	publication	1960-10-01	2
+2524	The Whispering Wall	2004-01-01	1	release	2004-01-01	1
+2525	The Wife Swappers	1970-01-01	1	release	1970-01-01	1
+2526	The Willow Tree	1998-01-01	1	publication	1998-01-01	1
+2527	The Woman Hunt	1972-01-01	1	release	1972-01-01	1
+2528	The Working Girls	1974-01-01	1	release	1974-01-01	1
+2529	The World of Geisha	1973-01-01	1	release	1973-01-01	1
+2530	There Was a Little Girl	1981-01-01	1	release	1981-01-01	1
+2531	They Came from the Shadows	2009-01-01	1	release	2009-01-01	1
+2532	Thirst	1981-01-01	1	release	1981-01-01	1
+2533	Three Mantras	1980-01-01	1	publication	1980-01-01	1
+2534	Thundercrack!	1975-01-01	1	release	1975-01-01	1
+2535	Time Adventure: Zeccho 5-byo Mae	1986-01-01	1	release	1986-01-01	1
+2536	Time Considered as a Helix of Semi-Precious Stones	1968-12-01	2	publication	1968-12-01	2
+2537	Tired Eyes Slowly Burning	1987-01-01	1	release	1987-01-01	1
+2538	To Be an Angel Blind, the Crippled Soul Divide	1996-01-01	1	release	1996-01-01	1
+2539	To the Quiet Men from a Tiny Girl	1980-01-01	1	release	1980-01-01	1
+2540	Tokyo Emmanuelle	1975-01-01	1	release	1975-01-01	1
+2541	Tongues Untied	1989-01-01	1	release	1989-01-01	1
+2542	Too Much Pussy!	2010-01-01	1	release	2010-01-01	1
+2543	Total	2005-01-01	1	release	2005-01-01	1
+2544	Total Eclipse of the Sun	1999-01-01	1	publication	1999-01-01	1
+2545	Triton	1976-02-01	2	publication	1976-02-01	2
+2546	晚九朝五	1994-01-01	1	release	1994-01-01	1
+2547	Twilight Dinner	1998-01-01	1	release	1998-01-01	1
+2548	Under the Doctor	1976-01-01	1	release	1976-01-01	1
+2549	Up in Flames	1973-01-01	1	release	1973-01-01	1
+2550	Virgin Witch	1971-01-01	1	release	1971-01-01	1
+2551	Vs.	1982-01-01	1	release	1982-01-01	1
+2552	Walk Together, Rock Together	1985-01-01	1	release	1985-01-01	1
+2553	Warning from Space	1956-01-01	1	release	1956-01-01	1
+2554	Werewolves on Wheels	1971-08-11	3	release	1971-08-11	3
+2555	Westworld	1982-02-01	2	release	1982-02-01	2
+2556	Wet Weekend	1979-01-01	1	release	1979-01-01	1
+2557	Wet Wilderness	1976-01-01	1	release	1976-01-01	1
+2558	What the Swedish Butler Saw	1975-01-01	1	release	1975-01-01	1
+2560	Who's Been Sleeping in My Brain	1983-11-11	3	release	1983-11-11	3
+2561	Widow's Perverted Hell	1991-01-01	1	release	1991-01-01	1
+2563	Windowpane	1990-01-01	1	publication	1990-01-01	1
+2564	Kladivo na čarodějnice	1970-01-01	1	release	1970-01-01	1
+2565	Woman Who Exposes Herself	1981-01-01	1	release	1981-01-01	1
+2566	Woman on the Night Train	1972-01-01	1	release	1972-01-01	1
+2567	Woman with Red Hair	1979-01-01	1	release	1979-01-01	1
+2568	Word Is Out: Stories of Some of Our Lives	1977-01-01	1	release	1977-01-01	1
+2569	Working Girls	1986-01-01	1	release	1986-01-01	1
+2570	Wrangler: Anatomy of an Icon	2008-01-01	1	release	2008-01-01	1
+2571	You Must Be Certain of the Devil	1988-01-01	1	publication	1988-01-01	1
+2572	Young Soul Rebels	1991-08-09	3	release	1991-08-09	3
+2573	Young and Dangerous: The Prequel	1998-01-01	1	release	1998-01-01	1
+2574	Your Children Placate You from Premature Graves	2006-01-01	1	release	2006-01-01	1
+2575	ズームイン 暴行団地	1980-01-01	1	release	1980-01-01	1
+2576	Zoom Up: Rape Site	1979-01-01	1	release	1979-01-01	1
+2578	他人の顔	1964-01-01	1	publication	1964-01-01	1
+2579	Indian Summer	1993-01-01	1	release	1993-01-01	1
+2580	Hasta su abuelo	1799-01-01	1	inception	1799-01-01	1
+2581	Silent Madness	1984-01-01	1	release	1984-01-01	1
+2582	¡Bravísimo!	1799-01-01	1	inception	1799-01-01	1
+2583	¡Que se la llevaron!	1799-01-01	1	inception	1799-01-01	1
+2584	Ga, ga. Chwała bohaterom	1986-01-01	1	release	1986-01-01	1
+2585	Release the Bats	1981-07-31	3	publication	1981-07-31	3
+2586	Tocsin	1984-01-01	1	release	1984-01-01	1
+2587	Echoes	2001-01-01	1	release	2001-01-01	1
+2588	Hero's Island	1962-01-01	1	release	1962-01-01	1
+2589	Humongous	1982-01-01	1	release	1982-01-01	1
+2590	Baby Face	1977-01-01	1	release	1977-01-01	1
+2591	The Oily Maniac	1976-01-01	1	release	1976-01-01	1
+2592	Due West: Our Sex Journey	2012-01-01	1	release	2012-01-01	1
+2593	The Eternal Evil of Asia	1995-01-01	1	release	1995-01-01	1
+2594	Bloody Brotherhood	1989-01-07	3	release	1989-01-07	3
+2595	Triads: The Inside Story	1989-01-01	1	release	1989-01-01	1
+2596	Le descañona	1799-01-01	1	inception	1799-01-01	1
+2597	ちょっとかわいいアイアンメイデン	2014-07-18	3	release	2014-07-18	3
+2599	Love Letter	1981-01-01	1	release	1981-01-01	1
+2600	Kabe	1951-05-28	3	publication	1951-05-28	3
+2601	Female Prisoner: Cage	1983-09-16	3	release	1983-09-16	3
+2602	Yokai Monsters: Spook Warfare	1968-01-01	1	release	1968-01-01	1
+2603	妖怪百物語	1968-01-01	1	release	1968-01-01	1
+2604	Throw Away Your Books, Rally in the Streets	1971-04-24	3	release	1971-04-24	3
+2605	Genuine Lesbian: Embarrassing Position	1994-01-01	1	release	1994-01-01	1
+2606	Yokai Monsters: Along with Ghosts	1969-01-01	1	release	1969-01-01	1
+2607	獣の戯れ	1961-09-30	3	publication	1961-09-30	3
+2608	Molester Train: Mischievous Wives	1992-01-01	1	release	1992-01-01	1
+2609	The Box Man	1973-03-30	3	publication	1973-03-30	3
+2610	The Snake Girl and the Silver-Haired Witch	1968-12-14	3	release	1968-12-14	3
+2611	The Forbidden Legend Sex & Chopsticks	2008-09-19	3	release	2008-09-19	3
+2612	The Dream of Garuda	1994-01-01	1	release	1994-01-01	1
+2613	The Golden Lotus	1974-01-01	1	release	1974-01-01	1
+2614	Lubię nietoperze	1985-07-14	3	release	1985-07-14	3
+2615	Nieciekawa historia	1982-01-01	1	release	1982-01-01	1
+2616	Niezwykła podróż Baltazara Kobera	1988-12-26	3	release	1988-12-26	3
+2617	Osobisty pamiętnik grzesznika przez niego samego spisany	1986-01-01	1	release	1986-01-01	1
+2618	Pismak	1985-09-23	3	release	1985-09-23	3
+2619	The Divine Punishment	1986-01-01	1	release	1986-01-01	1
+2620	Sladké hry minulého leta	1970-01-19	3	release	1970-01-19	3
+2621	Straka v hrsti	1983-01-01	1	release	1983-01-01	1
+2622	Darkness/Light/Darkness	1989-04-25	3	release	1989-04-25	3
+2623	The Comeback	1978-01-01	1	release	1978-01-01	1
+2624	Erotic Inferno	1975-01-01	1	release	1975-01-01	1
+2625	The Geek	1971-01-01	1	release	1971-01-01	1
+2626	House of Whipcord	1974-03-28	3	release	1974-03-28	3
+2627	Jag - en oskuld	1968-01-01	1	release	1968-01-01	1
+2628	Let's Get Laid	1978-01-01	1	release	1978-01-01	1
+2629	Night Hair Child	1971-10-14	3	release	1971-10-14	3
+2630	Porn of the Dead	2006-01-01	1	release	2006-01-01	1
+2631	Secrets of a Super Stud	1975-01-01	1	release	1975-01-01	1
+2632	Smithereens	1982-01-01	1	release	1982-01-01	1
+2633	The Student Nurses	1970-01-01	1	release	1970-01-01	1
+2634	Suburban Roulette	1968-01-01	1	release	1968-01-01	1
+2635	Traci Takes Tokyo	1986-01-01	1	release	1986-01-01	1
+2636	The Witch Who Came from the Sea	1976-01-01	1	release	1976-01-01	1
+2637	La chouette aveugle	1987-01-01	1	release	1987-01-01	1
+2638	Les Deux Orphelines vampires	1997-01-01	1	release	1997-01-01	1
+2639	The Kindness of Women	1991-01-01	1	publication	1991-01-01	1
+2640	Lady Terminator	1989-06-10	3	release	1989-06-10	3
+2641	The Queen of Black Magic	1981-01-01	1	release	1981-01-01	1
+2642	Special Silencers	1979-01-01	1	release	1979-01-01	1
+2643	Sweet Troubles	1984-01-01	1	release	1984-01-01	1
+2644	Alice nel paese delle pornomeraviglie	1993-01-01	1	release	1993-01-01	1
+2645	Císařův slavík	1948-01-01	1	release	1948-01-01	1
+2646	Optimo EP	1983-01-01	1	publication	1983-01-01	1
+2647	Intruder	1997-01-01	1	release	1997-01-01	1
+2648	Breaking Point	1975-01-01	1	release	1975-01-01	1
+2649	Tumbling Doll of Flesh	1998-01-01	1	release	1998-01-01	1
+2650	Sweet Sixteen	1983-01-01	1	release	1983-01-01	1
+2651	Sex with a Stranger	1986-10-01	3	release	1986-10-01	3
+2652	Sex Psycho	1970-01-01	1	release	1970-01-01	1
+2653	Come Deadly	1974-01-01	1	release	1974-01-01	1
+2654	Antes que anochezca	1992-01-01	1	publication	1992-01-01	1
+2655	Wolverine XXX	2013-09-10	3	release	2013-09-10	3
+2656	Chrome and Hot Leather	1971-01-01	1	release	1971-01-01	1
+2657	Decoder	1984-01-01	1	release	1984-01-01	1
+2658	Grub Girl	2006-01-01	1	release	2006-01-01	1
+2659	The Oklahoman	1957-01-01	1	release	1957-01-01	1
+2660	Inside Jennifer Welles	1977-01-01	1	release	1977-01-01	1
+2661	Spirit of Seventy Sex	1976-09-10	3	release	1976-09-10	3
+2662	This Ain’t Star Trek XXX	2009-05-12	3	release	2009-05-12	3
+2663	Avengers XXX: A Porn Parody	2012-05-08	3	release	2012-05-08	3
+2664	Tales from the Dark 1	2013-01-01	1	release	2013-01-01	1
+2665	Perfect Exchange	1993-01-01	1	release	1993-01-01	1
+2666	The Forbidden Legend Sex & Chopsticks 2	2009-01-01	1	release	2009-01-01	1
+2667	Love Swindlers	1976-01-01	1	release	1976-01-01	1
+2668	Mimesis: Night of the Living Dead	2011-01-01	1	release	2011-01-01	1
+2669	3D豪情	2014-01-01	1	release	2014-01-01	1
+2670	Man of Steel XXX: An Axel Braun Parody	2013-01-01	1	release	2013-01-01	1
+2671	Daughter of Darkness	1993-01-01	1	release	1993-01-01	1
+2672	Him	1974-03-27	3	release	1974-03-27	3
+2673	Runaway Blues	1989-01-01	1	release	1989-01-01	1
+2674	Love, Lust and Violence	1975-01-01	1	release	1975-01-01	1
+2675	Obsessed	1977-01-01	1	release	1977-01-01	1
+2676	Zodiac Rapist	1971-01-01	1	release	1971-01-01	1
+2677	Ceremony	2013-01-01	1	release	2013-01-01	1
+2678	Chomp	1983-01-01	1	release	1983-01-01	1
+2679	American Zombie	2007-01-01	1	release	2007-01-01	1
+2680	Love Toy	1968-01-01	1	release	1968-01-01	1
+2681	Love You	1979-01-01	1	release	1979-01-01	1
+2682	Memphis Cathouse Blues	1982-01-01	1	release	1982-01-01	1
+2683	The New Comers	1973-01-01	1	release	1973-01-01	1
+2684	Madame Edwarda	1937-01-01	1	publication	1937-01-01	1
+2685	Kingdom Come	2006-01-01	1	publication	2006-01-01	1
+2686	Eden Eden Eden	1970-01-01	1	publication	1970-01-01	1
+2687	Q16635882	1989-01-01	1	release	1989-01-01	1
+2688	The Budding of Brie	1980-01-01	1	release	1980-01-01	1
+2690	Alla ricerca del piacere	1972-03-21	3	release	1972-03-21	3
+2691	The Submission of Emma Marx	2013-01-01	1	release	2013-01-01	1
+2692	Prisoner of Love (book)	1986-01-01	1	publication	1986-01-01	1
+2693	I Am the Last of All the Field That Fell: A Channel	2014-03-04	3	release	2014-03-04	3
+2694	Homebodies	1974-09-13	3	release	1974-09-13	3
+2695	Spacked Out	2000-01-01	1	release	2000-01-01	1
+2696	Reel People	1984-01-01	1	release	1984-01-01	1
+2697	This Stuff'll Kill Ya!	1971-01-01	1	release	1971-01-01	1
+2698	Cruelty: Black Rose Torture	1975-04-26	3	release	1975-04-26	3
+2699	The Corpse	1971-11-10	3	release	1971-11-10	3
+2700	Talk Dirty to Me	1980-11-21	3	release	1980-11-21	3
+2701	A Guide for Beginners: A Silver Voice	2001-01-01	1	release	2001-01-01	1
+2702	Evil Come, Evil Go	1972-01-01	1	release	1972-01-01	1
+2703	Dogs Blood Rising	1984-01-01	1	release	1984-01-01	1
+2704	Cool It Carol!	1970-12-01	3	release	1970-12-01	3
+2705	Ersatz GB	2011-01-01	1	release	2011-01-01	1
+2706	The Lounge Lizards	1981-01-01	1	release	1981-01-01	1
+2708	Lolita: Vibrator Torture	1987-09-19	3	release	1987-09-19	3
+2709	Lovers Are Wet	1973-03-24	3	release	1973-03-24	3
+2711	戦国ロック 疾風の女たち	1972-12-27	3	release	1972-12-27	3
+2712	Resurrection of Eve	1973-09-13	3	release	1973-09-13	3
+2713	Sweet Savage	1979-01-01	1	release	1979-01-01	1
+2714	Times Square Comes Alive	1985-01-01	1	release	1985-01-01	1
+2715	Satan Is Real	1959-11-16	3	release	1959-11-16	3
+2716	Of Ruine or Some Blazing Starre	1994-01-01	1	release	1994-01-01	1
+2717	See My Baby Jive	1973-01-01	1	publication	1973-01-01	1
+2718	Underground U.S.A.	1980-01-01	1	release	1980-01-01	1
+2719	Thunder Perfect Mind	1992-01-01	1	release	1992-01-01	1
+2720	Soft Black Stars	1998-01-01	1	release	1998-01-01	1
+2721	Merzbild Schwet	1980-01-01	1	release	1980-01-01	1
+2722	See the Whirl	1981-07-29	3	release	1981-07-29	3
+2723	Flesh Market	1962-01-01	1	release	1962-01-01	1
+2724	Invisible Man: Rape!	1978-12-23	3	release	1978-12-23	3
+2725	憂国 (Yūkoku)	1960-12-01	2	publication	1960-12-01	2
+2726	修羅	1971-02-13	3	release	1971-02-13	3
+2727	Telephone Free Landslide Victory	1985-01-01	1	release	1985-01-01	1
+2728	The Gethsemane Option	2013-01-01	1	release	2013-01-01	1
+2729	Pierrot Lunaire	2014-02-09	3	release	2014-02-09	3
+2730	Spellbound	1981-05-22	3	publication	1981-05-22	3
+2731	The Premonition	1976-01-01	1	publication	1976-01-01	1
+2732	Pretty Peaches	1978-11-23	3	release	1978-11-23	3
+2733	Naked as Nature Intended	1961-01-01	1	release	1961-01-01	1
+2734	Gyrate	1980-01-01	1	release	1980-01-01	1
+2735	Terminal Island	1973-06-22	3	release	1973-06-22	3
+2736	Secrets of Sex	1970-01-01	1	release	1970-01-01	1
+2737	Coisas Eróticas	1981-01-01	1	release	1981-01-01	1
+2738	Lady Chatterley In Tokyo	1977-01-01	1	release	1977-01-01	1
+2739	El Secreto del Dr. Orloff	1964-01-01	1	release	1964-01-01	1
+2740	Q17494948	1989-01-01	1	release	1989-01-01	1
+2741	Duendecitos	1799-01-01	1	inception	1799-01-01	1
+2742	Le dolci zie	1975-01-01	1	release	1975-01-01	1
+2743	ラスト・キャバレー	1988-01-01	1	release	1988-01-01	1
+2744	おんなの細道・濡れた海峡	1980-04-12	3	release	1980-04-12	3
+2745	Fiend	1980-01-01	1	release	1980-01-01	1
+2746	Let Me Tell Ya 'bout White Chicks	1984-01-01	1	release	1984-01-01	1
+2747	Luicidal	2014-01-01	1	release	2014-01-01	1
+2748	Big Sur and the Oranges of Hieronymus Bosch	1957-01-01	1	publication	1957-01-01	1
+2749	Rote Liebe	1982-02-20	3	release	1982-02-20	3
+2750	Ladrón de cadáveres	1957-09-26	3	release	1957-09-26	3
+2751	There is a Secret in my Soup	2001-01-01	1	release	2001-01-01	1
+2752	Unwilling Lovers	1977-01-01	1	release	1977-01-01	1
+2753	The Muthers	1976-01-01	1	release	1976-01-01	1
+2754	Queen of the Blues	1985-01-01	1	release	1985-01-01	1
+2755	Chinese Kamasutra II	1996-01-01	1	release	1996-01-01	1
+2756	Pomeriggio caldo	1988-01-01	1	release	1988-01-01	1
+2757	Straight on Till Morning	1972-01-01	1	publication	1972-01-01	1
+2758	Lament	2014-01-01	1	release	2014-01-01	1
+2759	A Reflection of Fear	1973-01-01	1	publication	1973-01-01	1
+2760	Tales from the Dark 2	2013-01-01	1	release	2013-01-01	1
+2761	The Dark Knight XXX	2012-07-24	3	release	2012-07-24	3
+2762	The Gigolo	2015-01-01	1	release	2015-01-01	1
+2763	School for Sex	1969-01-01	1	release	1969-01-01	1
+2764	Doom Asylum	1987-01-01	1	release	1987-01-01	1
+2765	Love Is a Splendid Illusion	1970-01-01	1	release	1970-01-01	1
+2766	Nudist Paradise	1959-02-01	2	release	1959-02-01	2
+2767	A Promise of Bed	1969-01-01	1	release	1969-01-01	1
+2768	Savage Fury	1985-01-01	1	release	1985-01-01	1
+2769	Suburban Wives	1972-01-01	1	release	1972-01-01	1
+2770	Die Spinne	1908-01-01	1	publication	1908-01-01	1
+2771	Ladoni	1994-01-01	1	release	1994-01-01	1
+2772	Hong Kong Godfather	1985-01-01	1	release	1985-01-01	1
+2773	Virgin Rope Makeover	1979-01-01	1	release	1979-01-01	1
+2774	Snakes	2014-12-01	2	release	2014-12-01	2
+2775	Следы на снегу	2014-01-01	1	release	2014-01-01	1
+2777	Cosmos	2015-01-01	1	release	2015-01-01	1
+2778	Superman vs. Spider-Man XXX	2012-11-13	3	release	2012-11-13	3
+2779	Sub-Lingual Tablet	2015-01-01	1	release	2015-01-01	1
+2780	Bloody New Year	1987-01-01	1	release	1987-01-01	1
+2781	Private Obsession	1995-01-01	1	release	1995-01-01	1
+2782	Diminished Responsibility	1981-01-01	1	release	1981-01-01	1
+2784	Carmen, Baby	1967-01-01	1	release	1967-01-01	1
+2785	Whirlpool	1970-01-01	1	release	1970-01-01	1
+2786	Defixiones: Will and Testament	2003-01-01	1	release	2003-01-01	1
+2787	Guilty Guilty Guilty	2008-01-01	1	release	2008-01-01	1
+2788	La serpenta canta	2003-01-01	1	release	2003-01-01	1
+2789	Masque of the Red Death	2003-01-01	1	release	2003-01-01	1
+2792	Beautiful Wrestlers: Down for the Count	1984-01-01	1	release	1984-01-01	1
+2793	Le scomunicate di San Valentino	1974-01-01	1	release	1974-01-01	1
+2794	Night Trips	1989-01-01	1	release	1989-01-01	1
+2795	The Tragic Fantasy - Tiger of Wanchai	1994-01-01	1	release	1994-01-01	1
+2796	Tenement	1985-01-01	1	release	1985-01-01	1
+2797	La Philosophie dans le boudoir	1795-01-01	1	publication	1795-01-01	1
+2798	Sechs Schwedinnen im Pensionat	1979-09-28	3	release	1979-09-28	3
+2799	The Sexplorer	1976-01-01	1	release	1976-01-01	1
+2800	The Band	2009-01-01	1	release	2009-01-01	1
+2801	Keep It Up, Jack	1974-06-27	3	release	1974-06-27	3
+2802	For Marx...	2012-01-01	1	release	2012-01-01	1
+2803	Q21641141	1989-01-01	1	release	1989-01-01	1
+2805	Satanism	1989-01-01	1	release	1989-01-01	1
+2806	Vortex	1981-01-01	1	release	1981-01-01	1
+2807	Von Mädchen und Pferden	2014-01-01	1	release	2014-01-01	1
+2808	Q21661755	1990-01-01	1	release	1990-01-01	1
+2809	Star Wars: A Gay XXX Parody	2015-12-25	3	release	2015-12-25	3
+2811	Chinese Kamasutra	1994-01-01	1	release	1994-01-01	1
+2812	The Gigolo 2	2016-01-01	1	release	2016-01-01	1
+2813	Batman v. Superman XXX	2015-06-03	3	release	2015-06-03	3
+2814	Wonder Woman XXX	2015-09-29	3	release	2015-09-29	3
+2816	Bonesaw	2006-04-01	2	release	2006-04-01	2
+2817	If Looks Could Kill	1979-01-01	1	release	1979-01-01	1
+2818	The Tale of Tiffany Lust	1981-09-01	2	release	1981-09-01	2
+2819	Maraschino Cherry	1978-10-20	3	release	1978-10-20	3
+2820	Massage Parlor Murders	1973-09-01	3	release	1973-09-01	3
+2821	大魔神逆襲	1966-01-01	1	release	1966-01-01	1
+2822	Legacy of Satan	1974-01-01	1	release	1974-01-01	1
+2823	My Hustler	1965-01-01	1	release	1965-01-01	1
+2824	追兇20年	1998-04-23	3	release	1998-04-23	3
+2825	Seven Songs	1982-01-01	1	release	1982-01-01	1
+2826	The Album	1977-01-01	1	release	1977-01-01	1
+2827	Lee Michaels	1969-01-01	1	release	1969-01-01	1
+2828	Taboo	1980-01-01	1	release	1980-01-01	1
+2829	Let’s Talk about Sex	1994-01-01	2	release	1994-01-01	2
+2830	Зоология	2016-06-10	3	release	2016-06-10	3
+2831	Can I Be Your Bratwurst, Please?	1999-01-01	1	release	1999-01-01	1
+2832	Transexual Menace	1996-01-01	1	release	1996-01-01	1
+2833	Dracula Sucks	1978-01-01	1	release	1978-01-01	1
+2835	Her Vengeance	1988-10-07	3	release	1988-10-07	3
+2836	The Return of The Living Dead	1985-01-01	1	release	1985-01-01	1
+2837	The Air-Conditioned Nightmare	1945-01-01	1	publication	1945-01-01	1
+2838	The Scavengers	1969-01-01	1	release	1969-01-01	1
+2839	Fluidø	2017-02-14	3	release	2017-02-14	3
+2840	The Misandrists	2017-01-01	1	release	2017-01-01	1
+2841	Secrets of a Door-to-Door Salesman	1973-01-01	1	release	1973-01-01	1
+2842	Ulrike's Brain	2017-02-11	3	release	2017-02-11	3
+2843	Le film à venir	1997-01-01	1	release	1997-01-01	1
+2844	風に濡れた女	2016-01-01	1	release	2016-01-01	1
+2845	9 Lives of a Wet Pussy	1976-08-20	3	release	1976-08-20	3
+2846	Variety	1983-01-01	1	release	1983-01-01	1
+2847	Tiffany Jones	1964-01-01	1	inception	1964-01-01	1
+2848	The Alley Cats	1966-01-01	1	release	1966-01-01	1
+2849	The Dirty Girls	1965-01-01	1	release	1965-01-01	1
+2850	アンチポルノ	2016-01-01	1	release	2016-01-01	1
+2851	Sechs Schwedinnen von der Tankstelle	1980-09-19	3	release	1980-09-19	3
+2852	Malatesta's Carnival of Blood	1973-01-01	1	release	1973-01-01	1
+2853	The World Is Full of Married Men	1979-01-01	1	release	1979-01-01	1
+2854	New Facts Emerge	2017-01-01	1	release	2017-01-01	1
+2855	Q30731296	1964-01-01	1	publication	1964-01-01	1
+2856	Nexus	1960-01-01	1	publication	1960-01-01	1
+2857	Plexus	1948-01-01	1	publication	1952-01-01	1
+2858	Le Petit	1943-01-01	1	publication	1943-01-01	1
+2860	New York City Inferno	1978-01-01	1	release	1978-01-01	1
+2861	Équation à un inconnu	1980-03-19	3	release	1980-03-19	3
+2862	The Other Side of Aspen	1978-01-01	1	release	1978-01-01	1
+2863	Bijou	1972-01-01	1	release	1972-01-01	1
+2864	大魔神	1966-01-01	1	publication	1966-01-01	1
+2865	Vanishing Point	1983-01-01	1	publication	1983-01-01	1
+2866	The Flat	1968-01-01	1	release	1968-01-01	1
+2867	Red Account: My Bloody Angel	1988-01-01	1	release	1988-01-01	1
+2868	Subway Riders	1981-02-01	3	release	1981-02-01	3
+2870	Los parecidos	2015-09-01	2	release	2015-09-01	2
+2871	Sex and the Other Woman	1972-01-01	1	release	1972-01-01	1
+2872	Pengabdi Setan	2017-09-28	3	release	2017-09-28	3
+2873	Amerikai anzix	1975-01-01	1	release	1975-01-01	1
+2874	The Dog's Night Song	1983-01-01	1	release	1983-01-01	1
+2875	ホワイトリリー	2016-10-07	3	release	2016-10-07	3
+2876	Alienist	2016-01-01	1	release	2016-01-01	1
+2877	Angel Dust	1994-01-01	1	release	1994-01-01	1
+2878	Deadpool XXX: A Porn Parody	2015-09-15	3	release	2015-09-15	3
+2879	Sodom and Gomorrah: The Last Seven Days	1975-01-01	1	release	1975-01-01	1
+2880	The House That Vanished	1973-01-01	1	release	1973-01-01	1
+2881	Là-Bas	1895-01-01	1	publication	1895-01-01	1
+2882	Dead Magic (Anna von Hausswolff album)	2018-01-01	1	release	2018-01-01	1
+2883	Всё идёт по плану	1988-01-01	1	release	1988-01-01	1
+2884	牝猫たち	2017-01-14	3	release	2017-01-14	3
+2885	Can You Keep It Up for a Week?	1974-01-01	1	release	1974-01-01	1
+2886	The Astrologer	1975-12-01	2	release	1975-12-01	2
+2887	The Wandering Soap Opera	2017-01-01	1	release	2017-01-01	1
+2888	May the Devil Take You	2018-08-09	3	release	2018-08-09	3
+2889	Israel / Red Over White	1980-11-28	3	publication	1980-11-28	3
+2890	ハードフォーカス 盗聴＜ぬすみぎき＞	1988-01-01	1	release	1988-01-01	1
+2892	The Light Is Leaving Us All	2018-10-13	3	release	2018-10-13	3
+2893	The Third Hand	1981-01-01	1	release	1981-01-01	1
+2894	El mundo alucinante	1969-01-01	1	publication	1969-01-01	1
+2895	Q61071509	1971-01-01	1	release	1971-01-01	1
+2896	Amanda by Night	1981-01-01	1	release	1981-01-01	1
+2898	A Forest	1979-01-01	1	publication	1979-01-01	1
+2899	The Hanging Garden	1982-07-12	3	publication	1982-07-12	3
+2900	The Autobiography of a Flea	1976-01-01	1	release	1976-01-01	1
+2901	It is Not the Pornographer That is Perverse...	2018-01-01	1	release	2018-01-01	1
+2902	My Father is Coming	1991-01-01	1	release	1991-01-01	1
+2903	Die Jungfrauenmaschine	1988-09-08	3	release	1988-09-08	3
+2904	All the Way	2017-01-01	1	release	2017-01-01	1
+2905	Fashionistas Safado: Berlin	2007-01-01	1	release	2007-01-01	1
+2907	Ratu Ilmu Hitam	2019-11-07	3	release	2019-11-07	3
+2908	Impetigore	2019-01-01	1	release	2019-01-01	1
+2909	ジムノペディに乱れる	2016-11-26	3	release	2016-11-26	3
+2911	Les crimes d'amour	1799-01-01	1	inception	1799-01-01	1
+2912	Aphrodesia's Diary	1983-01-01	1	release	1983-01-01	1
+2913	The Sins of Ilsa	1985-01-01	1	release	1985-01-01	1
+2914	Female Misbehavior	1992-01-01	1	release	1992-01-01	1
+2915	Sex World	1977-01-01	1	release	1977-01-01	1
+2916	Zero Woman: Red Handcuffs	1974-01-01	1	release	1974-01-01	1
+2917	Vampire Hookers	1978-01-01	1	release	1978-01-01	1
+2919	The Vixens of Kung Fu	1975-01-01	1	release	1975-01-01	1
+2920	Jungle Blue	1978-01-01	1	release	1978-01-01	1
+2921	The Mad Love Life of a Hot Vampire	1971-01-01	1	release	1971-01-01	1
+2922	Dark August	1976-01-01	1	release	1976-01-01	1
+2923	Intimate Games	1976-01-01	1	release	1976-01-01	1
+2924	I'm Not Feeling Myself Tonight	1976-01-01	1	release	1976-01-01	1
+2925	I Can Spin a Rainbow	2017-01-01	1	release	2017-01-01	1
+2926	Desires Within Young Girls	1977-01-01	1	release	1977-01-01	1
+2927	A Ballad About Green Wood	1983-01-01	1	release	1983-01-01	1
+2929	Circus of Books	2019-01-01	1	release	2019-01-01	1
+2930	残酷・異常・虐待物語 元禄女系図	1969-01-09	3	release	1969-01-09	3
+2932	Bela Lugosi's Dead / Boys	1979-08-01	2	publication	1979-08-01	2
+2933	3 Days of a Blind Girl	1993-05-27	3	release	1993-05-27	3
+2935	May the Devil Take You Too	2020-02-27	3	release	2020-02-27	3
+2936	Saint-Narcisse	2020-01-01	1	release	2020-01-01	1
+2937	Alles in Allem	2020-05-15	3	release	2020-05-15	3
+2938	El vampiro sangriento	1962-09-06	3	release	1962-09-06	3
+2939	Belzebuth	2017-10-14	3	release	2017-10-14	3
+2940	Daughter of the Sun	1962-01-01	1	release	1962-01-01	1
+2941	I Want Your Love	2012-01-01	1	release	2012-01-01	1
+2943	Didn’t do it for Love	1997-01-01	1	release	1997-01-01	1
+2944	Annie	1990-01-01	1	release	1990-01-01	1
+2945	Fucking Different XXX	2012-01-01	1	release	2012-01-01	1
+2947	Forbidden Intimacy of Two Young Housewives	2000-01-01	1	release	2000-01-01	1
+2948	怪談雪女郎	1968-04-20	3	release	1968-04-20	3
+2949	Fashionistas Lost	2020-01-01	1	release	2020-01-01	1
+2950	Sinner Get Ready	2021-08-06	3	release	2021-08-06	3
+2952	Genderation	2021-06-10	3	release	2021-06-10	3
+2954	Corruption	1983-01-01	1	release	1983-01-01	1
+2955	'Salem's Lot	2024-09-25	3	release	2024-09-25	3
+2957	Vampir	1920-01-01	1	publication	1920-01-01	1
+2958	Holky z porcelánu	1974-01-01	1	release	1974-01-01	1
+2959	All Bitches Die	2017-06-07	3	release	2017-06-07	3
+2960	Let the Evil of His Own Lips Cover Him	2017-02-14	3	release	2017-02-14	3
+2961	Centipede Horror	1982-10-29	3	release	1982-10-29	3
+2964	Living Venus	1961-01-01	1	release	1961-01-01	1
+2965	巨根伝説 美しき謎	1983-01-01	1	release	1983-01-01	1
+2966	Cities in Dust	1985-01-01	1	publication	1985-01-01	1
+2967	The Sluts	2004-12-01	2	publication	2004-12-01	2
+2968	The Sparring Partner	2022-10-27	3	release	2022-10-27	3
+2971	The New Barbarians 2	1990-01-01	1	release	1990-01-01	1
+2973	Closer	1989-04-01	3	publication	1989-04-01	3
+2974	The Love Box	1972-01-01	1	publication	1972-01-01	1
+2975	Spider-Man XXX 2: An Axel Braun Parody	2014-05-13	3	release	2014-05-13	3
+2976	Arcade on Route 9	2006-08-01	3	release	2006-08-01	3
+2978	Flaming Ears	1992-01-01	1	release	1992-01-01	1
+2979	On the Game	1974-01-01	1	release	1974-01-01	1
+2980	Satan's Bed	1965-01-01	1	release	1965-01-01	1
+2981	修道女ルシア 辱＜けが＞す	1978-01-07	3	release	1978-01-07	3
+2982	Niizuma kahanshin: Washizukami	1991-11-22	3	release	1991-11-22	3
+2983	The Crush	2000-01-01	1	release	2000-01-01	1
+2984	The Star Pit	1967-02-01	2	publication	1967-02-01	2
+2986	Valentin, Pierre & Catalina	2018-08-31	3	release	2018-08-31	3
+2988	Not Tonight, Darling	1971-12-01	3	release	1971-12-01	3
+2990	The Visitor	2023-01-01	1	release	2023-01-01	1
+2991	Unmade Beds	1976-01-01	1	release	1976-01-01	1
+2992	Santo contra el doctor Muerte	1973-01-01	1	release	1973-01-01	1
+2994	Pretty Peaches 2	1987-01-01	1	release	1987-01-01	1
+2995	The Devil in Miss Jones 3: A New Beginning	1986-01-01	1	release	1986-01-01	1
+2998	Try	1994-01-01	1	publication	1994-01-01	1
+2999	Guide	1997-01-01	1	publication	1997-01-01	1
+3000	Period	2000-01-01	1	publication	2000-01-01	1
+3001	War Fever	1989-10-01	2	publication	1989-10-01	2
+3002	Myths of the Near Future	1982-10-01	2	publication	1982-10-01	2
+3003	Dream Cargoes	1990-01-01	1	publication	1990-01-01	1
+3004	The Enormous Space	1989-07-01	2	publication	1989-07-01	2
+3005	The Message from Mars	1992-04-01	2	publication	1992-04-01	2
+3007	Satan Was a Lady	2001-01-01	1	release	2001-01-01	1
+3008	The Terminal Beach	1964-01-01	1	publication	1964-01-01	1
+3009	The Drowned Giant	1964-01-01	1	publication	1964-01-01	1
+3010	The Object of the Attack	1984-01-01	1	publication	1984-01-01	1
+3011	Bend Over Boyfriend 2	1999-01-01	1	release	1999-01-01	1
+3012	The Dying Fall	1996-04-01	2	publication	1996-04-01	2
+3013	The Best Short Stories of J. G. Ballard	1978-01-01	1	publication	1978-01-01	1
+3014	Sleeping Beauty XXX: An Axel Braun Parody	2014-06-25	3	release	2014-06-25	3
+3015	Iconoclasts	2025-10-31	3	release	2025-10-31	3
+3016	The Touch of Her Flesh	1967-01-01	1	release	1967-01-01	1
+3017	The Curse of Her Flesh	1968-01-01	1	release	1968-01-01	1
+3018	Forbidden Letters	1979-01-01	1	release	1979-01-01	1
+3023	The Submission of Emma Marx 2: Boundaries	2015-02-16	3	release	2015-02-16	3
+3027	The Dancers	1981-12-04	3	release	1981-12-04	3
+3028	Das Girl im Spiegel	1999-01-01	1	release	1999-01-01	1
+3029	Indiana Mack	2000-11-01	3	release	2000-11-01	3
+3030	Donne gatto - Ladre di sesso	1999-01-01	1	release	1999-01-01	1
+3031	A Midsummer Night's Cream	2000-10-31	3	release	2000-10-31	3
+3032	Cafe Flesh 2	1997-01-01	1	release	1997-01-01	1
+3033	Cafe Flesh 3	2003-01-01	1	release	2003-01-01	1
+3034	Cellar Dweller 3	2000-10-01	3	release	2000-10-01	3
+3036	The Adventures of Dick Black, the Black Dick	1987-01-01	1	publication	1987-01-01	1
+3043	Star Trek: The Original Series	1966-09-08	3	broadcast_start	1966-09-08	3
+3048	Twin Peaks	1990-04-08	3	broadcast_start	1990-04-08	3
+3053	The X-Files	1993-09-10	3	broadcast_start	1993-09-10	3
+3074	iTunes	2001-01-09	3	publication	2001-01-09	3
+3079	Snow White	1812-01-01	1	publication	1812-01-01	1
+3097	Star Wars: Episode IV – A New Hope	1977-01-01	1	release	1977-01-01	1
+3099	Roadrunner Records	1980-01-01	1	inception	1980-01-01	1
+3104	Warner Music Group	1958-04-06	3	inception	1958-04-06	3
+3105	The Raven	1845-01-29	3	publication	1845-01-29	3
+3107	Hessischer Rundfunk	1948-10-02	3	inception	1948-10-02	3
+3120	Jive Records	1977-01-01	1	inception	1977-01-01	1
+3126	Faust	1808-01-01	1	publication	1808-01-01	1
+3174	Dracula	1897-05-26	3	publication	1897-05-26	3
+3181	Motown	1959-01-12	3	inception	1959-01-12	3
+3189	Titanic	1997-11-01	3	release	1997-11-01	3
+3194	The Hound of the Baskervilles	1902-01-01	1	publication	1902-01-01	1
+3203	Pirates of the Caribbean: The Curse of the Black Pearl	2003-07-09	3	release	2003-07-09	3
+3459	Strange Stories from a Chinese Studio	1740-01-01	1	publication	1740-01-01	1
+3566	Alice's Adventures in Wonderland	1865-01-01	1	publication	1865-01-01	1
+3673	A Midsummer Night's Dream	1600-01-01	1	publication	1600-01-01	1
+3833	Beggars Banquet Records	1977-01-01	1	inception	1977-01-01	1
+3862	Snow White and the Seven Dwarfs	1937-12-21	3	release	1937-12-21	3
+3863	Microsoft Store	2011-01-01	1	inception	2011-01-01	1
+3874	Mosfilm	1920-01-30	3	inception	1920-01-30	3
+3885	Frankenstein; or, The Modern Prometheus	1818-01-01	3	publication	1818-01-01	3
+3902	Polydor	1913-01-01	1	inception	1913-01-01	1
+3916	Lenfilm	1914-01-01	1	inception	1914-01-01	1
+3919	Nuclear Blast	1987-01-01	1	inception	1987-01-01	1
+3922	Paramount Pictures	1912-05-08	3	inception	1912-05-08	3
+3927	The Terminator	1984-10-26	3	release	1984-10-26	3
+3932	The Dark Knight	2008-07-18	3	release	2008-07-18	3
+3940	Sire	1966-01-01	1	inception	1966-01-01	1
+3941	Mercury Records	1945-01-01	1	inception	1945-01-01	1
+3988	Interview with the Vampire	1976-04-12	3	publication	1976-04-12	3
+3998	One Hundred Years of Solitude	1967-01-01	1	publication	1967-01-01	1
+4019	The Avengers	2012-04-25	3	release	2012-04-25	3
+4027	Columbia Records	1889-01-15	3	inception	1889-01-15	3
+4028	EMI	1928-03-29	3	inception	1928-03-29	3
+4038	Treasure Island	1883-11-14	3	publication	1883-11-14	3
+4065	The Little Mermaid	1989-01-01	1	release	1989-01-01	1
+4067	Dune	1965-01-01	1	publication	1965-01-01	1
+4069	Island Records	1959-07-04	3	inception	1959-07-04	3
+4082	Capitol Records	1942-01-01	1	inception	1942-01-01	1
+4094	The Wizard of Oz	1939-08-25	3	release	1939-08-25	3
+4098	ZickZack Schallplatten	1980-01-01	1	inception	1980-01-01	1
+4113	Atlantic Records	1947-01-01	1	inception	1947-01-01	1
+4114	RCA Records	1901-01-01	1	inception	1901-01-01	1
+4118	Virgin Records	1972-01-01	1	inception	1972-01-01	1
+4160	Parlophone	1896-01-01	1	inception	1896-01-01	1
+4175	Hard to Be a God	1964-01-01	1	publication	1964-01-01	1
+4186	Geffen Records	1980-01-01	1	inception	1980-01-01	1
+4187	The War of the Worlds	1897-01-01	1	publication	1897-01-01	1
+4205	Sleeping Beauty	1959-01-29	3	release	1959-01-29	3
+4212	Epic Records	1953-01-01	1	inception	1953-01-01	1
+4217	Strange Case of Dr Jekyll and Mr Hyde	1886-01-01	1	publication	1886-01-01	1
+4218	X-Men Origins: Wolverine	2009-04-29	3	release	2009-04-29	3
+4222	Beserkley Records	1973-01-01	1	inception	1973-01-01	1
+4237	Facing the Flag	1896-01-01	1	publication	1896-01-01	1
+4308	Interscope Records	1989-01-01	1	inception	1989-01-01	1
+4310	Two Years' Vacation	1888-01-01	1	publication	1888-01-01	1
+4423	4AD	1980-01-01	1	inception	1980-01-01	1
+4464	Mute Records	1978-01-01	1	inception	1978-01-01	1
+4501	The History of Tom Jones, a Foundling	1749-01-01	1	publication	1749-01-01	1
+4507	The Brady Bunch	1969-09-26	3	broadcast_start	1969-09-26	3
+4603	Caroline Records	1973-01-01	1	inception	1973-01-01	1
+4610	Nitro Records	1995-01-01	1	inception	1995-01-01	1
+4626	Dream Story	1926-01-01	1	publication	1926-01-01	1
+4637	SideOneDummy Records	1995-01-01	1	inception	1995-01-01	1
+4715	The Phantom of the Opera	1910-01-01	1	publication	1910-01-01	1
+4779	Les Disques du Crépuscule	1980-01-01	1	inception	1980-01-01	1
+4785	A&M Records	1962-01-01	1	inception	1962-01-01	1
+4786	A-F Records	1998-01-01	1	inception	1998-01-01	1
+4817	The Ugly Swans	1968-01-01	1	publication	1968-01-01	1
+4918	Buddah Records	1967-01-01	1	inception	1967-01-01	1
+5038	City Slang	1991-01-01	1	inception	1991-01-01	1
+5132	Sony Music	1991-01-01	3	inception	1991-01-01	3
+5244	Adeline Records	1997-01-01	1	inception	1997-01-01	1
+5299	Lucas Entertainment	1998-01-01	1	inception	1998-01-01	1
+5333	Krabat	1971-01-01	1	publication	1971-01-01	1
+5366	Eagle Records	1997-04-01	2	inception	1997-04-01	2
+5399	The Pit and the Pendulum	1842-01-01	1	publication	1842-01-01	1
+5426	Rough Trade	1978-01-01	1	inception	1978-01-01	1
+5433	Борис Годунов	1869-01-01	1	publication	1874-01-01	1
+5468	Lookout! Records	1987-01-01	1	inception	1987-01-01	1
+5510	20th Century Studios	1935-05-31	3	inception	1935-05-31	3
+5560	Alternative Tentacles	1979-01-01	1	inception	1979-01-01	1
+5883	American Recordings	1988-01-01	1	inception	1988-01-01	1
+5890	The Dead Zone	1979-08-16	3	publication	1979-08-16	3
+5912	The Key	1956-01-01	1	publication	1956-01-01	1
+5937	The Shining	1977-01-28	3	publication	1977-01-28	3
+5960	RAK	1969-01-01	1	inception	1969-01-01	1
+5968	Spider-Man	2002-05-03	3	release	2002-05-03	3
+5996	Henry V	1599-01-01	1	inception	1599-01-01	1
+6001	Spaceballs	1987-06-26	3	release	1987-06-26	3
+6012	Westworld	1973-01-01	1	release	1973-01-01	1
+6109	Young Tom Edison	1940-01-01	1	release	1940-01-01	1
+6213	Super Mario Bros.	1993-05-28	3	release	1993-05-28	3
+6243	Selznick International Pictures	1935-01-01	1	inception	1935-01-01	1
+6253	Tales of the Unexpected	1979-01-01	1	publication	1979-01-01	1
+6350	Decca	1929-01-01	1	inception	1929-01-01	1
+6352	Fifty Shades of Grey	2011-06-20	3	publication	2011-06-20	3
+6380	Constantin Film	1950-04-01	3	inception	1950-04-01	3
+6400	NTV	1993-10-10	3	inception	1993-10-10	3
+6409	Falcon Entertainment	1971-01-01	1	inception	1971-01-01	1
+6421	Atco Records	1955-01-01	1	inception	1955-01-01	1
+6462	Deezer	2007-08-22	3	inception	2007-08-22	3
+6470	Fat Wreck Chords	1990-01-01	1	inception	1990-01-01	1
+6494	Man of Steel	2013-06-10	3	release	2013-06-10	3
+6496	Carrie	1974-04-05	3	publication	1974-04-05	3
+6502	Vivid Entertainment	1984-01-01	1	inception	1984-01-01	1
+6506	Henry IV, Part 1	1597-01-01	1	publication	1597-01-01	1
+6543	Reprise Records	1960-01-01	1	inception	1960-01-01	1
+6558	Rykodisc	1983-01-01	1	inception	1983-01-01	1
+6559	Elegant Angel	1990-01-01	1	inception	1990-01-01	1
+6568	Arista Records	1974-01-01	1	inception	1974-01-01	1
+6578	Bronze	1971-01-01	1	inception	1971-01-01	1
+6581	The Golem	1915-01-01	1	publication	1915-01-01	1
+6607	Industrial Records	1976-01-01	1	inception	1976-01-01	1
+6612	Threshold House	1987-01-01	1	inception	1987-01-01	1
+6616	Spotify	2006-04-23	3	inception	2006-04-23	3
+6622	House of 1000 Corpses	2003-03-13	3	release	2003-03-13	3
+6625	A Clockwork Orange	1962-01-01	1	publication	1962-01-01	1
+6652	PolyGram	1972-01-01	1	inception	1972-01-01	1
+6683	Babelsberg Studio	1912-01-01	1	inception	1912-01-01	1
+6790	The Island of Dr Moreau	1895-01-01	2	publication	1895-01-01	2
+6843	Q726153	1980-01-01	1	inception	1980-01-01	1
+6844	Q726251	1950-01-01	1	inception	1950-01-01	1
+6858	Q729590	1957-01-01	1	inception	1957-01-01	1
+6906	I Know What You Did Last Summer	1973-10-01	2	publication	1973-10-01	2
+6923	Jungfrukällan	1960-02-08	3	release	1960-02-08	3
+6924	'Salem's Lot	1975-10-17	3	publication	1975-10-17	3
+6925	Jin Ping Mei	1610-01-01	1	publication	1610-01-01	1
+6929	Metal Blade Records	1982-01-01	1	inception	1982-01-01	1
+6959	Q781183	1924-01-01	1	inception	1924-01-01	1
+6975	Q789838	1959-01-01	1	inception	1959-01-01	1
+6976	Barrandov Studio a.s.	1931-01-01	1	inception	1931-01-01	1
+6977	Q797236	1982-01-01	1	inception	1982-01-01	1
+7006	Kama Sutra	1964-01-01	1	inception	1964-01-01	1
+7022	Low	1977-01-14	3	release	1977-01-14	3
+7033	Q843402	1958-01-01	1	inception	1958-01-01	1
+7052	Q864385	1967-01-01	1	inception	1967-01-01	1
+7070	Q885732	1965-01-01	1	inception	1965-01-01	1
+7072	Blue Note	1939-01-01	1	inception	1939-01-01	1
+7092	Sun Records	1952-01-01	1	inception	1952-01-01	1
+7093	La Dame aux camélias	1848-01-01	1	publication	1848-01-01	1
+7101	Q907311	1997-08-29	3	inception	1997-08-29	3
+7121	Five Leaves Left	1969-09-01	3	release	1969-09-01	3
+7137	Q922043	1917-05-11	3	first_performance	1917-05-11	3
+7305	Drive-Thru Records	1996-01-01	1	inception	1996-01-01	1
+7317	The Body Snatchers	1955-01-01	1	publication	1955-01-01	1
+7337	Off on a Comet	1877-01-01	1	inception	1877-01-01	1
+7422	Brunswick Records	1916-01-01	1	inception	1916-01-01	1
+7433	Rio Bravo	1959-01-01	1	release	1959-01-01	1
+7438	Центральная киностудия детских и юношеских фильмов им. М. Горького	1915-01-01	1	inception	1915-01-01	1
+7439	Q1016801	1993-01-01	1	inception	1993-01-01	1
+7448	Q1029135	1984-01-01	1	inception	1984-01-01	1
+7469	Carmilla	1872-01-01	1	publication	1872-01-01	1
+7474	Casablanca Records	1973-01-01	1	inception	1973-01-01	1
+7494	Q1059115	1991-01-01	1	inception	1991-01-01	1
+7500	Charisma	1969-01-01	1	inception	1969-01-01	1
+7515	Q1070310	1938-01-01	1	publication	1938-01-01	1
+7533	Chrysalis	1968-01-01	1	inception	1968-01-01	1
+7567	Columbia Graphophone Company Limited	1917-02-13	3	inception	1917-02-13	3
+7571	Jade Tree	1991-01-01	1	inception	1991-01-01	1
+7578	Enigma Records	1981-01-01	1	inception	1981-01-01	1
+7581	Q1124849	1956-01-01	1	inception	1956-01-01	1
+7587	Naked Came the Stranger	1969-08-01	2	publication	1969-08-01	2
+7597	Q1136277	1924-01-01	1	inception	1924-01-01	1
+7609	Q1139341	1983-01-01	1	inception	1983-01-01	1
+7620	In Cold Blood	1966-01-01	1	publication	1966-01-01	1
+7631	Q1150832	1955-05-01	3	inception	1955-05-01	3
+7663	The Old Dark House	1932-01-01	1	release	1932-01-01	1
+7687	Q1181679	1952-01-01	1	inception	1952-01-01	1
+7702	The Exorcist	1971-01-01	1	publication	1971-01-01	1
+7703	Rosemary's Baby	1967-03-12	3	publication	1967-03-12	3
+7706	Pandora	2000-01-01	2	inception	2000-01-01	2
+7707	The Collector	1963-01-01	1	publication	1963-01-01	1
+7711	Le Grand Meaulnes	1913-01-01	1	publication	1913-01-01	1
+7713	Nattergalen	1843-11-11	3	publication	1843-11-11	3
+7716	The Criterion Collection	1984-01-01	1	inception	1984-01-01	1
+7718	La Religieuse	1796-01-01	1	publication	1796-01-01	1
+7723	بوف کور	1937-01-01	1	publication	1937-01-01	1
+7724	La Famille du Vourdalak	1884-01-01	1	publication	1884-01-01	1
+7725	The Colour Out of Space	1927-09-01	2	publication	1927-09-01	2
+7726	The Manuscript Found in Saragossa	1805-01-01	1	publication	1805-01-01	1
+7727	The Food of the Gods and How It Came to Earth	1904-01-01	1	publication	1904-01-01	1
+7728	Les Bijoux indiscrets	1748-01-01	1	publication	1748-01-01	1
+7732	Q1224808	1993-01-01	1	inception	1993-01-01	1
+7744	Henry IV, Part 2	1598-01-01	1	publication	1598-01-01	1
+7753	Q1238400	1993-01-01	1	inception	1993-01-01	1
+7760	Q1239845	1997-01-01	1	inception	1997-01-01	1
+7766	Batman	1966-01-12	3	broadcast_start	1966-01-12	3
+7767	Endless Night	1967-10-30	3	publication	1967-10-30	3
+7810	Q1273666	1999-01-01	1	inception	1999-01-01	1
+7813	Psycho	1959-01-01	1	publication	1959-01-01	1
+7836	Q1281891	1989-01-01	1	inception	1989-01-01	1
+7902	Jaws	1974-02-01	2	publication	1974-02-01	2
+7905	Harvest	1969-01-01	1	inception	1969-01-01	1
+7909	Q1327994	1989-01-01	1	inception	1989-01-01	1
+7919	Q1330417	1969-01-01	1	inception	1969-01-01	1
+7966	Q1344207	1991-01-01	1	publication	1991-01-01	1
+7989	Q1347984	1976-01-01	1	inception	1976-01-01	1
+8063	Q1372258	1954-03-19	3	inception	1954-03-19	3
+8116	Liberty Records	1955-01-01	1	inception	1955-01-01	1
+8122	Memoirs of a Woman of Pleasure	1748-01-01	1	publication	1748-01-01	1
+8128	Cleopatra	1992-01-01	1	inception	1992-01-01	1
+8129	Q1397914	1992-01-01	1	inception	1992-01-01	1
+8144	The Most Dangerous Game	1924-01-01	1	publication	1924-01-01	1
+8147	Вий	1835-01-01	1	publication	1835-01-01	1
+8154	Q1424253	1993-01-01	1	inception	1993-01-01	1
+8216	Q1470264	1996-01-01	1	inception	1996-01-01	1
+8221	Q1473565	1997-01-01	1	inception	1997-01-01	1
+8226	Q1476080	1965-01-01	1	inception	1965-01-01	1
+8227	Q1476147	1990-01-01	1	inception	1990-01-01	1
+8263	Q1512171	1979-01-01	1	inception	1979-01-01	1
+8274	Q1524530	1960-01-01	1	inception	1960-01-01	1
+8293	Philips	1946-01-01	1	inception	1946-01-01	1
+8296	Re-Animator	1985-01-01	1	release	1985-01-01	1
+8300	The Invisible Man	1897-01-01	1	publication	1897-01-01	1
+8303	Q1542119	1957-01-01	1	inception	1957-01-01	1
+8313	Q1548644	1996-01-01	1	inception	1996-01-01	1
+8384	Q1611073	1969-01-01	1	inception	1969-01-01	1
+8395	Q1626081	1983-01-01	1	inception	1983-01-01	1
+8397	Q1630304	2007-03-01	2	inception	2007-03-01	2
+8399	Q1631774	1991-01-01	1	inception	1991-01-01	1
+8405	Мелодия	1964-05-11	3	inception	1964-05-11	3
+8546	Straight	1969-01-01	1	inception	1969-01-01	1
+8560	Kapp	1954-01-01	1	inception	1954-01-01	1
+8577	Q1741329	1991-01-01	1	inception	1991-01-01	1
+8579	King Records	1943-01-01	1	inception	1943-01-01	1
+8593	Stiff Records	2007-01-01	1	inception	2007-01-01	1
+8606	Okeh	1918-09-01	2	inception	1918-09-01	2
+8653	Q1811175	1949-01-01	1	inception	1949-01-01	1
+8671	Q1853623	1979-01-01	1	inception	1979-01-01	1
+8684	Q1881437	1946-01-01	1	inception	1946-01-01	1
+8710	DreamWorks Records	1996-01-01	1	inception	1996-01-01	1
+8727	Merge Records	1989-01-01	1	inception	1989-01-01	1
+8756	Q1946521	1958-01-01	1	inception	1958-01-01	1
+8757	Morella	1835-09-01	2	publication	1835-09-01	2
+8758	Q1948363	1992-01-01	1	inception	1992-01-01	1
+8777	Q1973834	1983-01-01	1	inception	1983-01-01	1
+8779	Q1980456	1975-01-01	1	inception	1975-01-01	1
+8781	PolyGram Filmed Entertainment	1980-01-01	1	inception	1980-01-01	1
+8788	Q1989312	1869-01-01	1	inception	1869-01-01	1
+8828	Q2034661	1949-01-01	1	inception	1949-01-01	1
+8850	Brighton Rock	1938-01-01	1	publication	1938-01-01	1
+8900	Q2093233	1971-01-01	1	inception	1971-01-01	1
+8938	Track Record	1966-01-01	1	inception	1966-01-01	1
+8950	Q2153168	1974-01-01	1	inception	1974-01-01	1
+8951	Q2154708	1991-01-01	1	inception	1991-01-01	1
+8993	Q2261249	1972-01-01	1	inception	1972-01-01	1
+8997	Q2265719	1979-01-01	1	inception	1979-01-01	1
+9009	Q2283665	1984-08-01	2	inception	1984-08-01	2
+9023	Q2301434	1990-01-01	1	inception	1990-01-01	1
+9028	Q2311775	1990-01-01	1	inception	1990-01-01	1
+9044	Q2338889	1962-01-01	1	inception	1962-01-01	1
+9058	Q2358400	1990-01-01	1	inception	1990-01-01	1
+9074	Q2375632	1997-01-01	1	inception	1997-01-01	1
+9094	Q2402958	1984-01-01	1	inception	1984-01-01	1
+9102	The Body Snatcher	1884-12-01	2	publication	1884-12-01	2
+9110	A Tedious Story	1889-01-01	1	publication	1889-01-01	1
+9159	Fiction	1978-01-01	1	inception	1978-01-01	1
+9161	Universal Records	1995-01-01	1	inception	1995-01-01	1
+9170	Q2494570	1978-01-01	1	inception	1978-01-01	1
+9194	Q2538395	1983-01-01	1	inception	1983-01-01	1
+9200	Q2545760	1978-01-01	1	inception	1978-01-01	1
+9211	Q2566507	1989-01-01	1	inception	1989-01-01	1
+9237	Q2598277	1995-01-01	1	inception	1995-01-01	1
+9242	Q2606741	1978-01-01	1	inception	1978-01-01	1
+9256	Odesa Film Studio	1919-01-01	1	inception	1919-01-01	1
+9259	Batman	1940-01-01	1	start	1940-01-01	1
+9286	The Sentinel	1951-01-01	1	publication	1951-01-01	1
+9348	Q2835318	1979-01-01	1	inception	1979-01-01	1
+9386	Q2864573	1961-01-01	1	inception	1961-01-01	1
+9475	Q2944115	1976-01-01	1	inception	1976-01-01	1
+9523	Q2996526	1986-01-01	1	inception	1986-01-01	1
+9525	Q2998569	1968-01-01	1	inception	1968-01-01	1
+9529	New Sensations	1993-01-01	1	inception	1993-01-01	1
+9604	Q3046343	1986-01-01	1	inception	1986-01-01	1
+9632	Q3060585	1937-01-01	1	inception	1937-01-01	1
+9636	Q3062351	1987-01-01	2	inception	1987-01-01	2
+9685	Q3092504	1997-01-01	1	start	1997-01-01	1
+9698	Q3100754	1978-01-01	1	inception	1978-01-01	1
+9719	Girlfriends Films	2002-01-01	1	inception	2002-01-01	1
+9723	Q3110013	1993-01-01	1	inception	1993-01-01	1
+9784	Q3150583	1933-01-01	1	inception	1933-01-01	1
+9948	Sanatorium Pod Klepsydrą	1937-01-01	1	publication	1937-01-01	1
+9949	Le Temps retrouvé	1927-01-01	1	publication	1927-01-01	1
+9953	Les Nègres	1958-01-01	2	publication	1958-01-01	2
+9954	Les Âmes fortes	1950-01-01	1	publication	1950-01-01	1
+10041	Mes nuits sont plus belles que vos jours	1985-01-01	1	publication	1985-01-01	1
+10066	Morgan Creek Entertainment	1988-01-01	1	inception	1988-01-01	1
+10086	Q3338963	1977-01-01	1	inception	1977-01-01	1
+10144	Phantasmes	1975-01-01	1	release	1975-01-01	1
+10167	Q3412507	2007-01-01	1	inception	2007-01-01	1
+10172	Q3415083	1945-01-01	1	inception	1945-01-01	1
+10238	Q3453655	1981-01-01	1	inception	1981-01-01	1
+10260	Q3481414	1981-01-01	1	inception	1981-01-01	1
+10277	Some Bizzare	1981-01-01	1	inception	1981-01-01	1
+10297	Q3501058	1945-01-01	1	inception	1945-01-01	1
+10327	The Hellbound Heart	1986-10-01	2	publication	1986-10-01	2
+10349	Tres tristes tigres	1967-01-01	1	publication	1967-01-01	1
+10392	Q3556262	2001-01-01	1	inception	2001-01-01	1
+10469	Red Alert	1958-01-01	1	publication	1958-01-01	1
+10495	Q3629023	1972-01-01	1	inception	1972-01-01	1
+10571	Q3711914	1983-01-01	1	inception	1983-01-01	1
+10601	Q3734691	1957-01-01	1	inception	1957-01-01	1
+10617	Filmirage	1980-01-01	1	inception	1980-01-01	1
+10646	Frontier Records	1980-01-01	1	inception	1980-01-01	1
+10693	Q3772427	1913-04-20	3	inception	1913-04-20	3
+10713	盲獣	1932-01-01	1	publication	1932-01-01	1
+10743	Black Alibi	1942-01-01	1	publication	1942-01-01	1
+10744	Some Must Watch	1933-01-01	1	publication	1933-01-01	1
+10841	Q3875178	1980-01-01	1	inception	1980-01-01	1
+10847	Nocturno	1994-01-01	1	inception	1994-01-01	1
+10877	Q3906190	1977-01-01	1	inception	1977-01-01	1
+10889	Q3933535	1986-01-01	1	inception	1986-01-01	1
+10908	Rodeo Drive	1991-01-01	1	inception	1991-01-01	1
+10921	Q3942184	1981-01-01	1	inception	1981-01-01	1
+10931	Q3954081	1980-01-01	1	inception	1980-01-01	1
+10959	Suspiria de Profundis	1845-01-01	1	publication	1845-01-01	1
+10966	Time Bomb Recordings	1994-01-01	1	inception	1994-01-01	1
+11005	Q4038090	1976-01-01	1	inception	1976-01-01	1
+11010	KRÁTKÝ FILM PRAHA a.s.	1957-01-01	1	inception	1957-01-01	1
+11014	Superman vs. the Amazing Spider-Man	1976-03-01	2	publication	1976-03-01	2
+11060	Q4129144	2001-02-20	3	inception	2001-02-20	3
+11071	Q4147177	1984-01-01	1	inception	1984-01-01	1
+11129	The Amazing Spider-Man 2	2014-04-17	3	release	2014-04-17	3
+11152	Q4296517	1999-01-01	1	inception	1999-01-01	1
+11166	Q4341103	1995-01-01	1	inception	1995-01-01	1
+11192	Q4390090	1942-01-01	1	inception	1942-01-01	1
+11198	Q4403233	1992-01-01	1	inception	1992-01-01	1
+11263	Q4549446	1982-01-01	1	inception	1982-01-01	1
+11270	Q4646308	1980-01-01	1	inception	1980-01-01	1
+11273	Abhilasha	1983-01-01	1	release	1983-01-01	1
+11275	Absurda	2007-01-01	1	release	2007-01-01	1
+11276	Q4673036	1978-01-01	1	inception	1978-01-01	1
+11277	Q4677148	1979-01-01	1	inception	1979-01-01	1
+11279	Q4678604	1971-03-01	2	inception	1971-03-01	2
+11316	Q4740860	2007-09-25	3	inception	2007-09-25	3
+11355	Q4774898	1975-01-01	1	inception	1975-01-01	1
+11409	Q4897219	2000-01-01	1	inception	2000-01-01	1
+11485	Caballero Home Video	1974-01-01	1	inception	1974-01-01	1
+11546	Cinerama Releasing Corporation	1952-01-01	1	inception	1952-01-01	1
+11557	Q5139718	2007-01-01	1	inception	2007-01-01	1
+11566	Q5163883	2000-01-01	1	inception	2000-01-01	1
+11618	Space Seed	1967-02-15	3	publication	1967-02-15	3
+11659	Q5316786	1988-01-01	1	inception	1988-01-01	1
+11685	Fandango at Home	2004-11-25	3	inception	2004-11-25	3
+11687	Encounter in the Dawn	1953-06-01	2	publication	1953-06-01	2
+11695	Q5398030	1994-01-01	1	inception	1994-01-01	1
+11716	Q5451422	1986-01-01	1	inception	1986-01-01	1
+11718	Q5463202	1970-01-01	1	inception	1970-01-01	1
+11719	Food Records	1984-01-01	1	inception	1984-01-01	1
+11753	Q5513979	1962-01-01	1	inception	1962-01-01	1
+11759	Gas Light	1938-01-01	1	publication	1938-01-01	1
+11805	Q5578605	1986-01-01	1	inception	1986-01-01	1
+11825	Q5629398	2008-01-01	1	inception	2008-01-01	1
+11893	Q5950024	1998-01-01	1	inception	1998-01-01	1
+11922	Q6048241	1965-01-01	1	inception	1965-01-01	1
+12122	Korova	1979-01-01	1	inception	1979-01-01	1
+12130	Q6456188	1984-01-01	1	inception	1984-01-01	1
+12188	Lust, Caution	1979-01-01	1	publication	1979-01-01	1
+12190	M. Butterfly	1988-02-10	3	first_performance	1988-02-10	3
+12270	Q6878356	1977-01-01	1	inception	1977-01-01	1
+12278	Q6928470	1996-09-30	3	release	1996-09-30	3
+12296	Nightmare Alley	1946-01-01	1	publication	1946-01-01	1
+12305	Norton Records	1986-01-01	1	inception	1986-01-01	1
+12306	Q7070760	2005-01-01	1	inception	2005-01-01	1
+12372	Q7201159	1978-01-01	1	inception	1978-01-01	1
+12388	Q7305106	1977-01-01	1	inception	1977-01-01	1
+12392	Q7317586	1982-01-01	1	inception	1982-01-01	1
+12409	Ritual	1967-01-01	1	publication	1967-01-01	1
+12410	Q7336944	1975-01-01	1	inception	1975-01-01	1
+12449	The Night of the Hunter	1953-01-01	1	publication	1953-01-01	1
+12470	Q7423929	2006-01-01	1	inception	2006-01-01	1
+12478	Q7447658	1981-01-01	1	inception	1981-01-01	1
+12482	Lalka	1887-01-01	1	publication	1887-01-01	1
+12499	Q7532146	1981-01-01	1	inception	1981-01-01	1
+12502	Q7544227	2001-01-01	1	inception	2001-01-01	1
+12505	Q7557563	1987-01-01	1	inception	1987-01-01	1
+12506	Q7559101	1957-01-01	1	inception	1957-01-01	1
+12507	Q7559481	1997-01-01	1	inception	1997-01-01	1
+12508	Q7560179	1990-01-01	1	inception	1990-01-01	1
+12510	Spider	1990-01-01	1	publication	1990-01-01	1
+12526	Who Goes There?	1938-08-01	2	publication	1938-08-01	2
+12528	Strand Releasing	1989-01-01	1	inception	1989-01-01	1
+12532	Subconscious Communications	1993-01-01	1	inception	1993-01-01	1
+12566	The Autobiography of a Flea	1887-01-01	1	publication	1887-01-01	1
+12569	The Birds	1952-01-01	1	publication	1952-01-01	1
+12570	The Executioners	1957-01-01	1	publication	1957-01-01	1
+12571	The Fly	1957-06-01	2	publication	1957-06-01	2
+12572	The Fury	1976-01-01	1	publication	1976-01-01	1
+12575	The Hunger	1980-01-01	1	publication	1980-01-01	1
+12576	The String of Pearls	1846-01-01	1	publication	1846-01-01	1
+12585	Q7811290	1964-01-01	1	release	1964-01-01	1
+12606	Q7832268	1955-01-01	1	inception	1955-01-01	1
+12611	Q7858059	1977-01-01	1	inception	1977-01-01	1
+12618	Valerie a týden divů	1945-01-01	1	publication	1945-01-01	1
+12649	Wild at Heart	1990-01-01	1	publication	1990-01-01	1
+12658	Warner Bros. Pictures	1969-11-01	2	inception	1969-11-01	2
+12667	Q8046173	1980-01-01	1	inception	1980-01-01	1
+12682	Q8074157	1977-01-01	1	inception	1977-01-01	1
+12704	Madame George	1967-01-01	1	publication	1967-01-01	1
+12772	Q9390236	1972-01-01	1	inception	1972-01-01	1
+12784	Q10301418	1981-01-01	1	inception	1981-01-01	1
+12970	Na srebrnym globie. Rękopis z Księżyca	1903-01-01	1	publication	1903-01-01	1
+12972	Die Abenteuer des Baron Münchhausen	1785-01-01	1	publication	1785-01-01	1
+13086	Q12045175	1935-01-01	1	inception	1935-01-01	1
+13091	Spalovač mrtvol	1967-01-01	1	publication	1967-01-01	1
+13143	Q13403877	1979-11-09	3	inception	1979-11-09	3
+13165	Q13632942	1965-01-01	1	publication	1965-01-01	1
+13179	Batman v Superman: Dawn of Justice	2016-03-23	3	release	2016-03-23	3
+13271	Q15734146	1925-01-01	1	creation	1925-01-01	1
+13381	Q16256557	1952-01-01	1	inception	1952-01-01	1
+13385	The Fog Horn	1951-01-01	1	publication	1951-01-01	1
+13395	Q16552199	1935-01-01	1	inception	1935-01-01	1
+13403	Q16578662	1953-01-01	1	inception	1953-01-01	1
+13431	Q16845407	1950-01-01	1	inception	1950-01-01	1
+13436	Q16910197	1974-01-01	1	inception	1974-01-01	1
+13447	Q17085321	1991-01-01	1	inception	1991-01-01	1
+13555	Q19612922	1977-01-01	1	inception	1977-01-01	1
+13644	The Bitch	1979-01-01	1	publication	1979-01-01	1
+13780	Q27860340	2003-01-01	1	inception	2003-01-01	1
+13786	Q27980524	2001-01-01	1	inception	2001-01-01	1
+13804	ARAMIS	1983-01-01	1	inception	1983-01-01	1
+13839	The Lodger	1913-01-01	1	publication	1913-01-01	1
+13864	Paths of Glory	1935-06-01	2	publication	1935-06-01	2
+13876	Q45088877	2015-01-01	1	inception	2015-01-01	1
+13883	Q47151620	1931-01-01	1	publication	1931-01-01	1
+13893	Q49462460	1962-01-01	1	inception	1962-01-01	1
+13913	Q55611597	1978-01-01	1	inception	1978-01-01	1
+13915	Q55965015	1973-01-01	3	inception	1973-01-01	3
+13917	Q56277059	1927-01-01	1	publication	1927-01-01	1
+13926	Filmové studio Gottwaldov s.r.o.	1961-01-01	3	inception	1961-01-01	3
+13928	Q57082644	1947-01-01	1	inception	1947-01-01	1
+13954	La Belle et la Bête	1806-01-01	1	publication	1806-01-01	1
+13960	Q60687065	1983-01-01	1	inception	1983-01-01	1
+13968	Wunderbare Reisen zu Wasser und zu Lande, Feldzüge und lustige Abentheuer des Freyherrn von Münchhausen	1786-01-01	1	publication	1786-01-01	1
+13973	All Along the Watchtower	1967-01-01	1	publication	1967-01-01	1
+13985	Q63515773	1963-01-01	1	inception	1963-01-01	1
+14007	Q65089262	1942-01-01	1	inception	1942-01-01	1
+14015	Q65560649	2012-01-01	1	inception	2012-01-01	1
+14016	Q65560653	2008-01-01	1	inception	2008-01-01	1
+14018	Q65590986	1979-01-01	1	inception	1979-01-01	1
+14019	Q65592087	1987-01-01	1	inception	1987-01-01	1
+14023	Q65756409	1988-01-01	1	inception	1988-01-01	1
+14080	Q83528889	1932-01-01	1	inception	1932-01-01	1
+14254	Benighted	1927-01-01	1	publication	1927-01-01	1
+14255	Q96381867	1965-01-01	1	publication	1965-01-01	1
+14406	Q110996251	1941-01-01	1	publication	1941-01-01	1
+14447	Серый автомобиль	1925-01-01	1	publication	1925-01-01	1
+14510	Q117798231	1985-01-01	1	inception	1985-01-01	1
+14526	The Astrologer	1972-01-01	1	publication	1972-01-01	1
+14575	Clean Break	1955-01-01	1	publication	1955-01-01	1
