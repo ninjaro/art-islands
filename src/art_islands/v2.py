@@ -58,6 +58,9 @@ def export_v2_static_data(
     db = sqlite3.connect(db_path)
     db.row_factory = sqlite3.Row
     try:
+        check = db.execute("pragma quick_check").fetchone()[0]
+        if check != "ok":
+            raise ValueError(f"database failed quick_check: {check}")
         catalog_ids = {
             int(row["entity_id"])
             for row in db.execute("select entity_id from entities where is_catalogued = 1")
@@ -146,25 +149,6 @@ def export_v2_entities(db: sqlite3.Connection, entity_ids: set[int]) -> dict[str
         "entity_id",
         lambda row: {"scheme": row["code"], "value": row["value"], "primary": bool(row["is_primary"])},
     )
-    texts = grouped_rows(
-        db.execute(
-            """
-            select entity_id, text_kind, language, value, is_primary
-            from entity_texts
-            where entity_id in (%s)
-            order by entity_id, text_kind, language, value
-            """
-            % placeholders(entity_ids),
-            tuple(entity_ids),
-        ),
-        "entity_id",
-        lambda row: {
-            "kind": row["text_kind"],
-            "language": row["language"],
-            "value": row["value"],
-            "primary": bool(row["is_primary"]),
-        },
-    )
     result = {}
     for row in rows:
         entity = {
@@ -175,8 +159,6 @@ def export_v2_entities(db: sqlite3.Connection, entity_ids: set[int]) -> dict[str
         entity["catalogued"] = bool(row["catalogued"])
         if identifiers.get(row["id"]):
             entity["identifiers"] = identifiers[row["id"]]
-        if texts.get(row["id"]):
-            entity["texts"] = texts[row["id"]]
         result[str(row["id"])] = entity
     return result
 
@@ -435,43 +417,67 @@ def export_v2_concepts(db: sqlite3.Connection, catalog_ids: set[int]) -> dict[st
     }
 
 
-def export_v2_advisories(db: sqlite3.Connection, catalog_ids: set[int]) -> list[dict[str, Any]]:
-    if not catalog_ids:
-        return []
-    return rows_as_dicts(
+def export_v2_advisories(db: sqlite3.Connection, catalog_ids: set[int]) -> dict[str, Any]:
+    categories = rows_as_dicts(
         db.execute(
             """
-            select entity_advisory_id as id, entity_id as entityId,
-                   advisory_category_id as categoryId, concept_id as conceptId,
-                   severity, confidence, description, intensity, uncertainty
-            from entity_advisories
-            where entity_id in (%s)
-            order by entity_id, advisory_category_id
+            select advisory_category_id as id, code, label
+            from advisory_categories
+            order by code
             """
-            % placeholders(catalog_ids),
-            tuple(catalog_ids),
         )
     )
+    advisories = (
+        rows_as_dicts(
+            db.execute(
+                """
+                select entity_advisory_id as id, entity_id as entityId,
+                       advisory_category_id as categoryId, concept_id as conceptId,
+                       severity, intensity, uncertainty
+                from entity_advisories
+                where entity_id in (%s)
+                order by entity_id, advisory_category_id
+                """
+                % placeholders(catalog_ids),
+                tuple(catalog_ids),
+            )
+        )
+        if catalog_ids
+        else []
+    )
+    return {"categories": categories, "advisories": advisories}
 
 
-def export_v2_age_ratings(db: sqlite3.Connection, catalog_ids: set[int]) -> list[dict[str, Any]]:
-    if not catalog_ids:
-        return []
-    return rows_as_dicts(
+def export_v2_age_ratings(db: sqlite3.Connection, catalog_ids: set[int]) -> dict[str, Any]:
+    systems = rows_as_dicts(
         db.execute(
             """
-            select entity_age_rating_id as id, entity_id as entityId,
-                   age_rating_system_id as systemId, certificate,
-                   minimum_age as minimumAge, edition_label as editionLabel,
-                   descriptors_json as descriptorsJson, rating_date as ratingDate
-            from entity_age_ratings
-            where entity_id in (%s)
-            order by entity_id, age_rating_system_id, certificate
+            select age_rating_system_id as id, code, country_code as countryCode, label
+            from age_rating_systems
+            order by code
             """
-            % placeholders(catalog_ids),
-            tuple(catalog_ids),
         )
     )
+    ratings = (
+        rows_as_dicts(
+            db.execute(
+                """
+                select entity_age_rating_id as id, entity_id as entityId,
+                       age_rating_system_id as systemId, certificate,
+                       minimum_age as minimumAge, edition_label as editionLabel,
+                       descriptors_json as descriptorsJson, rating_date as ratingDate
+                from entity_age_ratings
+                where entity_id in (%s)
+                order by entity_id, age_rating_system_id, certificate
+                """
+                % placeholders(catalog_ids),
+                tuple(catalog_ids),
+            )
+        )
+        if catalog_ids
+        else []
+    )
+    return {"systems": systems, "ratings": ratings}
 
 
 def export_v2_restrictions(db: sqlite3.Connection, catalog_ids: set[int]) -> list[dict[str, Any]]:

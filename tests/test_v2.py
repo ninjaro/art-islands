@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 import sqlite3
 
+import pytest
+
 from art_islands import v2
 from art_islands.model import REF_KIND_IMDB, REF_KIND_WIKIDATA
 from tools.clean_domain_database import SCHEMA
@@ -251,7 +253,55 @@ def test_v2_exports_current_state_domain_data(tmp_path) -> None:
     concepts = json.loads((output / "concepts.json").read_text(encoding="utf-8"))
     assert "manual" not in concepts["entityConcepts"][0]
     advisories = json.loads((output / "advisories.json").read_text(encoding="utf-8"))
-    assert advisories[0]["intensity"] == 62
+    assert advisories["advisories"][0]["intensity"] == 62
+
+
+def test_advisories_export_includes_categories(tmp_path) -> None:
+    db_path = tmp_path / "art-islands.sqlite"
+    output = tmp_path / "out"
+    create_domain_fixture(db_path)
+
+    v2.export_v2_static_data(db_path, output)
+
+    payload = json.loads((output / "advisories.json").read_text(encoding="utf-8"))
+    assert isinstance(payload, dict)
+    assert {c["code"] for c in payload["categories"]} == {"violence"}
+    assert payload["categories"][0]["label"] == "Violence"
+    row = payload["advisories"][0]
+    assert set(row) <= {"id", "entityId", "categoryId", "conceptId", "severity", "intensity", "uncertainty"}
+    assert "description" not in row
+
+
+def test_ratings_export_includes_systems(tmp_path) -> None:
+    db_path = tmp_path / "art-islands.sqlite"
+    output = tmp_path / "out"
+    create_domain_fixture(db_path)
+
+    v2.export_v2_static_data(db_path, output)
+
+    payload = json.loads((output / "ratings.json").read_text(encoding="utf-8"))
+    assert payload["systems"] == [{"id": 1, "code": "mpaa", "countryCode": "US", "label": "MPAA"}]
+    assert payload["ratings"][0]["certificate"] == "R"
+    assert payload["ratings"][0]["systemId"] == 1
+
+
+def test_entities_export_has_no_texts(tmp_path) -> None:
+    db_path = tmp_path / "art-islands.sqlite"
+    output = tmp_path / "out"
+    create_domain_fixture(db_path)
+
+    v2.export_v2_static_data(db_path, output)
+
+    entities = json.loads((output / "entities.json").read_text(encoding="utf-8"))
+    assert all("texts" not in entity for entity in entities.values())
+    assert entities["1"]["description"] == "A compact test work."
+
+
+def test_export_fails_on_corrupt_database(tmp_path) -> None:
+    bad = tmp_path / "bad.sqlite"
+    bad.write_bytes(b"SQLite format 3\x00" + b"\x00" * 4096)
+    with pytest.raises((ValueError, sqlite3.DatabaseError)):
+        v2.export_v2_static_data(bad, tmp_path / "out")
 
 
 def test_v2_validation_checks_current_state_schema_and_sources(tmp_path) -> None:

@@ -1090,6 +1090,9 @@ def export_static_data(
     settings = load_settings(settings_path)
     db = connect_art(db_path)
     try:
+        check = db.execute("pragma quick_check").fetchone()[0]
+        if check != "ok":
+            raise ValueError(f"database failed quick_check: {check}")
         tags = _export_tags(db)
         entities_lookup = _export_entities_lookup(db)
         catalog = _export_catalog(db)
