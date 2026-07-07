@@ -35,38 +35,46 @@ The dev server serves the JSON exports from `public/data/` under the same
 ## Python export
 
 The SQLite database `data/art-islands.sqlite` is the editable source of truth.
-Regenerate all static exports (catalog, tags, lookup, settings, and the
-Evolution lineage) after any data change:
+It stores the current known catalog state: entities, external identifiers,
+tags, relationships, measurements, content ratings, advisories, source records,
+and mappings from facts to sources. Import batches, patch history, raw payloads,
+row timestamps, and migration recovery data are intentionally excluded.
+
+Regenerate all static exports (catalog, tags, lookup, settings, Evolution
+lineage, and v2 domain exports) after any data change:
 
 ```sh
 .venv/bin/art-islands export
+.venv/bin/art-islands db-v2 export
 ```
 
 Tunable thresholds (recommendation weights, Evolution lineage and grouping
 settings, Islands graph caps) live in `data/settings.json` and are exported to
-`public/data/settings.json`. Other CLI commands: `migrate`, `build`, `enrich`,
-`tag set`, `config show|set`, `batch`, `serve-static`.
+`public/data/settings.json`. Current data-maintenance commands include
+`enrich`, `tag set`, `config show|set`, `batch`, `db-v2 export`,
+`db-v2 validate`, and `serve-static`.
 
-## Database v2 migration
+## Database Cleanup
 
-The v2 migration is offline-first and keeps one-off tooling under
-`tools/db_v2_migration/`. It builds `data/art-islands-v2.sqlite` from the
-current database; it does not replace `data/art-islands.sqlite`.
+The cleanup tool `tools/clean_domain_database.py` rebuilds a compact
+domain-preserving SQLite database from an explicit whitelist. It keeps source
+citations and fact-to-source mappings, but removes technical metadata such as
+schema migration history, patch application history, import offsets, raw JSON
+payloads, retrieval timestamps, and curation provenance flags.
 
 ```sh
-art-islands db-v2 inventory
-art-islands db-v2 build-index --resume --limit 1000
-art-islands db-v2 build-people-cache --qid Q873 --limit 1
-art-islands db-v2 migrate --replace
-art-islands db-v2 export
-art-islands db-v2 validate
+python tools/clean_domain_database.py \
+  --source data/art-islands.sqlite \
+  --target data/art-islands.domain-clean.sqlite \
+  --inventory database-cleanup-inventory.md
 ```
 
-`db-v2 migrate` validates the source database, creates a timestamped backup,
-applies explicit schema migrations, migrates v1 rows into normalized v2 tables,
-and writes reports under `tools/db_v2_migration/reports/`. Full layer indexing
-can be run without `--limit`; use `--include-other` only when intentionally
-indexing the large `other_creative_work.jsonl` source.
+`database-cleanup-inventory.md` records the table and column classification
+used for the cleanup. Validate the active database with:
+
+```sh
+.venv/bin/art-islands db-v2 validate
+```
 
 ## Production build
 

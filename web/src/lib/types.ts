@@ -127,9 +127,6 @@ export interface V2Entity {
   family?: "work" | "person" | "group" | "organization" | "place" | "concept" | "unknown";
   image?: string;
   catalogued: boolean;
-  completenessStatus?: string;
-  confidence?: number;
-  reviewState?: string;
   identifiers?: V2Identifier[];
   texts?: V2EntityText[];
 }
@@ -193,7 +190,6 @@ export interface V2Relation {
   weight: number;
   polarity: number;
   confidence?: number;
-  manual: boolean;
 }
 
 export interface V2Concept {
@@ -215,7 +211,6 @@ export interface V2EntityConcept {
   weight: number;
   polarity: number;
   confidence: number | null;
-  manual: number;
 }
 
 export interface V2ConceptExport {

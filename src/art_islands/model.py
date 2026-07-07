@@ -121,7 +121,7 @@ WIKIDATA_TIME_RE = re.compile(
 
 
 ART_SCHEMA = """
-pragma journal_mode = wal;
+pragma journal_mode = delete;
 pragma foreign_keys = on;
 
 create table if not exists entities (
