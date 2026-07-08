@@ -2,7 +2,10 @@ import { defineConfig } from "@playwright/test";
 import { existsSync } from "node:fs";
 
 const PORT = 4317;
-const HAS_LOCAL_CHROME = existsSync("/opt/google/chrome/chrome");
+const HAS_LOCAL_CHROME = [
+  "/opt/google/chrome/chrome",
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+].some((path) => existsSync(path));
 
 // Tests run against the production build served under the GitHub Pages
 // project path, so base-path behavior is exercised on every run.

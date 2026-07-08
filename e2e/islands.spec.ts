@@ -40,6 +40,27 @@ test("disconnected components stay separate; isolated seeds become one-node isla
   }
 });
 
+test("islands render bounded edges with the legend and knn help text", async ({ page }) => {
+  await openApp(page);
+  const catalog = await fetchCatalog(page);
+  const seeds: Record<string, 1 | -1> = {};
+  for (const entry of catalog.slice(0, 12)) seeds[String(entry.id)] = 1;
+  await seedRatings(page, seeds);
+
+  await page.click('nav button:has-text("Islands")');
+  await page.waitForSelector(".island-node");
+
+  // Global edge cap from settings.json (maxEdges = 500).
+  const edgeCount = await page.locator(".react-flow__edge").count();
+  expect(edgeCount).toBeLessThanOrEqual(500);
+  expect(edgeCount).toBeGreaterThan(0);
+
+  await expect(page.locator(".island-legend")).toBeVisible();
+  await expect(page.locator(".island-legend")).toContainText("explicit relation");
+  await expect(page.locator(".island-legend")).toContainText("inferred similarity");
+  await expect(page.locator(".graph-help")).toContainText(/at most \d+ nearest neighbors/);
+});
+
 test("node dragging does not accidentally rate or open windows", async ({ page }) => {
   await openApp(page);
   await page.locator("tbody tr").nth(0).locator(".rating-buttons .like").click();
