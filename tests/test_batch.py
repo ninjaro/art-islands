@@ -22,14 +22,19 @@ def db(tmp_path):
         ],
     )
     connection.executemany(
-        "insert into tags(tag_id, name) values (?, ?)",
+        "insert into identifier_schemes(identifier_scheme_id, code, label) values (?, ?, ?)",
+        [(1, "wikidata", "Wikidata"), (2, "imdb_title", "IMDb title")],
+    )
+    connection.execute("insert into concept_categories(concept_category_id, code, label) values (1, 'other', 'Other')")
+    connection.executemany(
+        "insert into concepts(concept_id, label, concept_category_id) values (?, ?, 1)",
         [(456, "alpha"), (789, "beta")],
     )
     connection.execute(
-        "insert into entity_tags(entity_id, tag_id, weight, polarity) values (123, 789, 40, 0)"
+        "insert into entity_concepts(entity_id, concept_id, weight, polarity) values (123, 789, 40, 0)"
     )
     connection.execute(
-        "insert into entity_refs(entity_id, ref_kind, ref_value) values (200, 2, 'tt0000001')"
+        "insert into entity_identifiers(entity_id, identifier_scheme_id, value, is_primary) values (200, 2, 'tt0000001', 1)"
     )
     connection.commit()
     yield connection
@@ -54,8 +59,8 @@ def valid_batch() -> dict:
             },
             {"op": "set_external_ref", "entityId": 123, "kind": "wikidata", "value": "Q12345"},
             {"op": "remove_external_ref", "entityId": 200, "kind": "imdb", "value": "tt0000001"},
-            {"op": "set_entity_tag", "entityId": 123, "tagId": 456, "weight": 75, "polarity": 0},
-            {"op": "remove_entity_tag", "entityId": 123, "tagId": 789},
+            {"op": "set_entity_concept", "entityId": 123, "conceptId": 456, "weight": 75, "polarity": 0},
+            {"op": "remove_entity_concept", "entityId": 123, "conceptId": 789},
         ],
     }
 
@@ -93,7 +98,7 @@ class TestParsing:
     def test_rejects_empty_and_oversized(self) -> None:
         with pytest.raises(batch.BatchError):
             batch.parse_batch_text("")
-        document = {"version": 1, "operations": [{"op": "remove_entity_tag", "entityId": 1, "tagId": 2}] * 1001}
+        document = {"version": 1, "operations": [{"op": "remove_entity_concept", "entityId": 1, "conceptId": 2}] * 1001}
         with pytest.raises(batch.BatchError, match="too many operations"):
             batch.parse_batch_text(json.dumps(document))
 
@@ -108,13 +113,13 @@ class TestValidation:
             "version": 1,
             "operations": [
                 {"op": "update_entity", "entityId": 999, "set": {"label": "X"}},
-                {"op": "set_entity_tag", "entityId": 123, "tagId": 999, "weight": 10},
+                {"op": "set_entity_concept", "entityId": 123, "conceptId": 999, "weight": 10},
             ],
         }
         with pytest.raises(batch.BatchError) as info:
             batch.validate_batch(db, batch.parse_batch_text(json.dumps(document)))
         assert any("entity 999 does not exist" in message for message in info.value.errors)
-        assert any("tag 999 does not exist" in message for message in info.value.errors)
+        assert any("concept 999 does not exist" in message for message in info.value.errors)
 
     @pytest.mark.parametrize(
         "updates,match",
@@ -137,8 +142,8 @@ class TestValidation:
     @pytest.mark.parametrize(
         "operation,match",
         [
-            ({"op": "set_entity_tag", "entityId": 123, "tagId": 456, "weight": 101}, "weight"),
-            ({"op": "set_entity_tag", "entityId": 123, "tagId": 456, "weight": 10, "polarity": 5}, "polarity"),
+            ({"op": "set_entity_concept", "entityId": 123, "conceptId": 456, "weight": 101}, "weight"),
+            ({"op": "set_entity_concept", "entityId": 123, "conceptId": 456, "weight": 10, "polarity": 5}, "polarity"),
             ({"op": "set_external_ref", "entityId": 123, "kind": "unknown", "value": "x"}, "kind"),
             ({"op": "set_external_ref", "entityId": 123, "kind": "wikidata", "value": "12345"}, "value"),
             ({"op": "set_external_ref", "entityId": 123, "kind": "imdb", "value": "tt0000001"}, "already belongs"),
@@ -153,8 +158,8 @@ class TestValidation:
         document = {
             "version": 1,
             "operations": [
-                {"op": "set_entity_tag", "entityId": 123, "tagId": 456, "weight": 10},
-                {"op": "remove_entity_tag", "entityId": 123, "tagId": 456},
+                {"op": "set_entity_concept", "entityId": 123, "conceptId": 456, "weight": 10},
+                {"op": "remove_entity_concept", "entityId": 123, "conceptId": 456},
             ],
         }
         with pytest.raises(batch.BatchError, match="conflicting"):
@@ -188,17 +193,20 @@ class TestApplication:
         assert row["is_catalogued"] == 1
 
         wikidata = db.execute(
-            "select ref_value from entity_refs where entity_id = 123 and ref_kind = 1"
+            """
+            select value from entity_identifiers
+            where entity_id = 123 and identifier_scheme_id = 1
+            """
         ).fetchone()
         assert wikidata[0] == "Q12345"
-        assert db.execute("select count(*) from entity_refs where ref_kind = 2").fetchone()[0] == 0
+        assert db.execute("select count(*) from entity_identifiers where identifier_scheme_id = 2").fetchone()[0] == 0
 
-        tag = db.execute(
-            "select weight, polarity from entity_tags where entity_id = 123 and tag_id = 456"
+        concept = db.execute(
+            "select weight, polarity from entity_concepts where entity_id = 123 and concept_id = 456"
         ).fetchone()
-        assert (tag[0], tag[1]) == (75, 0)
+        assert (concept[0], concept[1]) == (75, 0)
         assert (
-            db.execute("select count(*) from entity_tags where entity_id = 123 and tag_id = 789").fetchone()[0]
+            db.execute("select count(*) from entity_concepts where entity_id = 123 and concept_id = 789").fetchone()[0]
             == 0
         )
         assert sum(first.applied.values()) == 5

@@ -72,9 +72,8 @@ function toWorkViewModel(work: GoldenWork): WorkViewModel {
       })),
     contributorsByRole: {},
     measurements: [],
-    ageRatings: [],
     advisories: work.advisories.map((advisory) => ({
-      categoryId: advisory.categoryId,
+      categoryCode: String(advisory.categoryId),
       category: advisory.label,
       intensity: advisory.intensity ?? undefined,
     })),

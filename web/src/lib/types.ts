@@ -178,10 +178,8 @@ export interface V2Relation {
   source: number;
   target: number;
   type: string;
-  roleLabel?: string;
-  characterLabel?: string;
   weight: number;
-  polarity: number;
+  polarity?: number;
   confidence?: number;
 }
 
@@ -192,16 +190,13 @@ export interface V2Concept {
   category: string;
   namespace?: string;
   value?: string;
-  legacyTagId?: number;
-  classificationRule?: string;
   confidence?: number;
-  reviewRecommended?: number;
 }
 
 export interface V2EntityConcept {
   entityId: number;
   conceptId: number;
-  weight: number;
+  weight: number | null;
   polarity: number;
   confidence: number | null;
 }
@@ -212,43 +207,36 @@ export interface V2ConceptExport {
   entityConcepts: V2EntityConcept[];
 }
 
-export interface V2AgeRating {
-  id: number;
-  entityId: number;
-  systemId: number;
-  certificate: string;
-  minimumAge?: number | null;
-  editionLabel?: string | null;
-  descriptorsJson?: string | null;
-  ratingDate?: string | null;
-}
-
-export interface V2AgeRatingSystem {
-  id: number;
-  code: string;
-  countryCode?: string | null;
-  label: string;
-}
-
-export interface V2AgeRatingExport {
-  systems: V2AgeRatingSystem[];
-  ratings: V2AgeRating[];
-}
-
 export interface V2AdvisoryCategory {
-  id: number;
   code: string;
   label: string;
+  description?: string | null;
 }
 
 export interface V2Advisory {
-  id: number;
   entityId: number;
-  categoryId: number;
-  conceptId?: number | null;
-  severity?: number | string | null;
+  categoryCode: string;
+  scaleVersion?: string | null;
+  medium?: string | null;
   intensity?: number | null;
+  centrality?: number | null;
+  explicitness?: number | null;
+  realism?: number | null;
+  recurrence?: number | null;
+  sensoryImpact?: number | null;
+  coercion?: number | null;
+  avoidancePriority?: number | null;
+  narrativeProximity?: number | null;
+  languageDependency?: number | null;
+  guidanceLevel?: string | null;
+  contentRole?: string | null;
+  stance?: string | null;
+  genreContext?: string | null;
+  confidence?: number | null;
   uncertainty?: number | null;
+  description?: string | null;
+  dimensionValuesJson?: string | null;
+  contextJson?: string | null;
 }
 
 export interface V2AdvisoryExport {
@@ -279,7 +267,6 @@ export interface V2Data {
   relations: V2Relation[];
   concepts: V2ConceptExport;
   advisories: V2AdvisoryExport;
-  ratings: V2AgeRatingExport;
   restrictions: V2Restriction[];
 }
 

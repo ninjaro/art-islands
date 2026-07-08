@@ -120,32 +120,12 @@ function ContentGuideSection({ work }: { work: WorkViewModel }) {
   return (
     <section className="work-section" aria-label="Parental and content guide">
       <h3>Content guide</h3>
-      {work.ageRatings.length ? (
-        <ul className="rating-list">
-          {work.ageRatings.map((rating, index) => (
-            <li key={index}>
-              <strong>{rating.system}:</strong> {rating.certificate}
-              {rating.minimumAge !== undefined ? ` (${rating.minimumAge}+)` : ""}
-              {rating.edition ? ` — ${rating.edition}` : ""}
-              {rating.descriptors.length ? (
-                <span className="chips inline-chips">
-                  {rating.descriptors.map((descriptor) => (
-                    <span key={descriptor} className="chip">
-                      {descriptor}
-                    </span>
-                  ))}
-                </span>
-              ) : null}
-            </li>
-          ))}
-        </ul>
-      ) : null}
       {work.advisories.length ? (
         <ul className="advisory-list">
           {work.advisories.slice(0, 12).map((advisory) => {
             const level = advisoryLevel(advisory.intensity);
             return (
-              <li key={advisory.categoryId} className={level ? `advisory ${level}` : "advisory"}>
+              <li key={advisory.categoryCode} className={level ? `advisory ${level}` : "advisory"}>
                 <span className="advisory-category">{advisory.category}</span>
                 {level ? <span className="advisory-level">{level}</span> : null}
                 {advisory.uncertainty !== undefined && advisory.uncertainty >= 30 ? (
@@ -192,10 +172,14 @@ function ConceptCategory({ label, concepts }: { label: string; concepts: Normali
             className={concept.polarity < 0 ? "chip negative" : "chip"}
             title={concept.description || ""}
             aria-label={
-              concept.polarity < 0 ? `${concept.label}, excluded` : `${concept.label}, weight ${concept.weight}`
+              concept.polarity < 0
+                ? `${concept.label}, excluded`
+                : concept.weight === null
+                  ? `${concept.label}, uncalibrated`
+                  : `${concept.label}, weight ${concept.weight}`
             }
           >
-            {concept.label} {concept.weight}
+            {concept.label} {concept.weight ?? "pending"}
           </span>
         ))}
       </div>
@@ -260,7 +244,7 @@ export function WorkDetails({
   onRate: RateHandler;
 }) {
   const image = imageUrl(work.image ?? null);
-  const hasContentGuide = work.ageRatings.length > 0 || work.advisories.length > 0 || work.restrictions.length > 0;
+  const hasContentGuide = work.advisories.length > 0 || work.restrictions.length > 0;
   return (
     <div className="entity-body">
       {image ? (

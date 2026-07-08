@@ -8,20 +8,20 @@ from art_islands import cli
 from art_islands.model import connect_art
 
 
-def test_cli_parser_rejects_invalid_fields_and_tag_values() -> None:
+def test_cli_parser_rejects_invalid_fields_and_concept_values() -> None:
     parser = cli.parser()
 
     with pytest.raises(SystemExit):
         parser.parse_args(["enrich", "--all-missing", "--fields", "label,bogus"])
 
     with pytest.raises(SystemExit):
-        parser.parse_args(["tag", "set", "--entity", "1", "--tag", "2", "--weight", "101"])
+        parser.parse_args(["concept", "set", "--entity", "1", "--concept", "2", "--weight", "101"])
 
     with pytest.raises(SystemExit):
-        parser.parse_args(["tag", "set", "--entity", "1", "--tag", "2", "--polarity", "2"])
+        parser.parse_args(["concept", "set", "--entity", "1", "--concept", "2", "--polarity", "2"])
 
 
-def test_tag_set_updates_existing_entity_tag(tmp_path) -> None:
+def test_concept_set_updates_existing_entity_concept(tmp_path) -> None:
     db_path = tmp_path / "art.sqlite"
     db = connect_art(db_path)
     try:
@@ -31,10 +31,11 @@ def test_tag_set_updates_existing_entity_tag(tmp_path) -> None:
             values (1, 'Work', 7, 1)
             """
         )
-        db.execute("insert into tags(tag_id, name) values (10, 'dream_logic')")
+        db.execute("insert into concept_categories(concept_category_id, code, label) values (1, 'other', 'Other')")
+        db.execute("insert into concepts(concept_id, label, concept_category_id) values (10, 'dream_logic', 1)")
         db.execute(
             """
-            insert into entity_tags(entity_id, tag_id, weight, polarity)
+            insert into entity_concepts(entity_id, concept_id, weight, polarity)
             values (1, 10, 50, 0)
             """
         )
@@ -42,21 +43,21 @@ def test_tag_set_updates_existing_entity_tag(tmp_path) -> None:
     finally:
         db.close()
 
-    cli.command_tag_set(
-        SimpleNamespace(db=db_path, entity=1, tag=10, weight=90, polarity=-1)
+    cli.command_concept_set(
+        SimpleNamespace(db=db_path, entity=1, concept=10, weight=90, polarity=-1)
     )
 
     db = connect_art(db_path)
     try:
         row = db.execute(
-            "select weight, polarity from entity_tags where entity_id = 1 and tag_id = 10"
+            "select weight, polarity from entity_concepts where entity_id = 1 and concept_id = 10"
         ).fetchone()
         assert dict(row) == {"weight": 90, "polarity": -1}
     finally:
         db.close()
 
 
-def test_tag_set_rejects_missing_entity_tag_row(tmp_path) -> None:
+def test_concept_set_rejects_missing_entity_concept_row(tmp_path) -> None:
     db_path = tmp_path / "art.sqlite"
     db = connect_art(db_path)
     try:
@@ -66,14 +67,15 @@ def test_tag_set_rejects_missing_entity_tag_row(tmp_path) -> None:
             values (1, 'Work', 7, 1)
             """
         )
-        db.execute("insert into tags(tag_id, name) values (10, 'dream_logic')")
+        db.execute("insert into concept_categories(concept_category_id, code, label) values (1, 'other', 'Other')")
+        db.execute("insert into concepts(concept_id, label, concept_category_id) values (10, 'dream_logic', 1)")
         db.commit()
     finally:
         db.close()
 
-    with pytest.raises(SystemExit, match="entity_tags row does not exist"):
-        cli.command_tag_set(
-            SimpleNamespace(db=db_path, entity=1, tag=10, weight=75, polarity=None)
+    with pytest.raises(SystemExit, match="entity_concepts row does not exist"):
+        cli.command_concept_set(
+            SimpleNamespace(db=db_path, entity=1, concept=10, weight=75, polarity=None)
         )
 
 

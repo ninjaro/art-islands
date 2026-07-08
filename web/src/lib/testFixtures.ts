@@ -5,7 +5,7 @@ export interface WorkSpec {
   label?: string;
   date?: string | null;
   broadKind?: BroadKind;
-  concepts?: Array<{ id: number; label?: string; category?: string; weight: number; polarity?: number }>;
+  concepts?: Array<{ id: number; label?: string; category?: string; weight: number | null; polarity?: number }>;
   contributors?: Array<{
     entityId: number;
     label?: string;
@@ -14,7 +14,7 @@ export interface WorkSpec {
     weight: number;
     polarity?: number;
   }>;
-  advisories?: Array<{ categoryId: number; category?: string; intensity?: number }>;
+  advisories?: Array<{ categoryCode: string; category?: string; intensity?: number }>;
 }
 
 /** Minimal WorkViewModel for algorithm tests. */
@@ -39,8 +39,8 @@ export function makeWork(id: number, spec: WorkSpec = {}): WorkViewModel {
     }))
     .sort((a, b) => a.role.localeCompare(b.role));
   const advisories = (spec.advisories ?? []).map((advisory) => ({
-    categoryId: advisory.categoryId,
-    category: advisory.category ?? `Advisory ${advisory.categoryId}`,
+    categoryCode: advisory.categoryCode,
+    category: advisory.category ?? advisory.categoryCode,
     intensity: advisory.intensity,
   }));
   const date = spec.date ?? null;
@@ -59,7 +59,6 @@ export function makeWork(id: number, spec: WorkSpec = {}): WorkViewModel {
     contributors,
     contributorsByRole: {},
     measurements: [],
-    ageRatings: [],
     advisories,
     restrictions: [],
     identifiers: [],

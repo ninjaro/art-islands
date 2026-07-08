@@ -52,7 +52,7 @@ function fixture(): V2Data {
     relations: [
       { id: 1, source: 1, target: 50, type: "director", weight: 80, polarity: 0 },
       { id: 2, source: 1, target: 60, type: "production_company", weight: 40, polarity: 0 },
-      { id: 3, source: 1, target: 50, type: "cast_member", characterLabel: "Herself", weight: 30, polarity: 0 },
+      { id: 3, source: 1, target: 50, type: "cast_member", weight: 30, polarity: 0 },
       { id: 4, source: 2, target: 1, type: "adapted_from", weight: 70, polarity: 0 },
     ],
     concepts: {
@@ -68,19 +68,12 @@ function fixture(): V2Data {
       entityConcepts: [
         { entityId: 1, conceptId: 101, weight: 55, polarity: -1, confidence: null },
         { entityId: 1, conceptId: 100, weight: 80, polarity: 0, confidence: null },
-        { entityId: 1, conceptId: 102, weight: 80, polarity: 0, confidence: null },
+        { entityId: 1, conceptId: 102, weight: null, polarity: 0, confidence: null },
       ],
     },
     advisories: {
-      categories: [{ id: 7, code: "violence", label: "Violence" }],
-      advisories: [{ id: 1, entityId: 1, categoryId: 7, intensity: 62, uncertainty: 10 }],
-    },
-    ratings: {
-      systems: [{ id: 1, code: "mpaa", countryCode: "US", label: "MPAA" }],
-      ratings: [
-        { id: 1, entityId: 1, systemId: 1, certificate: "R", minimumAge: 17, descriptorsJson: '["violence"]' },
-        { id: 2, entityId: 2, systemId: 9, certificate: "X", descriptorsJson: "null" },
-      ],
+      categories: [{ code: "violence", label: "Violence" }],
+      advisories: [{ entityId: 1, categoryCode: "violence", intensity: 62, uncertainty: 10 }],
     },
     restrictions: [
       { id: 1, entityId: 1, countryCode: "GB", restrictionType: "refused_classification", status: "historical" },
@@ -92,8 +85,8 @@ describe("buildDomainModel", () => {
   const model = buildDomainModel(fixture());
   const film = model.workById.get(1)!;
 
-  it("normalizes concepts grouped and sorted by weight then label", () => {
-    expect(film.concepts.map((c) => c.conceptId)).toEqual([100, 102, 101]);
+  it("normalizes concepts grouped and sorted by weight then label with null weights last", () => {
+    expect(film.concepts.map((c) => c.conceptId)).toEqual([100, 101, 102]);
     expect(film.conceptsByCategory.genre[0].label).toBe("Horror");
     expect(film.conceptsByCategory.genre[0].categoryLabel).toBe("Genre");
   });
@@ -105,7 +98,6 @@ describe("buildDomainModel", () => {
 
   it("groups contributors by role with human role labels", () => {
     expect(film.contributorsByRole.director.map((c) => c.label)).toEqual(["Rita Director"]);
-    expect(film.contributorsByRole.cast_member[0].characterLabel).toBe("Herself");
     expect(roleLabel("cast_member")).toBe("Cast");
     expect(roleLabel("some_new_role")).toBe("Some new role");
   });
@@ -138,15 +130,8 @@ describe("buildDomainModel", () => {
     expect(model.workRelations.map((r) => r.id)).toEqual([4]);
   });
 
-  it("normalizes age ratings with system labels and parsed descriptors", () => {
-    expect(film.ageRatings[0]).toMatchObject({ system: "MPAA", certificate: "R", minimumAge: 17 });
-    expect(film.ageRatings[0].descriptors).toEqual(["violence"]);
-    const album = model.workById.get(2)!;
-    expect(album.ageRatings[0].descriptors).toEqual([]);
-  });
-
   it("normalizes advisories with category labels", () => {
-    expect(film.advisories[0]).toMatchObject({ categoryId: 7, category: "Violence", intensity: 62 });
+    expect(film.advisories[0]).toMatchObject({ categoryCode: "violence", category: "Violence", intensity: 62 });
   });
 
   it("normalizes restrictions and identifiers", () => {
@@ -162,7 +147,6 @@ describe("buildDomainModel", () => {
     expect(bare.contributors).toEqual([]);
     expect(bare.duration).toBeUndefined();
     expect(bare.advisories).toEqual([]);
-    expect(bare.ageRatings).toEqual([]);
     expect(bare.sortDate).toBeNull();
     expect(bare.year).toBeNull();
     expect(bare.broadKind).toBe("work");

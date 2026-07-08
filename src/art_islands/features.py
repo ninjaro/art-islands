@@ -65,7 +65,9 @@ class FeatureIndex:
     size: int
 
 
-def _magnitude(weight: float) -> float:
+def _magnitude(weight: float | None) -> float:
+    if weight is None:
+        return 0.0
     return max(0.0, min(1.0, weight / 100.0))
 
 
@@ -90,6 +92,8 @@ def extract_features(
     by_key: dict[str, Feature] = {}
     direct = float(feature_settings["directConceptMultiplier"])
     for concept_id, label, category_label, weight, polarity in concepts:
+        if weight is None:
+            continue
         value = _magnitude(weight) * _sign(polarity) * direct
         if value == 0:
             continue

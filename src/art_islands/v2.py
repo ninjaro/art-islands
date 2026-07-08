@@ -5,11 +5,6 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from .model import (
-    REF_KIND_DISCOGS,
-    REF_KIND_IMDB,
-    REF_KIND_MUSICBRAINZ,
-    REF_KIND_TMDB,
-    REF_KIND_WIKIDATA,
     load_settings,
     write_json,
 )
@@ -17,14 +12,6 @@ from .model import (
 
 REQUIRED_V2_TABLES = (
     "entities",
-    "entity_refs",
-    "tags",
-    "entity_tags",
-    "entity_links",
-    "entity_tag_refs",
-    "entity_link_refs",
-    "data_sources",
-    "source_records",
     "identifier_schemes",
     "entity_identifiers",
     "entity_type_definitions",
@@ -35,17 +22,16 @@ REQUIRED_V2_TABLES = (
     "concept_categories",
     "concepts",
     "entity_concepts",
+    "entity_concept_references",
     "entity_dates",
     "measurement_types",
     "entity_measurements",
-    "advisory_categories",
-    "entity_advisories",
-    "age_rating_systems",
-    "entity_age_ratings",
     "entity_restrictions",
-    "patch_references",
+    "entity_restriction_references",
+    "source_references",
     "content_guide_categories",
     "entity_content_guide_dimensions",
+    "entity_content_guide_references",
 )
 
 
@@ -72,7 +58,6 @@ def export_v2_static_data(
         relations = export_v2_relations(db, catalog_ids, exported_entity_ids)
         concepts = export_v2_concepts(db, catalog_ids)
         advisories = export_v2_advisories(db, catalog_ids)
-        ratings = export_v2_age_ratings(db, catalog_ids)
         restrictions = export_v2_restrictions(db, catalog_ids)
         settings = load_settings(settings_path)
     finally:
@@ -84,9 +69,11 @@ def export_v2_static_data(
     write_json(output_dir / "relations.json", relations)
     write_json(output_dir / "concepts.json", concepts)
     write_json(output_dir / "advisories.json", advisories)
-    write_json(output_dir / "ratings.json", ratings)
     write_json(output_dir / "restrictions.json", restrictions)
     write_json(output_dir / "settings.json", settings)
+    stale_ratings = output_dir / "ratings.json"
+    if stale_ratings.exists():
+        stale_ratings.unlink()
     return {
         "catalog": len(catalog),
         "entities": len(entities),
@@ -236,7 +223,6 @@ def export_v2_dates_by_entity(db: sqlite3.Connection, entity_ids: set[int]) -> d
         db.execute(
             """
             select entity_id, date_type, date_value, date_precision,
-                   end_date_value, end_date_precision, edition_label,
                    rank, is_primary, confidence
             from entity_dates
             where entity_id in (%s)
@@ -251,9 +237,6 @@ def export_v2_dates_by_entity(db: sqlite3.Connection, entity_ids: set[int]) -> d
                 "type": row["date_type"],
                 "value": row["date_value"],
                 "precision": row["date_precision"],
-                "endValue": row["end_date_value"],
-                "endPrecision": row["end_date_precision"],
-                "edition": row["edition_label"],
                 "rank": row["rank"],
                 "primary": bool(row["is_primary"]),
                 "confidence": row["confidence"],
@@ -309,8 +292,7 @@ def export_v2_measurements_by_entity(db: sqlite3.Connection, entity_ids: set[int
     return grouped_rows(
         db.execute(
             """
-            select m.entity_id, t.code, m.numeric_value, m.text_value,
-                   m.unit, m.qualifier, m.confidence
+            select m.entity_id, t.code, m.numeric_value, m.unit, m.confidence
             from entity_measurements m
             join measurement_types t on t.measurement_type_id = m.measurement_type_id
             where m.entity_id in (%s)
@@ -324,9 +306,7 @@ def export_v2_measurements_by_entity(db: sqlite3.Connection, entity_ids: set[int
             {
                 "type": row["code"],
                 "number": row["numeric_value"],
-                "text": row["text_value"],
                 "unit": row["unit"],
-                "qualifier": row["qualifier"],
                 "confidence": row["confidence"],
             }
         ),
@@ -347,10 +327,7 @@ def export_v2_relations(
                 "source": row["source_entity_id"],
                 "target": row["target_entity_id"],
                 "type": row["code"],
-                "roleLabel": row["role_label"],
-                "characterLabel": row["character_label"],
                 "weight": row["weight"],
-                "polarity": row["polarity"],
                 "confidence": row["confidence"],
             }
         )
@@ -384,9 +361,7 @@ def export_v2_concepts(db: sqlite3.Connection, catalog_ids: set[int]) -> dict[st
             """
             select c.concept_id as id, c.label, c.description,
                    cc.code as category, c.namespace, c.value,
-                   c.legacy_tag_id as legacyTagId,
-                   c.classification_rule as classificationRule,
-                   c.confidence, c.review_recommended as reviewRecommended
+                   c.confidence
             from concepts c
             join concept_categories cc on cc.concept_category_id = c.concept_category_id
             order by cc.code, c.label
@@ -401,7 +376,7 @@ def export_v2_concepts(db: sqlite3.Connection, catalog_ids: set[int]) -> dict[st
                        ec.weight, ec.polarity, ec.confidence
                 from entity_concepts ec
                 where ec.entity_id in (%s)
-                order by ec.entity_id, ec.weight desc, ec.concept_id
+                order by ec.entity_id, ec.weight is null, ec.weight desc, ec.concept_id
                 """
                 % placeholders(catalog_ids),
                 tuple(catalog_ids),
@@ -421,8 +396,8 @@ def export_v2_advisories(db: sqlite3.Connection, catalog_ids: set[int]) -> dict[
     categories = rows_as_dicts(
         db.execute(
             """
-            select advisory_category_id as id, code, label
-            from advisory_categories
+            select category_code as code, label, description
+            from content_guide_categories
             order by code
             """
         )
@@ -431,12 +406,22 @@ def export_v2_advisories(db: sqlite3.Connection, catalog_ids: set[int]) -> dict[
         rows_as_dicts(
             db.execute(
                 """
-                select entity_advisory_id as id, entity_id as entityId,
-                       advisory_category_id as categoryId, concept_id as conceptId,
-                       severity, intensity, uncertainty
-                from entity_advisories
+                select entity_id as entityId, category_code as categoryCode,
+                       scale_version as scaleVersion, medium, intensity,
+                       centrality, explicitness, realism, recurrence,
+                       sensory_impact as sensoryImpact, coercion,
+                       avoidance_priority as avoidancePriority,
+                       narrative_proximity as narrativeProximity,
+                       language_dependency as languageDependency,
+                       guidance_level as guidanceLevel,
+                       content_role as contentRole, stance,
+                       genre_context as genreContext, confidence,
+                       uncertainty, description,
+                       dimension_values_json as dimensionValuesJson,
+                       context_json as contextJson
+                from entity_content_guide_dimensions
                 where entity_id in (%s)
-                order by entity_id, advisory_category_id
+                order by entity_id, category_code
                 """
                 % placeholders(catalog_ids),
                 tuple(catalog_ids),
@@ -445,39 +430,7 @@ def export_v2_advisories(db: sqlite3.Connection, catalog_ids: set[int]) -> dict[
         if catalog_ids
         else []
     )
-    return {"categories": categories, "advisories": advisories}
-
-
-def export_v2_age_ratings(db: sqlite3.Connection, catalog_ids: set[int]) -> dict[str, Any]:
-    systems = rows_as_dicts(
-        db.execute(
-            """
-            select age_rating_system_id as id, code, country_code as countryCode, label
-            from age_rating_systems
-            order by code
-            """
-        )
-    )
-    ratings = (
-        rows_as_dicts(
-            db.execute(
-                """
-                select entity_age_rating_id as id, entity_id as entityId,
-                       age_rating_system_id as systemId, certificate,
-                       minimum_age as minimumAge, edition_label as editionLabel,
-                       descriptors_json as descriptorsJson, rating_date as ratingDate
-                from entity_age_ratings
-                where entity_id in (%s)
-                order by entity_id, age_rating_system_id, certificate
-                """
-                % placeholders(catalog_ids),
-                tuple(catalog_ids),
-            )
-        )
-        if catalog_ids
-        else []
-    )
-    return {"systems": systems, "ratings": ratings}
+    return {"categories": categories, "advisories": [compact_dict(row) for row in advisories]}
 
 
 def export_v2_restrictions(db: sqlite3.Connection, catalog_ids: set[int]) -> list[dict[str, Any]]:
@@ -508,12 +461,8 @@ def validate_v2_database(project_root: Path, source_db: Path, v2_db: Path) -> di
     target.row_factory = sqlite3.Row
     try:
         missing_tables = missing_required_tables(target)
-        source_catalog_qids = catalog_qids(source)
+        source_catalog_qids = catalog_qids_v2(source) if not missing_required_tables(source) else set()
         target_catalog_qids = catalog_qids_v2(target)
-        tag_mismatches = legacy_tag_mismatches(target) if not missing_tables else 0
-        source_identifier_pairs = source_ref_identifier_pairs(source)
-        target_identifier_pairs = v2_identifier_pairs(target)
-        missing_source_identifiers = sorted(source_identifier_pairs - target_identifier_pairs)
         orphan_counts = logical_orphan_counts(target)
         source_fk = [list(row) for row in source.execute("pragma foreign_key_check")]
         target_fk = [list(row) for row in target.execute("pragma foreign_key_check")]
@@ -531,17 +480,11 @@ def validate_v2_database(project_root: Path, source_db: Path, v2_db: Path) -> di
                 "missingInV2": sorted(source_catalog_qids - target_catalog_qids)[:100],
                 "extraInV2": sorted(target_catalog_qids - source_catalog_qids)[:100],
             },
-            "manualTagWeightPolarityMismatches": int(tag_mismatches),
             "externalIdentifiers": {
-                "sourceRefs": len(source_identifier_pairs),
                 "v2Identifiers": table_count(target, "entity_identifiers"),
-                "sourceRefsPreserved": not missing_source_identifiers,
-                "missingSourceRefs": [
-                    {"scheme": scheme, "value": value}
-                    for scheme, value in missing_source_identifiers[:100]
-                ],
+                "catalogWikidataIdentifiers": len(target_catalog_qids),
             },
-            "logicalSourceOrphans": orphan_counts,
+            "logicalReferenceOrphans": orphan_counts,
             "counts": validation_counts(target),
         }
         summary["ok"] = (
@@ -551,8 +494,6 @@ def validate_v2_database(project_root: Path, source_db: Path, v2_db: Path) -> di
             and not summary["v2ForeignKeys"]
             and not missing_tables
             and not summary["catalogQids"]["missingInV2"]
-            and tag_mismatches == 0
-            and not missing_source_identifiers
             and not any(orphan_counts.values())
         )
         return summary
@@ -569,95 +510,19 @@ def missing_required_tables(db: sqlite3.Connection) -> list[str]:
     return sorted(set(REQUIRED_V2_TABLES) - existing)
 
 
-def legacy_tag_mismatches(db: sqlite3.Connection) -> int:
-    return int(
-        db.execute(
-            """
-            select count(*)
-            from entity_tags et
-            left join concepts c on c.legacy_tag_id = et.tag_id
-            left join entity_concepts ec
-              on ec.entity_id = et.entity_id and ec.concept_id = c.concept_id
-            where ec.entity_id is null
-               or ec.weight <> et.weight
-               or ec.polarity <> et.polarity
-            """
-        ).fetchone()[0]
-    )
-
-
 def logical_orphan_counts(db: sqlite3.Connection) -> dict[str, int]:
     checks = {
-        "entityTagRefs": """
-            select count(*) from entity_tag_refs
-            where ref_id not in (select source_record_id from source_records)
+        "entityConceptReferences": """
+            select count(*) from entity_concept_references
+            where reference_id not in (select reference_id from source_references)
         """,
-        "entityLinkRefs": """
-            select count(*) from entity_link_refs
-            where ref_id not in (select source_record_id from source_records)
+        "entityContentGuideReferences": """
+            select count(*) from entity_content_guide_references
+            where reference_id not in (select reference_id from source_references)
         """,
-        "entityIdentifiers": """
-            select count(*) from entity_identifiers
-            where source_record_id is not null
-              and source_record_id not in (select source_record_id from source_records)
-        """,
-        "entityTypes": """
-            select count(*) from entity_types
-            where source_record_id is not null
-              and source_record_id not in (select source_record_id from source_records)
-        """,
-        "entityTexts": """
-            select count(*) from entity_texts
-            where source_record_id is not null
-              and source_record_id not in (select source_record_id from source_records)
-        """,
-        "entityRelations": """
-            select count(*) from entity_relations
-            where source_record_id is not null
-              and source_record_id not in (select source_record_id from source_records)
-        """,
-        "entityConcepts": """
-            select count(*) from entity_concepts
-            where source_record_id is not null
-              and source_record_id not in (select source_record_id from source_records)
-        """,
-        "entityDates": """
-            select count(*) from entity_dates
-            where source_record_id is not null
-              and source_record_id not in (select source_record_id from source_records)
-        """,
-        "entityMeasurements": """
-            select count(*) from entity_measurements
-            where source_record_id is not null
-              and source_record_id not in (select source_record_id from source_records)
-        """,
-        "entityConceptPatchRefs": """
-            select count(*) from entity_concept_patch_refs
-            where reference_id not in (select reference_id from patch_references)
-        """,
-        "entityConceptSourceRefs": """
-            select count(*) from entity_concept_source_refs
-            where source_record_id not in (select source_record_id from source_records)
-        """,
-        "entityContentGuidePatchRefs": """
-            select count(*) from entity_content_guide_patch_refs
-            where reference_id not in (select reference_id from patch_references)
-        """,
-        "entityContentGuideSourceRefs": """
-            select count(*) from entity_content_guide_source_refs
-            where source_record_id not in (select source_record_id from source_records)
-        """,
-        "entityAdvisoryPatchRefs": """
-            select count(*) from entity_advisory_patch_refs
-            where reference_id not in (select reference_id from patch_references)
-        """,
-        "entityAgeRatingPatchRefs": """
-            select count(*) from entity_age_rating_patch_refs
-            where reference_id not in (select reference_id from patch_references)
-        """,
-        "entityRestrictionPatchRefs": """
-            select count(*) from entity_restriction_patch_refs
-            where reference_id not in (select reference_id from patch_references)
+        "entityRestrictionReferences": """
+            select count(*) from entity_restriction_references
+            where reference_id not in (select reference_id from source_references)
         """,
     }
     return {name: int(db.execute(sql).fetchone()[0]) for name, sql in checks.items()}
@@ -666,41 +531,23 @@ def logical_orphan_counts(db: sqlite3.Connection) -> dict[str, int]:
 def validation_counts(db: sqlite3.Connection) -> dict[str, int]:
     tables = (
         "entities",
-        "entity_refs",
         "entity_identifiers",
         "entity_relations",
         "entity_measurements",
-        "tags",
-        "entity_tags",
         "concepts",
         "entity_concepts",
+        "entity_concept_references",
         "entity_content_guide_dimensions",
-        "entity_advisories",
-        "entity_age_ratings",
+        "entity_content_guide_references",
         "entity_restrictions",
-        "source_records",
-        "patch_references",
+        "entity_restriction_references",
+        "source_references",
     )
     counts = {table: table_count(db, table) for table in tables}
     counts["catalogued_entities"] = int(
         db.execute("select count(*) from entities where is_catalogued = 1").fetchone()[0]
     )
     return counts
-
-
-def catalog_qids(db: sqlite3.Connection) -> set[str]:
-    return {
-        row[0]
-        for row in db.execute(
-            """
-            select r.ref_value
-            from entity_refs r
-            join entities e on e.entity_id = r.entity_id
-            where e.is_catalogued = 1 and r.ref_kind = ?
-            """,
-            (REF_KIND_WIKIDATA,),
-        )
-    }
 
 
 def catalog_qids_v2(db: sqlite3.Connection) -> set[str]:
@@ -716,38 +563,6 @@ def catalog_qids_v2(db: sqlite3.Connection) -> set[str]:
             """
         )
     }
-
-
-def source_ref_identifier_pairs(db: sqlite3.Connection) -> set[tuple[str, str]]:
-    kind_to_scheme = {
-        REF_KIND_WIKIDATA: "wikidata",
-        REF_KIND_IMDB: "imdb_title",
-        REF_KIND_TMDB: "tmdb_movie",
-        REF_KIND_MUSICBRAINZ: "musicbrainz_release_group",
-        REF_KIND_DISCOGS: "discogs_release",
-    }
-    pairs = set()
-    for row in db.execute("select ref_kind, ref_value from entity_refs order by ref_kind, ref_value"):
-        scheme = kind_to_scheme.get(int(row["ref_kind"]))
-        if scheme:
-            pairs.add((scheme, row["ref_value"]))
-    return pairs
-
-
-def v2_identifier_pairs(db: sqlite3.Connection) -> set[tuple[str, str]]:
-    return {
-        (row["code"], row["value"])
-        for row in db.execute(
-            """
-            select s.code, i.value
-            from entity_identifiers i
-            join identifier_schemes s on s.identifier_scheme_id = i.identifier_scheme_id
-            order by s.code, i.value
-            """
-        )
-    }
-
-
 def table_count(db: sqlite3.Connection, table: str) -> int:
     return int(db.execute(f"select count(*) from {table}").fetchone()[0])
 

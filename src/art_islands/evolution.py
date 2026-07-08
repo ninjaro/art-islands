@@ -18,15 +18,12 @@ Hard invariants:
 
 Scoring uses the shared feature model (docs/feature-model.md, features.py):
 direct concepts, contributor-derived features with role multipliers, and
-content-guide (advisory) features, all weighted, polarity-aware, and
-IDF-scaled. Candidate generation is bounded through a feature-to-entity index
+content-guide features, all weighted, polarity-aware, and IDF-scaled.
+Uncalibrated concept assignments with NULL weights are ignored until they are
+calibrated. Candidate generation is bounded through a feature-to-entity index
 over earlier works instead of a quadratic all-pairs comparison; extremely
 common features are downweighted by IDF and skipped entirely for candidate
 generation.
-
-When the database only contains the legacy schema (no V2 tables), features
-fall back to legacy tags — the documented compatibility adapter for migrated
-legacy-only databases.
 """
 
 from __future__ import annotations
@@ -64,9 +61,6 @@ BROAD_KIND_BY_TYPE = {
     "musical_work": "music",
     "video_game": "game",
 }
-
-LEGACY_BROAD_KIND_BY_ENTITY_KIND = {1: "film", 2: "music", 6: "game"}
-
 
 @dataclass(frozen=True)
 class LineageWork:
@@ -120,6 +114,7 @@ def _v2_features_by_entity(
         from entity_concepts ec
         join concepts c on c.concept_id = ec.concept_id
         join concept_categories cc on cc.concept_category_id = c.concept_category_id
+        where ec.weight is not null
         order by ec.entity_id, ec.concept_id
         """
     ):
@@ -131,7 +126,7 @@ def _v2_features_by_entity(
     for row in db.execute(
         """
         select r.source_entity_id, r.target_entity_id, e.label, e.entity_family,
-               t.code, r.weight, r.polarity
+               t.code, r.weight
         from entity_relations r
         join relation_types t on t.relation_type_id = r.relation_type_id
         join entities e on e.entity_id = r.target_entity_id
@@ -145,21 +140,21 @@ def _v2_features_by_entity(
                 row["entity_family"],
                 row["code"],
                 int(row["weight"]),
-                int(row["polarity"]),
+                0,
             )
         )
 
     advisories: defaultdict[int, list[tuple]] = defaultdict(list)
     for row in db.execute(
         """
-        select a.entity_id, a.advisory_category_id, c.label, a.intensity
-        from entity_advisories a
-        join advisory_categories c on c.advisory_category_id = a.advisory_category_id
-        order by a.entity_id, a.advisory_category_id
+        select g.entity_id, g.category_code, c.label, g.intensity
+        from entity_content_guide_dimensions g
+        join content_guide_categories c on c.category_code = g.category_code
+        order by g.entity_id, g.category_code
         """
     ):
         advisories[int(row["entity_id"])].append(
-            (int(row["advisory_category_id"]), row["label"], row["intensity"])
+            (str(row["category_code"]), row["label"], row["intensity"])
         )
 
     entity_ids = set(concepts) | set(contributors) | set(advisories)
@@ -174,31 +169,6 @@ def _v2_features_by_entity(
     }
 
 
-def _legacy_features_by_entity(
-    db: sqlite3.Connection,
-    feature_settings: dict[str, float],
-) -> dict[int, dict[str, Feature]]:
-    """Compatibility adapter for legacy-only databases: tags become direct
-    concept features (concept ids reuse legacy tag ids)."""
-
-    tag_rows: defaultdict[int, list[tuple]] = defaultdict(list)
-    for row in db.execute(
-        """
-        select et.entity_id, et.tag_id, t.name, et.weight, et.polarity
-        from entity_tags et
-        join tags t on t.tag_id = et.tag_id
-        order by et.entity_id, et.tag_id
-        """
-    ):
-        tag_rows[int(row["entity_id"])].append(
-            (int(row["tag_id"]), row["name"], "Concept", int(row["weight"]), int(row["polarity"]))
-        )
-    return {
-        entity_id: features_module.extract_features(rows, (), (), feature_settings)
-        for entity_id, rows in tag_rows.items()
-    }
-
-
 def load_catalogued_works(
     db: sqlite3.Connection,
     feature_settings: dict[str, float] | None = None,
@@ -206,32 +176,19 @@ def load_catalogued_works(
     if feature_settings is None:
         feature_settings = dict(DEFAULT_SETTINGS["features"])
 
-    has_v2 = _has_table(db, "entity_concepts")
-    if has_v2:
-        rows = db.execute(
-            """
-            select entity_id, release_date
-            from entities
-            where is_catalogued = 1 and entity_family = 'work'
-            order by entity_id
-            """
-        ).fetchall()
-        kinds = _v2_broad_kinds(db)
-        features_by_entity = _v2_features_by_entity(db, feature_settings)
-    else:
-        rows = db.execute(
-            """
-            select entity_id, entity_kind, release_date
-            from entities
-            where is_catalogued = 1
-            order by entity_id
-            """
-        ).fetchall()
-        kinds = {
-            int(row["entity_id"]): LEGACY_BROAD_KIND_BY_ENTITY_KIND.get(int(row["entity_kind"]), "work")
-            for row in rows
-        }
-        features_by_entity = _legacy_features_by_entity(db, feature_settings)
+    if not _has_table(db, "entity_concepts"):
+        raise ValueError("domain database is missing V2 concept tables")
+
+    rows = db.execute(
+        """
+        select entity_id, release_date
+        from entities
+        where is_catalogued = 1 and entity_family = 'work'
+        order by entity_id
+        """
+    ).fetchall()
+    kinds = _v2_broad_kinds(db)
+    features_by_entity = _v2_features_by_entity(db, feature_settings)
 
     works: list[LineageWork] = []
     for row in rows:

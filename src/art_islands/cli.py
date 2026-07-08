@@ -32,7 +32,6 @@ from .model import (
     first_string,
     load_id_map_labels,
     load_settings,
-    migrate_art_database,
     parse_wikidata_date,
     save_settings,
     scan_layer_metadata,
@@ -45,6 +44,13 @@ CONFIG_KEYS = {
     "recommendation.like-weight": ("likeWeight", "float"),
     "recommendation.dislike-weight": ("dislikeWeight", "float"),
     "recommendation.limit": ("limit", "int"),
+}
+SCHEME_CODE_BY_REF_KIND = {
+    REF_KIND_WIKIDATA: "wikidata",
+    REF_KIND_IMDB: "imdb_title",
+    REF_KIND_TMDB: "tmdb_movie",
+    REF_KIND_MUSICBRAINZ: "musicbrainz_release_group",
+    REF_KIND_DISCOGS: "discogs_release",
 }
 
 
@@ -133,20 +139,6 @@ def parse_positive_int(value: str) -> int:
     return parsed
 
 
-def layer_paths(args) -> list[Path]:
-    if args.layer:
-        layers = list(args.layer)
-    else:
-        layers = default_art_layers(args.source_db.parent)
-
-    if args.include_other:
-        other = args.source_db.parent / "layers" / "other_creative_work.jsonl"
-        if other not in layers:
-            layers.append(other)
-
-    return layers
-
-
 def enrichment_layer_paths(source_root: Path) -> list[Path]:
     layers = default_art_layers(source_root)
     other = source_root / "layers" / "other_creative_work.jsonl"
@@ -155,44 +147,18 @@ def enrichment_layer_paths(source_root: Path) -> list[Path]:
     return layers
 
 
-def command_migrate(args) -> None:
-    stats = migrate_art_database(
-        source_db=args.source_db,
-        target_db=args.db,
-        layer_paths=layer_paths(args),
-        id_map_path=args.id_map,
-        replace=args.replace,
-    )
-    for key, value in stats.__dict__.items():
-        print(f"{key}={value}")
-
-
 def command_export(args) -> None:
     if args.version == 2:
         db_path = default_v2_db_path() if args.db == default_db_path() else args.db
         output_path = default_v2_output_path() if args.output == default_output_path() else args.output
+        root_result = export_static_data(db_path, default_output_path(), args.settings)
         result = v2_module.export_v2_static_data(db_path, output_path, args.settings)
+        result = {**root_result, **{f"v2_{key}": value for key, value in result.items()}}
         args.output = output_path
     else:
         result = export_static_data(args.db, args.output, args.settings)
     for key, value in result.items():
         print(f"{key}={value}")
-    print(f"output={args.output}")
-
-
-def command_build(args) -> None:
-    stats = migrate_art_database(
-        source_db=args.source_db,
-        target_db=args.db,
-        layer_paths=layer_paths(args),
-        id_map_path=args.id_map,
-        replace=args.replace,
-    )
-    result = export_static_data(args.db, args.output, args.settings)
-    for key, value in stats.__dict__.items():
-        print(f"{key}={value}")
-    for key, value in result.items():
-        print(f"export_{key}={value}")
     print(f"output={args.output}")
 
 
@@ -297,9 +263,19 @@ def command_db_v2_validate(args) -> None:
         raise SystemExit(1)
 
 
-def command_tag_set(args) -> None:
+def identifier_scheme_id(db: sqlite3.Connection, code: str) -> int:
+    row = db.execute(
+        "select identifier_scheme_id from identifier_schemes where code = ?",
+        (code,),
+    ).fetchone()
+    if row is None:
+        raise SystemExit(f"identifier scheme is not configured: {code}")
+    return int(row["identifier_scheme_id"])
+
+
+def command_concept_set(args) -> None:
     if args.weight is None and args.polarity is None:
-        raise SystemExit("tag set requires --weight, --polarity, or both")
+        raise SystemExit("concept set requires --weight, --polarity, or both")
 
     db = connect_art(args.db)
     try:
@@ -310,19 +286,19 @@ def command_tag_set(args) -> None:
         if entity is None:
             raise SystemExit(f"unknown entity_id: {args.entity}")
 
-        tag = db.execute(
-            "select 1 from tags where tag_id = ?",
-            (args.tag,),
+        concept = db.execute(
+            "select 1 from concepts where concept_id = ?",
+            (args.concept,),
         ).fetchone()
-        if tag is None:
-            raise SystemExit(f"unknown tag_id: {args.tag}")
+        if concept is None:
+            raise SystemExit(f"unknown concept_id: {args.concept}")
 
-        entity_tag = db.execute(
-            "select 1 from entity_tags where entity_id = ? and tag_id = ?",
-            (args.entity, args.tag),
+        entity_concept = db.execute(
+            "select 1 from entity_concepts where entity_id = ? and concept_id = ?",
+            (args.entity, args.concept),
         ).fetchone()
-        if entity_tag is None:
-            raise SystemExit("entity_tags row does not exist")
+        if entity_concept is None:
+            raise SystemExit("entity_concepts row does not exist")
 
         assignments: list[str] = []
         values: list[int] = []
@@ -332,12 +308,12 @@ def command_tag_set(args) -> None:
         if args.polarity is not None:
             assignments.append("polarity = ?")
             values.append(args.polarity)
-        values.extend([args.entity, args.tag])
+        values.extend([args.entity, args.concept])
         db.execute(
             f"""
-            update entity_tags
+            update entity_concepts
             set {", ".join(assignments)}
-            where entity_id = ? and tag_id = ?
+            where entity_id = ? and concept_id = ?
             """,
             values,
         )
@@ -418,14 +394,13 @@ def select_enrichment_targets(
 ) -> list[sqlite3.Row]:
     rows = db.execute(
         """
-        select e.*, r.ref_value as qid
+        select e.*, i.value as qid
         from entities e
-        join entity_refs r
-          on r.entity_id = e.entity_id
-         and r.ref_kind = ?
+        join entity_identifiers i on i.entity_id = e.entity_id
+        join identifier_schemes s on s.identifier_scheme_id = i.identifier_scheme_id
+         and s.code = 'wikidata'
         order by e.entity_id
-        """,
-        (REF_KIND_WIKIDATA,),
+        """
     ).fetchall()
 
     if args.entity is not None:
@@ -463,10 +438,11 @@ def entity_field_missing(db: sqlite3.Connection, row: sqlite3.Row, field: str) -
         count = db.execute(
             """
             select count(*)
-            from entity_refs
-            where entity_id = ? and ref_kind <> ?
+            from entity_identifiers i
+            join identifier_schemes s on s.identifier_scheme_id = i.identifier_scheme_id
+            where i.entity_id = ? and s.code <> 'wikidata'
             """,
-            (row["entity_id"], REF_KIND_WIKIDATA),
+            (row["entity_id"],),
         ).fetchone()[0]
         return int(count) == 0
     return False
@@ -573,14 +549,18 @@ def apply_enrichment_metadata(
         if not external_refs:
             unresolved = True
         for ref_kind, ref_value in external_refs:
+            scheme_code = SCHEME_CODE_BY_REF_KIND.get(ref_kind)
+            if scheme_code is None:
+                continue
+            scheme_id = identifier_scheme_id(db, scheme_code)
             before = db.total_changes
             db.execute(
                 """
-                insert into entity_refs(entity_id, ref_kind, ref_value)
-                values (?, ?, ?)
-                on conflict do nothing
+                insert into entity_identifiers(entity_id, identifier_scheme_id, value, is_primary)
+                values (?, ?, ?, 0)
+                on conflict(identifier_scheme_id, value) do nothing
                 """,
-                (row["entity_id"], ref_kind, ref_value),
+                (row["entity_id"], scheme_id, ref_value),
             )
             changed = changed or db.total_changes > before
 
@@ -733,29 +713,6 @@ def remote_refs(qid: str, claims: dict[str, Any]) -> tuple[tuple[int, str], ...]
     return tuple(sorted(refs.items()))
 
 
-def add_source_args(target: argparse.ArgumentParser) -> None:
-    target.add_argument("--source-db", type=resolved_path, required=True)
-    target.add_argument("--db", type=resolved_path, required=True)
-    target.add_argument("--id-map", type=resolved_path)
-    target.add_argument(
-        "--layer",
-        type=resolved_path,
-        action="append",
-        default=[],
-        help="Wikidata layer JSONL to scan; repeat for multiple layers.",
-    )
-    target.add_argument(
-        "--include-other",
-        action="store_true",
-        help="Also scan layers/other_creative_work.jsonl.",
-    )
-    target.add_argument(
-        "--replace",
-        action="store_true",
-        help="Replace the output SQLite database if it already exists.",
-    )
-
-
 def add_common_export_args(target: argparse.ArgumentParser) -> None:
     target.add_argument("--db", type=resolved_path, default=default_db_path())
     target.add_argument("--output", type=resolved_path, default=default_output_path())
@@ -766,20 +723,10 @@ def parser() -> argparse.ArgumentParser:
     root = argparse.ArgumentParser(prog="art-islands")
     sub = root.add_subparsers(dest="command", required=True)
 
-    migrate = sub.add_parser("migrate")
-    add_source_args(migrate)
-    migrate.set_defaults(function=command_migrate)
-
     export = sub.add_parser("export")
     add_common_export_args(export)
-    export.add_argument("--version", type=int, choices=(1, 2), default=1)
+    export.add_argument("--version", type=int, choices=(1, 2), default=2)
     export.set_defaults(function=command_export)
-
-    build = sub.add_parser("build")
-    add_source_args(build)
-    build.add_argument("--output", type=resolved_path, default=default_output_path())
-    build.add_argument("--settings", type=resolved_path, default=default_settings_path())
-    build.set_defaults(function=command_build)
 
     enrich = sub.add_parser("enrich")
     enrich_target = enrich.add_mutually_exclusive_group(required=True)
@@ -793,15 +740,15 @@ def parser() -> argparse.ArgumentParser:
     enrich.add_argument("--id-map", type=resolved_path, default=default_id_map_path())
     enrich.set_defaults(function=command_enrich)
 
-    tag = sub.add_parser("tag")
-    tag_sub = tag.add_subparsers(dest="tag_command", required=True)
-    tag_set = tag_sub.add_parser("set")
-    tag_set.add_argument("--entity", type=int, required=True)
-    tag_set.add_argument("--tag", type=int, required=True)
-    tag_set.add_argument("--weight", type=parse_weight)
-    tag_set.add_argument("--polarity", type=parse_polarity)
-    tag_set.add_argument("--db", type=resolved_path, default=default_db_path())
-    tag_set.set_defaults(function=command_tag_set)
+    concept = sub.add_parser("concept")
+    concept_sub = concept.add_subparsers(dest="concept_command", required=True)
+    concept_set = concept_sub.add_parser("set")
+    concept_set.add_argument("--entity", type=int, required=True)
+    concept_set.add_argument("--concept", type=int, required=True)
+    concept_set.add_argument("--weight", type=parse_weight)
+    concept_set.add_argument("--polarity", type=parse_polarity)
+    concept_set.add_argument("--db", type=resolved_path, default=default_db_path())
+    concept_set.set_defaults(function=command_concept_set)
 
     batch = sub.add_parser("batch")
     batch_sub = batch.add_subparsers(dest="batch_command", required=True)

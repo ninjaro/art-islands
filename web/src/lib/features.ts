@@ -80,6 +80,7 @@ function polaritySign(polarity: number): 1 | -1 {
 export function extractWorkFeatures(work: WorkViewModel, settings: FeatureSettings): WeightedFeature[] {
   const byKey = new Map<string, WeightedFeature>();
   for (const concept of work.concepts) {
+    if (concept.weight === null) continue;
     const value = magnitude(concept.weight) * polaritySign(concept.polarity) * settings.directConceptMultiplier;
     if (value === 0) continue;
     const key = `concept:${concept.conceptId}`;
@@ -107,7 +108,7 @@ export function extractWorkFeatures(work: WorkViewModel, settings: FeatureSettin
     if (advisory.intensity === undefined || advisory.intensity === null) continue;
     const value = magnitude(advisory.intensity) * settings.contentGuideMultiplier;
     if (value === 0) continue;
-    const key = `advisory:${advisory.categoryId}`;
+    const key = `advisory:${advisory.categoryCode}`;
     byKey.set(key, { key, label: advisory.category, value, source: "content-guide" });
   }
   return [...byKey.values()].sort((a, b) => (a.key < b.key ? -1 : a.key > b.key ? 1 : 0));

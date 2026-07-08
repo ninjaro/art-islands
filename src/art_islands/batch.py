@@ -26,16 +26,18 @@ ALLOWED_OPS = (
     "update_entity",
     "set_external_ref",
     "remove_external_ref",
+    "set_entity_concept",
+    "remove_entity_concept",
     "set_entity_tag",
     "remove_entity_tag",
 )
 
 REF_KINDS = {
-    "wikidata": 1,
-    "imdb": 2,
-    "tmdb": 3,
-    "musicbrainz": 4,
-    "discogs": 5,
+    "wikidata": "wikidata",
+    "imdb": "imdb_title",
+    "tmdb": "tmdb_movie",
+    "musicbrainz": "musicbrainz_release_group",
+    "discogs": "discogs_release",
 }
 
 REF_VALUE_PATTERNS = {
@@ -232,9 +234,9 @@ def validate_batch(db: sqlite3.Connection, batch: Batch) -> None:
                     db, prefix, operation.op, payload, entity_id, ref_targets, new_ref_values
                 )
             )
-        elif operation.op in ("set_entity_tag", "remove_entity_tag"):
+        elif operation.op in ("set_entity_concept", "remove_entity_concept", "set_entity_tag", "remove_entity_tag"):
             errors.extend(
-                _validate_entity_tag(db, prefix, operation.op, payload, entity_id, tag_targets)
+                _validate_entity_concept(db, prefix, operation.op, payload, entity_id, tag_targets)
             )
 
     if errors:
@@ -245,8 +247,19 @@ def _entity_exists(db: sqlite3.Connection, entity_id: int) -> bool:
     return db.execute("select 1 from entities where entity_id = ?", (entity_id,)).fetchone() is not None
 
 
-def _tag_exists(db: sqlite3.Connection, tag_id: int) -> bool:
-    return db.execute("select 1 from tags where tag_id = ?", (tag_id,)).fetchone() is not None
+def _concept_exists(db: sqlite3.Connection, concept_id: int) -> bool:
+    return db.execute("select 1 from concepts where concept_id = ?", (concept_id,)).fetchone() is not None
+
+
+def _identifier_scheme_id(db: sqlite3.Connection, kind: str) -> int:
+    scheme = REF_KINDS[kind]
+    row = db.execute(
+        "select identifier_scheme_id from identifier_schemes where code = ?",
+        (scheme,),
+    ).fetchone()
+    if row is None:
+        raise BatchError([f"identifier scheme '{scheme}' is not configured"])
+    return int(row[0])
 
 
 def _validate_update_entity(
@@ -346,6 +359,11 @@ def _validate_external_ref(
     if not isinstance(value, str) or not REF_VALUE_PATTERNS[kind].match(value):
         errors.append(f"{prefix}: 'value' is not a valid {kind} reference")
         return errors
+    try:
+        scheme_id = _identifier_scheme_id(db, kind)
+    except BatchError as exc:
+        errors.extend(f"{prefix}: {message}" for message in exc.errors)
+        return errors
 
     target = (entity_id, kind)
     if target in ref_targets:
@@ -354,8 +372,12 @@ def _validate_external_ref(
 
     if op == "set_external_ref":
         row = db.execute(
-            "select entity_id from entity_refs where ref_kind = ? and ref_value = ?",
-            (REF_KINDS[kind], value),
+            """
+            select entity_id
+            from entity_identifiers
+            where identifier_scheme_id = ? and value = ?
+            """,
+            (scheme_id, value),
         ).fetchone()
         if row is not None and int(row[0]) != entity_id:
             errors.append(
@@ -369,7 +391,7 @@ def _validate_external_ref(
     return errors
 
 
-def _validate_entity_tag(
+def _validate_entity_concept(
     db: sqlite3.Connection,
     prefix: str,
     op: str,
@@ -378,28 +400,36 @@ def _validate_entity_tag(
     tag_targets: set[tuple[int, int]],
 ) -> list[str]:
     errors: list[str] = []
-    allowed = {"op", "entityId", "tagId", "weight", "polarity"} if op == "set_entity_tag" else {"op", "entityId", "tagId"}
+    is_set = op in ("set_entity_concept", "set_entity_tag")
+    allowed = {"op", "entityId", "conceptId", "tagId", "weight", "polarity"} if is_set else {
+        "op",
+        "entityId",
+        "conceptId",
+        "tagId",
+    }
     unknown = set(payload) - allowed
     if unknown:
         errors.append(f"{prefix}: unknown fields: {', '.join(sorted(unknown))}")
 
-    tag_id = payload.get("tagId")
-    if not isinstance(tag_id, int) or isinstance(tag_id, bool):
-        errors.append(f"{prefix}: 'tagId' must be an integer")
+    concept_id = payload.get("conceptId", payload.get("tagId"))
+    if not isinstance(concept_id, int) or isinstance(concept_id, bool):
+        errors.append(f"{prefix}: 'conceptId' must be an integer")
         return errors
-    if not _tag_exists(db, tag_id):
-        errors.append(f"{prefix}: tag {tag_id} does not exist")
+    if not _concept_exists(db, concept_id):
+        errors.append(f"{prefix}: concept {concept_id} does not exist")
         return errors
 
-    target = (entity_id, tag_id)
+    target = (entity_id, concept_id)
     if target in tag_targets:
-        errors.append(f"{prefix}: conflicting operations on tag {tag_id} of entity {entity_id}")
+        errors.append(f"{prefix}: conflicting operations on concept {concept_id} of entity {entity_id}")
     tag_targets.add(target)
 
-    if op == "set_entity_tag":
+    if is_set:
         weight = payload.get("weight")
-        if not isinstance(weight, int) or isinstance(weight, bool) or not 0 <= weight <= 100:
-            errors.append(f"{prefix}: 'weight' must be an integer from 0 to 100")
+        if weight is not None and (
+            not isinstance(weight, int) or isinstance(weight, bool) or not 0 <= weight <= 100
+        ):
+            errors.append(f"{prefix}: 'weight' must be null or an integer from 0 to 100")
         polarity = payload.get("polarity", 0)
         if polarity not in (-1, 0, 1) or isinstance(polarity, bool):
             errors.append(f"{prefix}: 'polarity' must be -1, 0, or 1")
@@ -423,13 +453,15 @@ def apply_batch(db: sqlite3.Connection, batch: Batch) -> ApplyResult:
             result.record(operation.op, _apply_set_ref(db, entity_id, payload["kind"], payload["value"]))
         elif operation.op == "remove_external_ref":
             result.record(operation.op, _apply_remove_ref(db, entity_id, payload["kind"], payload["value"]))
-        elif operation.op == "set_entity_tag":
+        elif operation.op in ("set_entity_concept", "set_entity_tag"):
+            concept_id = int(payload.get("conceptId", payload.get("tagId")))
             result.record(
                 operation.op,
-                _apply_set_tag(db, entity_id, int(payload["tagId"]), int(payload["weight"]), int(payload.get("polarity", 0))),
+                _apply_set_concept(db, entity_id, concept_id, payload.get("weight"), int(payload.get("polarity", 0))),
             )
-        elif operation.op == "remove_entity_tag":
-            result.record(operation.op, _apply_remove_tag(db, entity_id, int(payload["tagId"])))
+        elif operation.op in ("remove_entity_concept", "remove_entity_tag"):
+            concept_id = int(payload.get("conceptId", payload.get("tagId")))
+            result.record(operation.op, _apply_remove_concept(db, entity_id, concept_id))
     return result
 
 
@@ -467,56 +499,77 @@ def _apply_update_entity(db: sqlite3.Connection, entity_id: int, updates: dict[s
 
 
 def _apply_set_ref(db: sqlite3.Connection, entity_id: int, kind: str, value: str) -> bool:
-    ref_kind = REF_KINDS[kind]
+    scheme_id = _identifier_scheme_id(db, kind)
     row = db.execute(
-        "select ref_value from entity_refs where entity_id = ? and ref_kind = ?",
-        (entity_id, ref_kind),
+        """
+        select value
+        from entity_identifiers
+        where entity_id = ? and identifier_scheme_id = ?
+        """,
+        (entity_id, scheme_id),
     ).fetchone()
     if row is not None and row[0] == value:
         return False
     if row is None:
         db.execute(
-            "insert into entity_refs(entity_id, ref_kind, ref_value) values (?, ?, ?)",
-            (entity_id, ref_kind, value),
+            """
+            insert into entity_identifiers(entity_id, identifier_scheme_id, value, is_primary)
+            values (?, ?, ?, 1)
+            """,
+            (entity_id, scheme_id, value),
         )
     else:
         db.execute(
-            "update entity_refs set ref_value = ? where entity_id = ? and ref_kind = ?",
-            (value, entity_id, ref_kind),
+            """
+            update entity_identifiers
+            set value = ?
+            where entity_id = ? and identifier_scheme_id = ?
+            """,
+            (value, entity_id, scheme_id),
         )
     return True
 
 
 def _apply_remove_ref(db: sqlite3.Connection, entity_id: int, kind: str, value: str) -> bool:
+    scheme_id = _identifier_scheme_id(db, kind)
     cursor = db.execute(
-        "delete from entity_refs where entity_id = ? and ref_kind = ? and ref_value = ?",
-        (entity_id, REF_KINDS[kind], value),
+        """
+        delete from entity_identifiers
+        where entity_id = ? and identifier_scheme_id = ? and value = ?
+        """,
+        (entity_id, scheme_id, value),
     )
     return cursor.rowcount > 0
 
 
-def _apply_set_tag(db: sqlite3.Connection, entity_id: int, tag_id: int, weight: int, polarity: int) -> bool:
+def _apply_set_concept(
+    db: sqlite3.Connection,
+    entity_id: int,
+    concept_id: int,
+    weight: int | None,
+    polarity: int,
+) -> bool:
     row = db.execute(
-        "select weight, polarity from entity_tags where entity_id = ? and tag_id = ?",
-        (entity_id, tag_id),
+        "select weight, polarity from entity_concepts where entity_id = ? and concept_id = ?",
+        (entity_id, concept_id),
     ).fetchone()
-    if row is not None and int(row[0]) == weight and int(row[1]) == polarity:
+    if row is not None and row[0] == weight and int(row[1]) == polarity:
         return False
     db.execute(
         """
-        insert into entity_tags(entity_id, tag_id, weight, polarity)
+        insert into entity_concepts(entity_id, concept_id, weight, polarity)
         values (?, ?, ?, ?)
-        on conflict(entity_id, tag_id) do update set weight = excluded.weight, polarity = excluded.polarity
+        on conflict(entity_id, concept_id) do update set weight = excluded.weight, polarity = excluded.polarity
         """,
-        (entity_id, tag_id, weight, polarity),
+        (entity_id, concept_id, weight, polarity),
     )
     return True
 
 
-def _apply_remove_tag(db: sqlite3.Connection, entity_id: int, tag_id: int) -> bool:
+def _apply_remove_concept(db: sqlite3.Connection, entity_id: int, concept_id: int) -> bool:
     cursor = db.execute(
-        "delete from entity_tags where entity_id = ? and tag_id = ?",
-        (entity_id, tag_id),
+        "delete from entity_concepts where entity_id = ? and concept_id = ?",
+        (entity_id, concept_id),
     )
     return cursor.rowcount > 0
 

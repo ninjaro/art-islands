@@ -16,7 +16,7 @@ export interface NormalizedConceptAssignment {
   description?: string;
   category: string;
   categoryLabel: string;
-  weight: number;
+  weight: number | null;
   polarity: number;
 }
 
@@ -44,20 +44,12 @@ export interface NormalizedDuration {
   label: string;
 }
 
-export interface NormalizedAgeRating {
-  system: string;
-  certificate: string;
-  minimumAge?: number;
-  edition?: string;
-  descriptors: string[];
-}
-
 export interface NormalizedAdvisory {
-  categoryId: number;
+  categoryCode: string;
   category: string;
-  severity?: number | string;
   intensity?: number;
   uncertainty?: number;
+  description?: string;
 }
 
 export interface NormalizedRestriction {
@@ -103,7 +95,6 @@ export interface WorkViewModel {
   measurements: NormalizedMeasurement[];
   duration?: NormalizedDuration;
 
-  ageRatings: NormalizedAgeRating[];
   advisories: NormalizedAdvisory[];
   restrictions: NormalizedRestriction[];
 
@@ -160,16 +151,6 @@ export function broadKindForType(code: string): BroadKind {
 
 const FALLBACK_TYPE = { code: "other_creative_work", label: "Work" };
 
-function parseDescriptors(raw: string | null | undefined): string[] {
-  if (!raw) return [];
-  try {
-    const parsed = JSON.parse(raw) as unknown;
-    return Array.isArray(parsed) ? parsed.filter((entry): entry is string => typeof entry === "string") : [];
-  } catch {
-    return [];
-  }
-}
-
 function groupBy<T>(items: T[], keyOf: (item: T) => number): Map<number, T[]> {
   const groups = new Map<number, T[]>();
   for (const item of items) {
@@ -201,9 +182,7 @@ export function buildDomainModel(v2: V2Data): DomainModel {
   const conceptsByEntity = groupBy(v2.concepts.entityConcepts, (row) => row.entityId);
   const relationsBySource = groupBy(v2.relations, (relation) => relation.source);
   const advisoriesByEntity = groupBy(v2.advisories.advisories, (advisory) => advisory.entityId);
-  const advisoryCategoryLabels = new Map(v2.advisories.categories.map((category) => [category.id, category.label]));
-  const ratingsByEntity = groupBy(v2.ratings.ratings, (rating) => rating.entityId);
-  const ratingSystems = new Map(v2.ratings.systems.map((system) => [system.id, system]));
+  const advisoryCategoryLabels = new Map(v2.advisories.categories.map((category) => [category.code, category.label]));
   const restrictionsByEntity = groupBy(v2.restrictions, (restriction) => restriction.entityId);
 
   const catalogIds = new Set(v2.catalog.map((item) => item.id));
@@ -248,7 +227,11 @@ export function buildDomainModel(v2: V2Data): DomainModel {
       });
     }
     concepts.sort(
-      (a, b) => b.weight - a.weight || a.label.localeCompare(b.label) || a.conceptId - b.conceptId,
+      (a, b) =>
+        Number(a.weight === null) - Number(b.weight === null) ||
+        (b.weight ?? -1) - (a.weight ?? -1) ||
+        a.label.localeCompare(b.label) ||
+        a.conceptId - b.conceptId,
     );
     const conceptsByCategory: Record<string, NormalizedConceptAssignment[]> = {};
     for (const concept of concepts) {
@@ -264,9 +247,8 @@ export function buildDomainModel(v2: V2Data): DomainModel {
         role: relation.type,
         roleLabel: roleLabel(relation.type),
         family: target?.family ?? "unknown",
-        characterLabel: relation.characterLabel,
         weight: relation.weight,
-        polarity: relation.polarity,
+        polarity: relation.polarity ?? 0,
       });
     }
     contributors.sort(
@@ -297,21 +279,13 @@ export function buildDomainModel(v2: V2Data): DomainModel {
       duration = { seconds, label: formatDuration(seconds) };
     }
 
-    const ageRatings: NormalizedAgeRating[] = (ratingsByEntity.get(item.id) ?? []).map((rating) => ({
-      system: ratingSystems.get(rating.systemId)?.label ?? "Rating",
-      certificate: rating.certificate,
-      minimumAge: rating.minimumAge ?? undefined,
-      edition: rating.editionLabel ?? undefined,
-      descriptors: parseDescriptors(rating.descriptorsJson),
-    }));
-
     const advisories: NormalizedAdvisory[] = (advisoriesByEntity.get(item.id) ?? [])
       .map((advisory) => ({
-        categoryId: advisory.categoryId,
-        category: advisoryCategoryLabels.get(advisory.categoryId) ?? "Content",
-        severity: advisory.severity ?? undefined,
+        categoryCode: advisory.categoryCode,
+        category: advisoryCategoryLabels.get(advisory.categoryCode) ?? "Content",
         intensity: advisory.intensity ?? undefined,
         uncertainty: advisory.uncertainty ?? undefined,
+        description: advisory.description ?? undefined,
       }))
       .sort((a, b) => (b.intensity ?? 0) - (a.intensity ?? 0) || a.category.localeCompare(b.category));
 
@@ -364,7 +338,6 @@ export function buildDomainModel(v2: V2Data): DomainModel {
       contributorsByRole,
       measurements,
       duration,
-      ageRatings,
       advisories,
       restrictions,
       identifiers,

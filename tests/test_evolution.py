@@ -9,7 +9,8 @@ from art_islands.evolution import (
     build_evolution_export,
     compute_lineage,
 )
-from art_islands.model import DEFAULT_SETTINGS, connect_art, settings_with_defaults
+from art_islands.model import DEFAULT_SETTINGS, settings_with_defaults
+from art_islands.schema import DOMAIN_SCHEMA
 
 SETTINGS = DEFAULT_SETTINGS["features"]
 
@@ -184,13 +185,9 @@ def test_edge_metadata_explains_inference() -> None:
 
 
 def create_v2_evolution_fixture(path) -> None:
-    from tools.clean_domain_database import SCHEMA
-
     db = sqlite3.connect(path)
     try:
-        db.executescript(SCHEMA)
-        db.execute("insert into data_sources values (1, 'legacy_database', 'Legacy', 'sqlite', null)")
-        db.execute("insert into source_records values (1, 1, 'legacy:1', null)")
+        db.executescript(DOMAIN_SCHEMA)
         db.executemany(
             """
             insert into entities(
@@ -210,8 +207,8 @@ def create_v2_evolution_fixture(path) -> None:
             [(1, "film", "work", "Film", None), (2, "person", "person", "Person", None)],
         )
         db.executemany(
-            "insert into entity_types(entity_id, entity_type_id, is_primary, confidence, source_record_id) values (?, ?, ?, ?, ?)",
-            [(1, 1, 1, 1.0, 1), (2, 1, 1, 1.0, 1), (3, 2, 1, 1.0, 1)],
+            "insert into entity_types(entity_id, entity_type_id, is_primary, confidence) values (?, ?, ?, ?)",
+            [(1, 1, 1, 1.0), (2, 1, 1, 1.0), (3, 2, 1, 1.0)],
         )
         db.execute(
             "insert into relation_types values (1, 'director', 'Director', 'contributor', 'work', 'person', null)"
@@ -219,9 +216,8 @@ def create_v2_evolution_fixture(path) -> None:
         db.executemany(
             """
             insert into entity_relations(
-                entity_relation_id, source_entity_id, target_entity_id, relation_type_id,
-                role_label, character_label, ordering, weight, confidence, polarity, source_record_id
-            ) values (?, ?, ?, ?, null, null, 1, ?, 0.9, 0, 1)
+                entity_relation_id, source_entity_id, target_entity_id, relation_type_id, weight, confidence
+            ) values (?, ?, ?, ?, ?, 0.9)
             """,
             [(1, 1, 3, 1, 80), (2, 2, 3, 1, 80)],
         )
@@ -230,24 +226,23 @@ def create_v2_evolution_fixture(path) -> None:
             """
             insert into concepts(
                 concept_id, label, description, concept_category_id, canonical_entity_id,
-                namespace, value, legacy_tag_id, classification_rule, confidence, review_recommended
-            ) values (?, ?, null, 1, null, null, null, null, null, 0.9, 0)
+                namespace, value, confidence
+            ) values (?, ?, null, 1, null, null, null, 0.9)
             """,
             [(100, "Sci-fi"), (101, "Only Early"), (102, "Only Later")],
         )
         db.executemany(
-            "insert into entity_concepts(entity_id, concept_id, weight, polarity, confidence, source_record_id) values (?, ?, ?, ?, 0.9, 1)",
+            "insert into entity_concepts(entity_id, concept_id, weight, polarity, confidence) values (?, ?, ?, ?, 0.9)",
             [(1, 100, 90, 0), (2, 100, 90, 0), (1, 101, 50, 0), (2, 102, 50, 0)],
         )
-        db.execute("insert into advisory_categories values (1, 'violence', 'Violence', null)")
+        db.execute("insert into content_guide_categories values ('violence', 'Violence', null, 1, 0, 100, 'v1')")
         db.executemany(
             """
-            insert into entity_advisories(
-                entity_advisory_id, entity_id, advisory_category_id, concept_id,
-                severity, confidence, description, intensity, uncertainty
-            ) values (?, ?, 1, null, null, 0.8, null, ?, 10)
+            insert into entity_content_guide_dimensions(
+                entity_id, category_code, confidence, intensity, uncertainty
+            ) values (?, 'violence', 0.8, ?, 10)
             """,
-            [(1, 1, 70), (2, 2, 72)],
+            [(1, 70), (2, 72)],
         )
         db.commit()
     finally:
@@ -287,44 +282,3 @@ def test_v2_export_uses_features_and_excludes_people(tmp_path) -> None:
     second = build_evolution_export(rerun_db, settings_with_defaults())
     rerun_db.close()
     assert second == export  # deterministic
-
-
-def test_export_includes_undated_works_as_roots(tmp_path) -> None:
-    # Legacy-only database exercises the documented compatibility adapter.
-    db = connect_art(tmp_path / "art.sqlite")
-    db.executemany(
-        """
-        insert into entities(entity_id, label, entity_kind, release_date, date_precision, is_catalogued)
-        values (?, ?, 1, ?, ?, 1)
-        """,
-        [
-            (1, "Old", "1950-01-01", 3),
-            (2, "New", "1960-01-01", 3),
-            (3, "Undated", None, 0),
-        ],
-    )
-    db.executemany(
-        "insert into tags(tag_id, name) values (?, ?)",
-        [(10, "alpha"), (11, "beta")],
-    )
-    db.executemany(
-        "insert into entity_tags(entity_id, tag_id, weight, polarity) values (?, ?, ?, 0)",
-        [(1, 10, 90), (1, 11, 90), (2, 10, 90), (2, 11, 90), (3, 10, 90)],
-    )
-    db.commit()
-
-    export = build_evolution_export(db, settings_with_defaults())
-    db.close()
-
-    assert export["version"] == 2
-    assert export["note"] == EVOLUTION_NOTE
-    nodes = {node["id"]: node for node in export["nodes"]}
-    assert set(nodes) == {1, 2, 3}
-    assert nodes[1]["parent"] is None
-    assert nodes[2]["parent"] == 1
-    assert nodes[2]["evidence"]["sharedFeatureCount"] == 2
-    assert nodes[2]["evidence"]["topFactors"][0]["label"] in {"alpha", "beta"}
-    assert nodes[3]["parent"] is None
-    # No fabricated ids: every referenced parent exists.
-    for node in export["nodes"]:
-        assert node["parent"] is None or node["parent"] in nodes

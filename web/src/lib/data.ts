@@ -31,7 +31,6 @@ interface V2Parts {
   relations: unknown;
   concepts: unknown;
   advisories: unknown;
-  ratings: unknown;
   restrictions: unknown;
 }
 
@@ -43,7 +42,7 @@ export type V2Validation = { data: V2Data } | { missing: string[]; invalid: stri
 
 /**
  * Structural validation of the required V2 exports. Required files that are
- * absent or the wrong shape fail loudly; optional files (advisories, ratings,
+ * absent or the wrong shape fail loudly; optional files (advisories and
  * restrictions) fall back to valid empty states.
  */
 export function validateV2Data(parts: V2Parts): V2Validation {
@@ -79,11 +78,6 @@ export function validateV2Data(parts: V2Parts): V2Validation {
       invalid.push("v2/advisories.json");
     }
   }
-  if (parts.ratings !== null && parts.ratings !== undefined) {
-    if (!isRecord(parts.ratings) || !Array.isArray((parts.ratings as Record<string, unknown>).ratings)) {
-      invalid.push("v2/ratings.json");
-    }
-  }
   if (parts.restrictions !== null && parts.restrictions !== undefined && !Array.isArray(parts.restrictions)) {
     invalid.push("v2/restrictions.json");
   }
@@ -97,14 +91,13 @@ export function validateV2Data(parts: V2Parts): V2Validation {
     relations: parts.relations as V2Data["relations"],
     concepts: parts.concepts as V2Data["concepts"],
     advisories: (parts.advisories as V2Data["advisories"]) ?? { categories: [], advisories: [] },
-    ratings: (parts.ratings as V2Data["ratings"]) ?? { systems: [], ratings: [] },
     restrictions: (parts.restrictions as V2Data["restrictions"]) ?? [],
   };
   return { data };
 }
 
 export async function loadAppData(): Promise<{ data: AppData; settings: Settings }> {
-  const [catalog, entities, entityTypes, relations, concepts, advisories, ratings, restrictions, evolution, settings] =
+  const [catalog, entities, entityTypes, relations, concepts, advisories, restrictions, evolution, settings] =
     await Promise.all([
       loadOptionalJson<unknown>("v2/catalog.json"),
       loadOptionalJson<unknown>("v2/entities.json"),
@@ -112,7 +105,6 @@ export async function loadAppData(): Promise<{ data: AppData; settings: Settings
       loadOptionalJson<unknown>("v2/relations.json"),
       loadOptionalJson<unknown>("v2/concepts.json"),
       loadOptionalJson<unknown>("v2/advisories.json"),
-      loadOptionalJson<unknown>("v2/ratings.json"),
       loadOptionalJson<unknown>("v2/restrictions.json"),
       loadOptionalJson<EvolutionExport>("evolution.json"),
       loadSettings(),
@@ -125,7 +117,6 @@ export async function loadAppData(): Promise<{ data: AppData; settings: Settings
     relations,
     concepts,
     advisories,
-    ratings,
     restrictions,
   });
   if (!("data" in validation)) {

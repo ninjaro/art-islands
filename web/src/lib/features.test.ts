@@ -13,9 +13,9 @@ import { DEFAULT_SETTINGS } from "./types";
 const settings = DEFAULT_SETTINGS.features;
 
 interface WorkSpec {
-  concepts?: Array<{ id: number; label?: string; category?: string; weight: number; polarity?: number }>;
+  concepts?: Array<{ id: number; label?: string; category?: string; weight: number | null; polarity?: number }>;
   contributors?: Array<{ entityId: number; label?: string; role: string; family?: string; weight: number; polarity?: number }>;
-  advisories?: Array<{ categoryId: number; category?: string; intensity?: number }>;
+  advisories?: Array<{ categoryCode: string; category?: string; intensity?: number }>;
 }
 
 function work(id: number, spec: WorkSpec = {}): WorkViewModel {
@@ -37,8 +37,8 @@ function work(id: number, spec: WorkSpec = {}): WorkViewModel {
     polarity: contributor.polarity ?? 0,
   }));
   const advisories = (spec.advisories ?? []).map((advisory) => ({
-    categoryId: advisory.categoryId,
-    category: advisory.category ?? `Advisory ${advisory.categoryId}`,
+    categoryCode: advisory.categoryCode,
+    category: advisory.category ?? advisory.categoryCode,
     intensity: advisory.intensity,
   }));
   return {
@@ -56,7 +56,6 @@ function work(id: number, spec: WorkSpec = {}): WorkViewModel {
     contributors,
     contributorsByRole: {},
     measurements: [],
-    ageRatings: [],
     advisories,
     restrictions: [],
     identifiers: [],
@@ -114,17 +113,25 @@ describe("extractWorkFeatures", () => {
 
   it("advisories become content-guide features from intensity", () => {
     const features = extractWorkFeatures(
-      work(1, { advisories: [{ categoryId: 7, category: "Violence", intensity: 72 }, { categoryId: 8 }] }),
+      work(1, { advisories: [{ categoryCode: "violence", category: "Violence", intensity: 72 }, { categoryCode: "other" }] }),
       settings,
     );
     expect(features).toHaveLength(1);
-    expect(features[0]).toMatchObject({ key: "advisory:7", label: "Violence", source: "content-guide" });
+    expect(features[0]).toMatchObject({ key: "advisory:violence", label: "Violence", source: "content-guide" });
     expect(features[0].value).toBeCloseTo(0.72 * 0.25, 10);
   });
 
   it("negative polarity flips the sign", () => {
     const [feature] = extractWorkFeatures(work(1, { concepts: [{ id: 1, weight: 60, polarity: -1 }] }), settings);
     expect(feature.value).toBeCloseTo(-0.6, 10);
+  });
+
+  it("skips uncalibrated null concept weights", () => {
+    const features = extractWorkFeatures(
+      work(1, { concepts: [{ id: 1, weight: null }, { id: 2, weight: 60 }] }),
+      settings,
+    );
+    expect(features.map((feature) => feature.key)).toEqual(["concept:2"]);
   });
 });
 

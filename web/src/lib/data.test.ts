@@ -8,7 +8,6 @@ const validParts = () => ({
   relations: [],
   concepts: { categories: [], concepts: [], entityConcepts: [] },
   advisories: { categories: [], advisories: [] },
-  ratings: { systems: [], ratings: [] },
   restrictions: [],
 });
 
@@ -32,13 +31,11 @@ describe("validateV2Data", () => {
     const result = validateV2Data({
       ...validParts(),
       advisories: null,
-      ratings: null,
       restrictions: null,
     });
     expect("data" in result).toBe(true);
     if ("data" in result) {
       expect(result.data.advisories).toEqual({ categories: [], advisories: [] });
-      expect(result.data.ratings).toEqual({ systems: [], ratings: [] });
       expect(result.data.restrictions).toEqual([]);
     }
   });

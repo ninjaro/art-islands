@@ -61,6 +61,11 @@ def test_negative_polarity_flips_sign() -> None:
     assert abs(extracted["concept:1"].value + 0.6) < 1e-12
 
 
+def test_null_concept_weights_are_uncalibrated_and_skipped() -> None:
+    extracted = make_features(concepts=[(1, "Pending", "Theme", None, 0), (2, "Ready", "Theme", 60, 0)])
+    assert list(extracted) == ["concept:2"]
+
+
 def _index(work_specs):
     base = {
         work_id: make_features(**spec)

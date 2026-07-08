@@ -59,16 +59,17 @@ The dev server serves the JSON exports from `public/data/` under the same
 
 The SQLite database `data/art-islands.sqlite` is the editable source of truth.
 It stores the current known catalog state: entities, external identifiers,
-tags, relationships, measurements, content ratings, advisories, source records,
-and mappings from facts to sources. Import batches, patch history, raw payloads,
-row timestamps, and migration recovery data are intentionally excluded.
+concept assignments, relationships, measurements, detailed content-guide
+ratings, restrictions, curated source references, and many-to-many mappings
+from facts to sources. Import batches, patch history, raw payloads, row
+timestamps, local import-source records, and migration recovery data are
+intentionally excluded.
 
-Regenerate all static exports (catalog, tags, lookup, settings, Evolution
-lineage, and v2 domain exports) after any data change:
+Regenerate all static exports (settings, Evolution lineage, and V2 domain
+exports) after any data change:
 
 ```sh
 .venv/bin/art-islands export
-.venv/bin/art-islands db-v2 export
 ```
 
 Tunable values (recommendation weights, feature source multipliers, Evolution
@@ -76,34 +77,32 @@ lineage and grouping settings, Islands graph caps, browse page sizes) live in
 `data/settings.json` and are exported to `public/data/settings.json`; they are
 validated and merged with safe defaults in both languages, and the legacy
 `islands.maxNeighborsPerSeed` / `evolution.minimumSharedTags` names are still
-accepted. Current data-maintenance commands include `enrich`, `tag set`,
+accepted. Current data-maintenance commands include `enrich`, `concept set`,
 `config show|set`, `batch`, `db-v2 export`, `db-v2 validate`, and
 `serve-static`.
 
-The app downloads only the V2 exports (~25 MB raw, served compressed by
-GitHub Pages), `evolution.json`, and `settings.json`. The legacy
-`catalog.json`, `tags.json`, and `entities-lookup.json` files are still
-generated for external compatibility but are never fetched by the frontend.
-If the initial payload becomes a bottleneck, chunked static exports are the
-documented follow-up optimization.
+The app downloads only the V2 exports, `evolution.json`, and `settings.json`.
+Legacy root `catalog.json`, `tags.json`, `entities-lookup.json`, relationship
+exports, and coarse age-rating exports are no longer generated. If the initial
+payload becomes a bottleneck, chunked static exports are the documented
+follow-up optimization.
 
 ## Database Cleanup
 
-The cleanup tool `tools/clean_domain_database.py` rebuilds a compact
-domain-preserving SQLite database from an explicit whitelist. It keeps source
-citations and fact-to-source mappings, but removes technical metadata such as
-schema migration history, patch application history, import offsets, raw JSON
-payloads, retrieval timestamps, and curation provenance flags.
+The cleanup tool `tools/simplify_domain_database.py` rebuilds the compact
+current-state SQLite database from an explicit whitelist. It keeps canonical
+domain data and curated fact-to-source mappings, but removes legacy V1
+compatibility tables, coarse age certificates, duplicate advisory structures,
+import-source records, patch history, raw payloads, row timestamps, and
+migration recovery data.
 
 ```sh
-python tools/clean_domain_database.py \
-  --source data/art-islands.sqlite \
-  --target data/art-islands.domain-clean.sqlite \
-  --inventory database-cleanup-inventory.md
+python tools/simplify_domain_database.py --apply
 ```
 
-`database-cleanup-inventory.md` records the table and column classification
-used for the cleanup. Validate the active database with:
+The generated `database-simplify-*.md` reports record the pre/post inventory,
+removed tables and columns, placeholder weight changes, and reference
+deduplication. Validate the active database with:
 
 ```sh
 .venv/bin/art-islands db-v2 validate
@@ -151,8 +150,8 @@ shell fragments, and SQL are rejected and never executed.
     },
     { "op": "set_external_ref", "entityId": 123, "kind": "wikidata", "value": "Q12345" },
     { "op": "remove_external_ref", "entityId": 123, "kind": "imdb", "value": "tt0000000" },
-    { "op": "set_entity_tag", "entityId": 123, "tagId": 456, "weight": 75, "polarity": 0 },
-    { "op": "remove_entity_tag", "entityId": 123, "tagId": 789 }
+    { "op": "set_entity_concept", "entityId": 123, "conceptId": 456, "weight": 75, "polarity": 0 },
+    { "op": "remove_entity_concept", "entityId": 123, "conceptId": 789 }
   ]
 }
 ```

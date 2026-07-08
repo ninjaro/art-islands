@@ -69,10 +69,14 @@ export function ConceptChips({
           className={concept.polarity < 0 ? "chip negative" : "chip"}
           title={concept.description || concept.categoryLabel}
           aria-label={
-            concept.polarity < 0 ? `${concept.label}, excluded` : `${concept.label}, weight ${concept.weight}`
+            concept.polarity < 0
+              ? `${concept.label}, excluded`
+              : concept.weight === null
+                ? `${concept.label}, uncalibrated`
+                : `${concept.label}, weight ${concept.weight}`
           }
         >
-          {concept.label} {concept.weight}
+          {concept.label} {concept.weight ?? "pending"}
         </span>
       ))}
       {overflow > 0 ? <span className="chip more">+{overflow}</span> : null}
