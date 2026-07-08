@@ -1,80 +1,52 @@
 import { useMemo } from "react";
-import { dateLabel, kindLabel } from "../lib/format";
-import type { AppData, CatalogItem, Ratings, Tag } from "../lib/types";
-import { KindIcon, RatingButtons, TagList, rowInteractionProps, tagEntries } from "../components/common";
+import { EMPTY_FILTERS, hasRelevanceContext } from "../lib/browse";
+import type { Filters } from "../lib/browse";
+import type { DomainModel, WorkViewModel } from "../lib/domain";
+import { dateLabel } from "../lib/format";
+import { paginate } from "../lib/pagination";
+import type { Ratings } from "../lib/types";
+import {
+  ConceptChips,
+  KindIcon,
+  PaginationControls,
+  RatingButtons,
+  rowInteractionProps,
+} from "../components/common";
 import type { OpenHandler, RateHandler } from "../components/common";
 
-export interface Filters {
-  q: string;
-  minDate: string;
-  maxDate: string;
-  kind: string;
-  tag: string;
-}
-
-export const EMPTY_FILTERS: Filters = { q: "", minDate: "", maxDate: "", kind: "", tag: "" };
-
-export function filterCatalog(data: AppData, filters: Filters): CatalogItem[] {
-  const q = filters.q.trim().toLowerCase();
-  return data.catalog.filter((item) => {
-    if (filters.kind && String(item.kind) !== filters.kind) return false;
-    if (filters.minDate && (!item.date || item.date < filters.minDate)) return false;
-    if (filters.maxDate && (!item.date || item.date > filters.maxDate)) return false;
-    if (filters.tag && !item.tags.some(([tagId]) => String(tagId) === filters.tag)) return false;
-    if (!q) return true;
-
-    const tagHit = item.tags.some(([tagId]) => {
-      const tag = data.tagById.get(tagId);
-      return tag ? tag.name.toLowerCase().includes(q) : false;
-    });
-    return item.label.toLowerCase().includes(q) || tagHit;
-  });
-}
-
-export function sortCatalog(items: CatalogItem[], sortMode: string): CatalogItem[] {
-  const copy = [...items];
-  if (sortMode === "label") {
-    return copy.sort((a, b) => a.label.localeCompare(b.label) || a.id - b.id);
-  }
-  if (sortMode === "kind") {
-    return copy.sort((a, b) => a.kind - b.kind || a.label.localeCompare(b.label));
-  }
-  return copy.sort((a, b) => {
-    const dateA = a.date || "9999-99-99";
-    const dateB = b.date || "9999-99-99";
-    return dateA.localeCompare(dateB) || a.label.localeCompare(b.label) || a.id - b.id;
-  });
-}
-
 function FilterBar({
+  domain,
   filters,
   setFilter,
   resetFilters,
-  tags,
-  kindOptions,
   sortMode,
   setSortMode,
 }: {
+  domain: DomainModel;
   filters: Filters;
   setFilter: (key: keyof Filters, value: string) => void;
   resetFilters: () => void;
-  tags: Tag[];
-  kindOptions: number[];
   sortMode: string;
   setSortMode: (mode: string) => void;
 }) {
+  const conceptOptions = useMemo(
+    () => [...domain.conceptById.values()].sort((a, b) => a.label.localeCompare(b.label)),
+    [domain],
+  );
+  const relevanceAvailable = hasRelevanceContext(filters);
   return (
-    <section className="filters">
+    <section className="filters sticky">
       <input
-        placeholder="Search"
+        type="search"
+        placeholder="Search works, concepts, people"
         list="search-options"
         value={filters.q}
         onChange={(event) => setFilter("q", event.target.value)}
-        aria-label="Search works and tags"
+        aria-label="Search works, concepts, and contributors"
       />
       <datalist id="search-options">
-        {tags.slice(0, 1000).map((tag) => (
-          <option key={`tag-${tag.id}`} value={tag.name} />
+        {conceptOptions.slice(0, 1000).map((concept) => (
+          <option key={`concept-${concept.id}`} value={concept.label} />
         ))}
       </datalist>
       <input
@@ -89,19 +61,23 @@ function FilterBar({
         onChange={(event) => setFilter("maxDate", event.target.value)}
         aria-label="Maximum date"
       />
-      <select value={filters.kind} onChange={(event) => setFilter("kind", event.target.value)} aria-label="Kind">
-        <option value="">All kinds</option>
-        {kindOptions.map((kind) => (
-          <option key={kind} value={kind}>
-            {kindLabel(kind)}
+      <select value={filters.type} onChange={(event) => setFilter("type", event.target.value)} aria-label="Type">
+        <option value="">All types</option>
+        {domain.typeOptions.map((option) => (
+          <option key={option.code} value={option.code}>
+            {option.label} ({option.count})
           </option>
         ))}
       </select>
-      <select value={filters.tag} onChange={(event) => setFilter("tag", event.target.value)} aria-label="Tag">
-        <option value="">All tags</option>
-        {tags.map((tag) => (
-          <option key={tag.id} value={tag.id}>
-            {tag.name}
+      <select
+        value={filters.conceptId}
+        onChange={(event) => setFilter("conceptId", event.target.value)}
+        aria-label="Concept"
+      >
+        <option value="">All concepts</option>
+        {conceptOptions.map((concept) => (
+          <option key={concept.id} value={concept.id}>
+            {concept.label}
           </option>
         ))}
       </select>
@@ -109,40 +85,89 @@ function FilterBar({
         <option value="date">Date</option>
         <option value="label">Label</option>
         <option value="kind">Kind</option>
+        <option value="relevance" disabled={!relevanceAvailable}>
+          Relevance
+        </option>
       </select>
       <button type="button" onClick={resetFilters}>
-        Reset
+        Clear all
       </button>
     </section>
   );
 }
 
+function ActiveFilterChips({
+  domain,
+  filters,
+  setFilter,
+}: {
+  domain: DomainModel;
+  filters: Filters;
+  setFilter: (key: keyof Filters, value: string) => void;
+}) {
+  const chips: Array<{ key: keyof Filters; label: string }> = [];
+  if (filters.q.trim()) chips.push({ key: "q", label: `Search: ${filters.q.trim()}` });
+  if (filters.minDate) chips.push({ key: "minDate", label: `From ${filters.minDate}` });
+  if (filters.maxDate) chips.push({ key: "maxDate", label: `Until ${filters.maxDate}` });
+  if (filters.type) {
+    const option = domain.typeOptions.find((entry) => entry.code === filters.type);
+    chips.push({ key: "type", label: `Type: ${option?.label ?? filters.type}` });
+  }
+  if (filters.conceptId) {
+    const concept = domain.conceptById.get(Number(filters.conceptId));
+    chips.push({ key: "conceptId", label: `Concept: ${concept?.label ?? filters.conceptId}` });
+  }
+  if (!chips.length) return null;
+  return (
+    <div className="filter-chips" aria-label="Active filters">
+      {chips.map((chip) => (
+        <span key={chip.key} className="chip filter-chip">
+          {chip.label}
+          <button
+            type="button"
+            className="chip-remove"
+            onClick={() => setFilter(chip.key, "")}
+            aria-label={`Remove filter ${chip.label}`}
+          >
+            ✕
+          </button>
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export function BrowseView({
-  data,
+  domain,
   ratings,
   visible,
   filters,
   sortMode,
+  page,
+  pageSize,
+  pageSizeOptions,
   onFiltersChange,
   onSortModeChange,
+  onPageChange,
+  onPageSizeChange,
   onOpen,
   onRate,
 }: {
-  data: AppData;
+  domain: DomainModel;
   ratings: Ratings;
-  visible: CatalogItem[];
+  visible: WorkViewModel[];
   filters: Filters;
   sortMode: string;
+  page: number;
+  pageSize: number;
+  pageSizeOptions: number[];
   onFiltersChange: (filters: Filters) => void;
   onSortModeChange: (mode: string) => void;
+  onPageChange: (page: number) => void;
+  onPageSizeChange: (size: number) => void;
   onOpen: OpenHandler;
   onRate: RateHandler;
 }) {
-  const kindOptions = useMemo(
-    () => [...new Set(data.catalog.map((item) => item.kind))].sort((a, b) => a - b),
-    [data],
-  );
-
   function setFilter(key: keyof Filters, value: string) {
     onFiltersChange({ ...filters, [key]: value });
   }
@@ -152,55 +177,76 @@ export function BrowseView({
     onSortModeChange("date");
   }
 
+  // Only the current page of rows is mounted in the DOM (FR-3.2).
+  const pageResult = paginate(visible, page, pageSize);
+
+  const pagination = (
+    <PaginationControls
+      page={pageResult.page}
+      pageCount={pageResult.pageCount}
+      totalItems={pageResult.totalItems}
+      pageSize={pageSize}
+      pageSizeOptions={pageSizeOptions}
+      onPageChange={onPageChange}
+      onPageSizeChange={onPageSizeChange}
+    />
+  );
+
   return (
     <>
       <FilterBar
+        domain={domain}
         filters={filters}
         setFilter={setFilter}
         resetFilters={resetFilters}
-        tags={data.tags}
-        kindOptions={kindOptions}
         sortMode={sortMode}
         setSortMode={onSortModeChange}
       />
+      <ActiveFilterChips domain={domain} filters={filters} setFilter={setFilter} />
       {visible.length ? (
-        <div className="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Work</th>
-                <th className="kind-head">
-                  <span className="visually-hidden">Kind</span>
-                </th>
-                <th>Tags</th>
-                <th>Rating</th>
-              </tr>
-            </thead>
-            <tbody>
-              {visible.map((item) => (
-                <tr key={item.id} {...rowInteractionProps(item.id, item.label, onOpen)}>
-                  <td className="date-cell">{dateLabel(item.date, item.datePrecision)}</td>
-                  <td className="label-cell">{item.label}</td>
-                  <td className="kind-cell">
-                    <KindIcon kind={item.kind} />
-                  </td>
-                  <td>
-                    <TagList entries={tagEntries(item, data)} initialLimit={6} expandable={false} />
-                  </td>
-                  <td className="rating-cell">
-                    <RatingButtons
-                      id={item.id}
-                      label={item.label}
-                      rating={ratings[String(item.id)] || 0}
-                      onRate={onRate}
-                    />
-                  </td>
+        <>
+          {pagination}
+          <div className="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Work</th>
+                  <th className="kind-head">
+                    <span className="visually-hidden">Kind</span>
+                  </th>
+                  <th>Concepts</th>
+                  <th>Rating</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {pageResult.pageItems.map((work) => (
+                  <tr key={work.id} {...rowInteractionProps(work.id, work.label, onOpen)}>
+                    <td className="date-cell">
+                      {work.primaryDate ? dateLabel(work.primaryDate.value, work.primaryDate.precision) : ""}
+                    </td>
+                    <td className="label-cell">{work.label}</td>
+                    <td className="kind-cell">
+                      <KindIcon broadKind={work.broadKind} label={work.typeLabel} />
+                    </td>
+                    <td>
+                      <ConceptChips concepts={work.concepts} limit={6} />
+                    </td>
+                    <td className="rating-cell">
+                      <RatingButtons
+                        id={work.id}
+                        label={work.label}
+                        rating={ratings[String(work.id)] || 0}
+                        onRate={onRate}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {pagination}
+        </>
       ) : (
         <div className="empty">No works match the current filters.</div>
       )}

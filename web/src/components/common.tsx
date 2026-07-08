@@ -1,17 +1,15 @@
-import { useState } from "react";
 import type { KeyboardEvent, MouseEvent } from "react";
-import { kindLabel } from "../lib/format";
-import type { AppData, CatalogItem, RatingValue, Tag } from "../lib/types";
-import { SvgIcon, kindIconName } from "./icons";
+import type { BroadKind, NormalizedConceptAssignment } from "../lib/domain";
+import type { RatingValue } from "../lib/types";
+import { SvgIcon, iconForBroadKind } from "./icons";
 
 export type RateHandler = (id: number, value: RatingValue) => void;
 export type OpenHandler = (id: number) => void;
 
-export function KindIcon({ kind }: { kind: number }) {
-  const label = kindLabel(kind);
+export function KindIcon({ broadKind, label }: { broadKind: BroadKind; label: string }) {
   return (
     <span className="kind-icon" title={label} aria-label={label}>
-      <SvgIcon name={kindIconName(kind)} title={label} />
+      <SvgIcon name={iconForBroadKind(broadKind)} title={label} />
     </span>
   );
 }
@@ -53,52 +51,88 @@ export function RatingButtons({
   );
 }
 
-export interface TagChipEntry {
-  tag: Tag;
-  weight: number;
-  polarity: number;
-}
-
-export function tagEntries(item: CatalogItem, data: AppData): TagChipEntry[] {
-  return (item.tags || [])
-    .map(([tagId, weight, polarity]) => ({ tag: data.tagById.get(tagId), weight, polarity }))
-    .filter((entry): entry is TagChipEntry => Boolean(entry.tag))
-    .sort((a, b) => b.weight - a.weight || a.tag.name.localeCompare(b.tag.name));
-}
-
-export function TagList({
-  entries,
-  initialLimit,
-  expandable,
+/** Compact concept chip list; negative polarity is marked with a − prefix. */
+export function ConceptChips({
+  concepts,
+  limit,
 }: {
-  entries: TagChipEntry[];
-  initialLimit: number;
-  expandable: boolean;
+  concepts: NormalizedConceptAssignment[];
+  limit: number;
 }) {
-  const [expanded, setExpanded] = useState(false);
-  const limited = expanded ? entries : entries.slice(0, initialLimit);
-  const overflow = entries.length > initialLimit;
-
+  const shown = concepts.slice(0, limit);
+  const overflow = concepts.length - shown.length;
   return (
-    <div className={expanded ? "tag-block expanded" : "tag-block"}>
-      <div className="chips">
-        {limited.map(({ tag, weight, polarity }) => (
-          <span
-            key={tag.id}
-            className={`chip ${polarity > 0 ? "positive" : polarity < 0 ? "negative" : ""}`}
-            title={tag.description || ""}
-          >
-            {tag.name} {weight}
-          </span>
-        ))}
-        {!expandable && overflow ? <span className="chip more">+{entries.length - initialLimit}</span> : null}
-      </div>
-      {expandable && overflow ? (
-        <button type="button" className="tag-toggle" onClick={() => setExpanded((value) => !value)}>
-          {expanded ? "Collapse" : `Show all (${entries.length})`}
-        </button>
-      ) : null}
+    <div className="chips">
+      {shown.map((concept) => (
+        <span
+          key={concept.conceptId}
+          className={concept.polarity < 0 ? "chip negative" : "chip"}
+          title={concept.description || concept.categoryLabel}
+          aria-label={
+            concept.polarity < 0 ? `${concept.label}, excluded` : `${concept.label}, weight ${concept.weight}`
+          }
+        >
+          {concept.label} {concept.weight}
+        </span>
+      ))}
+      {overflow > 0 ? <span className="chip more">+{overflow}</span> : null}
     </div>
+  );
+}
+
+export function PaginationControls({
+  page,
+  pageCount,
+  totalItems,
+  pageSize,
+  pageSizeOptions,
+  onPageChange,
+  onPageSizeChange,
+}: {
+  page: number;
+  pageCount: number;
+  totalItems: number;
+  pageSize: number;
+  pageSizeOptions: number[];
+  onPageChange: (page: number) => void;
+  onPageSizeChange: (size: number) => void;
+}) {
+  return (
+    <nav className="pagination" aria-label="Catalog pages">
+      <button
+        type="button"
+        onClick={() => onPageChange(page - 1)}
+        disabled={page <= 1}
+        aria-label="Previous page"
+      >
+        ‹ Prev
+      </button>
+      <span className="page-status" aria-live="polite">
+        Page {page} of {pageCount} · {totalItems.toLocaleString()} results
+      </span>
+      <button
+        type="button"
+        onClick={() => onPageChange(page + 1)}
+        disabled={page >= pageCount}
+        aria-label="Next page"
+      >
+        Next ›
+      </button>
+      <label className="page-size">
+        Per page
+        <select
+          value={pageSize}
+          onChange={(event) => onPageSizeChange(Number(event.target.value))}
+          aria-label="Results per page"
+        >
+          {pageSizeOptions.map((size) => (
+            <option key={size} value={size}>
+              {size}
+            </option>
+          ))}
+        </select>
+      </label>
+    </nav>
   );
 }
 

@@ -1,19 +1,12 @@
-import type { AppData, CatalogItem, EvolutionExport, Lookup, Settings, Tag, V2Data } from "./types";
-import { DEFAULT_SETTINGS, mergeSettings } from "./types";
+import { buildDomainModel } from "./domain";
+import type { AppData, EvolutionExport, Settings, V2Data } from "./types";
+import { DEFAULT_SETTINGS, EVOLUTION_EXPORT_VERSION, mergeSettings } from "./types";
 
 /** All fetch paths derive from the Vite base URL so the app works under /art-islands/. */
 export const BASE_URL: string = import.meta.env.BASE_URL;
 
 export function dataUrl(name: string): string {
   return `${BASE_URL}data/${name}`;
-}
-
-async function loadJson<T>(name: string): Promise<T> {
-  const response = await fetch(dataUrl(name));
-  if (!response.ok) {
-    throw new Error(`${dataUrl(name)}: HTTP ${response.status}`);
-  }
-  return (await response.json()) as T;
 }
 
 async function loadOptionalJson<T>(name: string): Promise<T | null> {
@@ -31,48 +24,129 @@ export async function loadSettings(): Promise<Settings> {
   return raw === null ? DEFAULT_SETTINGS : mergeSettings(raw);
 }
 
-export async function loadV2Data(): Promise<V2Data | null> {
-  const [catalog, entities, entityTypes, relations, concepts, advisories, ratings, restrictions] = await Promise.all([
-    loadOptionalJson<V2Data["catalog"]>("v2/catalog.json"),
-    loadOptionalJson<V2Data["entities"]>("v2/entities.json"),
-    loadOptionalJson<V2Data["entityTypes"]>("v2/entity-types.json"),
-    loadOptionalJson<V2Data["relations"]>("v2/relations.json"),
-    loadOptionalJson<V2Data["concepts"]>("v2/concepts.json"),
-    loadOptionalJson<V2Data["advisories"]>("v2/advisories.json"),
-    loadOptionalJson<V2Data["ratings"]>("v2/ratings.json"),
-    loadOptionalJson<V2Data["restrictions"]>("v2/restrictions.json"),
-  ]);
-  if (!catalog || !entities || !entityTypes || !relations || !concepts) return null;
-  return {
+interface V2Parts {
+  catalog: unknown;
+  entities: unknown;
+  entityTypes: unknown;
+  relations: unknown;
+  concepts: unknown;
+  advisories: unknown;
+  ratings: unknown;
+  restrictions: unknown;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+export type V2Validation = { data: V2Data } | { missing: string[]; invalid: string[] };
+
+/**
+ * Structural validation of the required V2 exports. Required files that are
+ * absent or the wrong shape fail loudly; optional files (advisories, ratings,
+ * restrictions) fall back to valid empty states.
+ */
+export function validateV2Data(parts: V2Parts): V2Validation {
+  const missing: string[] = [];
+  const invalid: string[] = [];
+
+  const check = (name: string, value: unknown, valid: boolean) => {
+    if (value === null || value === undefined) missing.push(`v2/${name}.json`);
+    else if (!valid) invalid.push(`v2/${name}.json`);
+  };
+
+  check("catalog", parts.catalog, Array.isArray(parts.catalog));
+  check("entities", parts.entities, isRecord(parts.entities));
+  check(
+    "entity-types",
+    parts.entityTypes,
+    isRecord(parts.entityTypes) &&
+      Array.isArray((parts.entityTypes as Record<string, unknown>).definitions) &&
+      Array.isArray((parts.entityTypes as Record<string, unknown>).assignments),
+  );
+  check("relations", parts.relations, Array.isArray(parts.relations));
+  check(
+    "concepts",
+    parts.concepts,
+    isRecord(parts.concepts) &&
+      Array.isArray((parts.concepts as Record<string, unknown>).categories) &&
+      Array.isArray((parts.concepts as Record<string, unknown>).concepts) &&
+      Array.isArray((parts.concepts as Record<string, unknown>).entityConcepts),
+  );
+
+  if (parts.advisories !== null && parts.advisories !== undefined) {
+    if (!isRecord(parts.advisories) || !Array.isArray((parts.advisories as Record<string, unknown>).advisories)) {
+      invalid.push("v2/advisories.json");
+    }
+  }
+  if (parts.ratings !== null && parts.ratings !== undefined) {
+    if (!isRecord(parts.ratings) || !Array.isArray((parts.ratings as Record<string, unknown>).ratings)) {
+      invalid.push("v2/ratings.json");
+    }
+  }
+  if (parts.restrictions !== null && parts.restrictions !== undefined && !Array.isArray(parts.restrictions)) {
+    invalid.push("v2/restrictions.json");
+  }
+
+  if (missing.length || invalid.length) return { missing, invalid };
+
+  const data: V2Data = {
+    catalog: parts.catalog as V2Data["catalog"],
+    entities: parts.entities as V2Data["entities"],
+    entityTypes: parts.entityTypes as V2Data["entityTypes"],
+    relations: parts.relations as V2Data["relations"],
+    concepts: parts.concepts as V2Data["concepts"],
+    advisories: (parts.advisories as V2Data["advisories"]) ?? { categories: [], advisories: [] },
+    ratings: (parts.ratings as V2Data["ratings"]) ?? { systems: [], ratings: [] },
+    restrictions: (parts.restrictions as V2Data["restrictions"]) ?? [],
+  };
+  return { data };
+}
+
+export async function loadAppData(): Promise<{ data: AppData; settings: Settings }> {
+  const [catalog, entities, entityTypes, relations, concepts, advisories, ratings, restrictions, evolution, settings] =
+    await Promise.all([
+      loadOptionalJson<unknown>("v2/catalog.json"),
+      loadOptionalJson<unknown>("v2/entities.json"),
+      loadOptionalJson<unknown>("v2/entity-types.json"),
+      loadOptionalJson<unknown>("v2/relations.json"),
+      loadOptionalJson<unknown>("v2/concepts.json"),
+      loadOptionalJson<unknown>("v2/advisories.json"),
+      loadOptionalJson<unknown>("v2/ratings.json"),
+      loadOptionalJson<unknown>("v2/restrictions.json"),
+      loadOptionalJson<EvolutionExport>("evolution.json"),
+      loadSettings(),
+    ]);
+
+  const validation = validateV2Data({
     catalog,
     entities,
     entityTypes,
     relations,
     concepts,
-    advisories: advisories || { categories: [], advisories: [] },
-    ratings: ratings || { systems: [], ratings: [] },
-    restrictions: restrictions || [],
-  };
-}
+    advisories,
+    ratings,
+    restrictions,
+  });
+  if (!("data" in validation)) {
+    const problems = [
+      ...validation.missing.map((name) => `missing ${name}`),
+      ...validation.invalid.map((name) => `invalid ${name}`),
+    ];
+    throw new Error(
+      `The V2 data exports are missing or invalid (${problems.join(", ")}). ` +
+        "Regenerate them with: .venv/bin/art-islands export && .venv/bin/art-islands db-v2 export",
+    );
+  }
 
-export async function loadAppData(): Promise<{ data: AppData; settings: Settings }> {
-  const [catalog, tags, lookup, evolution, settings, v2] = await Promise.all([
-    loadJson<CatalogItem[]>("catalog.json"),
-    loadJson<Tag[]>("tags.json"),
-    loadJson<Lookup>("entities-lookup.json"),
-    loadOptionalJson<EvolutionExport>("evolution.json"),
-    loadSettings(),
-    loadV2Data(),
-  ]);
+  // A stale (version 1) evolution export shows the regeneration hint instead of crashing.
+  const usableEvolution = evolution && evolution.version === EVOLUTION_EXPORT_VERSION ? evolution : null;
+
   return {
     data: {
-      catalog,
-      catalogById: new Map(catalog.map((item) => [item.id, item])),
-      tags,
-      tagById: new Map(tags.map((tag) => [tag.id, tag])),
-      lookup,
-      evolution,
-      v2,
+      v2: validation.data,
+      domain: buildDomainModel(validation.data),
+      evolution: usableEvolution,
     },
     settings,
   };

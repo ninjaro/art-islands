@@ -1,7 +1,8 @@
+import type { DomainModel } from "./domain";
+import type { EdgeFactor, FeatureIndex } from "./features";
+import { similarityBetween, similarityCandidates } from "./features";
 import { scoreRecommendations } from "./recommendations";
-import type { TagIndex } from "./tagIndex";
-import { coTaggedCandidates, similarityBetween } from "./tagIndex";
-import type { CatalogItem, IslandsSettings, Ratings, Settings } from "./types";
+import type { IslandsSettings, Ratings, Settings } from "./types";
 
 export type IslandNodeState = "liked" | "disliked" | "recommended";
 
@@ -10,8 +11,7 @@ export interface IslandNode {
   state: IslandNodeState;
   /** Present for recommended nodes: recommendation score and evidence. */
   score?: number;
-  likedSharedTags?: number;
-  dislikedSharedTags?: number;
+  topFactors?: EdgeFactor[];
 }
 
 export type IslandEdgeKind = "similarity" | "explicit";
@@ -22,10 +22,10 @@ export interface IslandEdge {
   target: number;
   kind: IslandEdgeKind;
   similarity: number;
-  sharedTagCount: number;
-  topTags: number[];
-  /** Original link kind for explicit relations. */
-  linkKind?: number;
+  sharedFeatureCount: number;
+  topFactors: EdgeFactor[];
+  /** Relation type code for explicit relations (e.g. "adapted_from"). */
+  relationType?: string;
 }
 
 export interface IslandComponent {
@@ -48,29 +48,33 @@ function edgeKey(a: number, b: number): string {
  * Build the Islands graph from local ratings.
  *
  * Seeds are all rated catalog works. Recommendation nodes come from the
- * existing tag-based recommendation scoring (positive evidence required,
- * dislikes subtract, volume-normalized) and exclude rated works. Edges are
- * either sufficiently strong tag similarity or explicit catalog relations
- * between displayed works. No artificial edges are added: disconnected
- * components are expected and preserved.
+ * shared feature-based recommendation scoring (positive evidence required,
+ * dislikes subtract, volume-normalized) and exclude rated works. Inferred
+ * edges use a bounded up-to-K nearest-neighbor union: every node selects at
+ * most maxInferredNeighborsPerNode candidates from the inverted feature
+ * index (never all pairs); a node may still receive more incident edges by
+ * being selected by others. Explicit catalog relations between displayed
+ * works are preserved separately and never dropped for being outside the K
+ * nearest. No artificial edges are added: disconnected components are
+ * expected and preserved. A similarity that is not strictly positive never
+ * creates an inferred edge.
  */
 export function buildIslandsGraph(
-  catalog: CatalogItem[],
-  index: TagIndex,
+  domain: DomainModel,
+  index: FeatureIndex,
   ratings: Ratings,
   settings: Settings,
 ): IslandsGraph {
   const config: IslandsSettings = settings.islands;
-  const catalogById = new Map(catalog.map((item) => [item.id, item]));
 
   const nodes: IslandNode[] = [];
-  for (const item of catalog) {
-    const rating = ratings[String(item.id)];
-    if (rating === 1) nodes.push({ id: item.id, state: "liked" });
-    else if (rating === -1) nodes.push({ id: item.id, state: "disliked" });
+  for (const work of domain.works) {
+    const rating = ratings[String(work.id)];
+    if (rating === 1) nodes.push({ id: work.id, state: "liked" });
+    else if (rating === -1) nodes.push({ id: work.id, state: "disliked" });
   }
 
-  const recommendations = scoreRecommendations(catalog, ratings, {
+  const recommendations = scoreRecommendations(domain, index, ratings, {
     ...settings,
     recommendation: {
       ...settings.recommendation,
@@ -79,63 +83,62 @@ export function buildIslandsGraph(
   });
   for (const result of recommendations) {
     nodes.push({
-      id: result.item.id,
+      id: result.work.id,
       state: "recommended",
       score: result.score,
-      likedSharedTags: result.likedSharedTags,
-      dislikedSharedTags: result.dislikedSharedTags,
+      topFactors: result.positive.slice(0, 3),
     });
   }
 
   nodes.sort((a, b) => a.id - b.id);
   const displayed = new Set(nodes.map((node) => node.id));
 
-  // Inferred similarity edges: k-nearest-neighbor union, bounded by the
-  // tag postings lists instead of an all-pairs comparison.
+  // Inferred similarity edges: up-to-K nearest-neighbor union, bounded by the
+  // inverted feature index instead of an all-pairs comparison.
+  const maxNeighbors = Math.max(0, Math.floor(config.maxInferredNeighborsPerNode));
   const candidateEdges = new Map<string, IslandEdge>();
   for (const node of nodes) {
     const neighbors: IslandEdge[] = [];
-    for (const otherId of coTaggedCandidates(index, node.id, displayed)) {
+    for (const otherId of similarityCandidates(index, node.id, displayed)) {
       const result = similarityBetween(index, node.id, otherId);
-      if (result.similarity < config.minimumSimilarity) continue;
+      if (result.similarity <= 0 || result.similarity < config.minimumSimilarity) continue;
       const [source, target] = node.id < otherId ? [node.id, otherId] : [otherId, node.id];
       neighbors.push({
         source,
         target,
         kind: "similarity",
         similarity: result.similarity,
-        sharedTagCount: result.sharedTagCount,
-        topTags: result.topTags,
+        sharedFeatureCount: result.sharedFeatureCount,
+        topFactors: result.topFactors,
       });
     }
     neighbors.sort((a, b) => b.similarity - a.similarity || a.source - b.source || a.target - b.target);
-    for (const edge of neighbors.slice(0, Math.max(0, Math.floor(config.maxInferredNeighborsPerNode)))) {
+    for (const edge of neighbors.slice(0, maxNeighbors)) {
       candidateEdges.set(edgeKey(edge.source, edge.target), edge);
     }
   }
 
-  // Explicit relations between displayed works, visually distinguishable
-  // from inferred similarity. They replace an inferred edge on the same pair.
+  // Explicit relations between displayed works stay visually distinguishable
+  // from inferred similarity. They replace an inferred edge on the same pair
+  // and are never removed for being outside a node's K nearest neighbors.
   const explicitEdges = new Map<string, IslandEdge>();
-  for (const node of nodes) {
-    const item = catalogById.get(node.id);
-    if (!item) continue;
-    for (const [targetId, linkKind] of item.links || []) {
-      if (targetId === node.id || !displayed.has(targetId)) continue;
-      const key = edgeKey(node.id, targetId);
-      if (explicitEdges.has(key)) continue;
-      const result = similarityBetween(index, node.id, targetId);
-      const [source, target] = node.id < targetId ? [node.id, targetId] : [targetId, node.id];
-      explicitEdges.set(key, {
-        source,
-        target,
-        kind: "explicit",
-        similarity: result.similarity,
-        sharedTagCount: result.sharedTagCount,
-        topTags: result.topTags,
-        linkKind,
-      });
-    }
+  for (const relation of domain.workRelations) {
+    if (relation.source === relation.target) continue;
+    if (!displayed.has(relation.source) || !displayed.has(relation.target)) continue;
+    const key = edgeKey(relation.source, relation.target);
+    if (explicitEdges.has(key)) continue;
+    const result = similarityBetween(index, relation.source, relation.target);
+    const [source, target] =
+      relation.source < relation.target ? [relation.source, relation.target] : [relation.target, relation.source];
+    explicitEdges.set(key, {
+      source,
+      target,
+      kind: "explicit",
+      similarity: result.similarity,
+      sharedFeatureCount: result.sharedFeatureCount,
+      topFactors: result.topFactors,
+      relationType: relation.type,
+    });
   }
 
   const maxEdges = Math.max(0, Math.floor(config.maxEdges));

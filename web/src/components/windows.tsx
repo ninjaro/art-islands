@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
-import { dateLabel, externalUrl, imageUrl, kindLabel } from "../lib/format";
-import type { AppData, CatalogItem, Ratings } from "../lib/types";
-import { KindIcon, RatingButtons, TagList, tagEntries } from "./common";
+import type { DomainModel } from "../lib/domain";
+import { dateLabel } from "../lib/format";
+import type { Ratings } from "../lib/types";
 import type { RateHandler } from "./common";
 import { SvgIcon } from "./icons";
+import { WorkDetails } from "./WorkDetails";
 
 export interface EntityWindow {
   id: number;
@@ -24,8 +25,22 @@ function clampWindowPosition(x: number, y: number, width: number, height: number
   return { x: clamp(x, margin, maxX), y: clamp(y, margin, maxY) };
 }
 
+const NARROW_QUERY = "(max-width: 720px)";
+
 function isNarrowScreen(): boolean {
-  return window.matchMedia("(max-width: 720px)").matches;
+  return window.matchMedia(NARROW_QUERY).matches;
+}
+
+/** Reactively track the narrow-screen breakpoint (sheet mode). */
+export function useIsNarrow(): boolean {
+  const [narrow, setNarrow] = useState(() => isNarrowScreen());
+  useEffect(() => {
+    const query = window.matchMedia(NARROW_QUERY);
+    const onChange = () => setNarrow(query.matches);
+    query.addEventListener("change", onChange);
+    return () => query.removeEventListener("change", onChange);
+  }, []);
+  return narrow;
 }
 
 interface DragState {
@@ -159,7 +174,7 @@ export function useEntityWindows() {
 
 export function FloatingEntityWindows({
   windows,
-  data,
+  domain,
   ratings,
   onFocus,
   onClose,
@@ -167,32 +182,37 @@ export function FloatingEntityWindows({
   onRate,
 }: {
   windows: EntityWindow[];
-  data: AppData;
+  domain: DomainModel;
   ratings: Ratings;
   onFocus: (id: number) => void;
   onClose: (id: number) => void;
   onDragStart: (event: ReactPointerEvent<HTMLElement>, win: EntityWindow) => void;
   onRate: RateHandler;
 }) {
+  const narrow = useIsNarrow();
   return (
     <>
       {windows.map((win) => {
-        const item = data.catalogById.get(win.id);
-        if (!item) return null;
+        const work = domain.workById.get(win.id);
+        if (!work) return null;
+        const subtitle = [
+          work.primaryDate ? dateLabel(work.primaryDate.value, work.primaryDate.precision) : "",
+          work.typeLabel,
+        ]
+          .filter(Boolean)
+          .join(" / ");
         return (
           <article
             key={win.id}
-            className="entity-window"
-            style={{ left: `${win.x}px`, top: `${win.y}px`, zIndex: win.z }}
+            className={narrow ? "entity-window sheet" : "entity-window"}
+            style={narrow ? { zIndex: win.z } : { left: `${win.x}px`, top: `${win.y}px`, zIndex: win.z }}
             onPointerDown={() => onFocus(win.id)}
-            aria-label={`Details for ${item.label}`}
+            aria-label={`Details for ${work.label}`}
           >
             <header className="window-header" onPointerDown={(event) => onDragStart(event, win)}>
               <div className="window-title">
-                <strong>{item.label}</strong>
-                <span>
-                  {[dateLabel(item.date, item.datePrecision), kindLabel(item.kind)].filter(Boolean).join(" / ")}
-                </span>
+                <strong>{work.label}</strong>
+                <span>{subtitle}</span>
               </div>
               <button
                 type="button"
@@ -202,61 +222,15 @@ export function FloatingEntityWindows({
                   onClose(win.id);
                 }}
                 title="Close"
-                aria-label={`Close ${item.label}`}
+                aria-label={`Close ${work.label}`}
               >
                 <SvgIcon name="close" title="Close" />
               </button>
             </header>
-            <EntityDetails item={item} data={data} rating={ratings[String(item.id)] || 0} onRate={onRate} />
+            <WorkDetails work={work} rating={ratings[String(work.id)] || 0} onRate={onRate} />
           </article>
         );
       })}
     </>
-  );
-}
-
-function EntityDetails({
-  item,
-  data,
-  rating,
-  onRate,
-}: {
-  item: CatalogItem;
-  data: AppData;
-  rating: number;
-  onRate: RateHandler;
-}) {
-  const image = imageUrl(item.image);
-  const refs = item.refs || [];
-  return (
-    <div className="entity-body">
-      {image ? (
-        <img className="entity-image" src={image} alt={item.label} loading="lazy" />
-      ) : (
-        <div className="entity-image placeholder" />
-      )}
-      <div className="entity-main">
-        <div className="entity-meta">
-          <KindIcon kind={item.kind} />
-          <span>{dateLabel(item.date, item.datePrecision) || "undated"}</span>
-        </div>
-        <RatingButtons id={item.id} label={item.label} rating={rating} onRate={onRate} />
-        <TagList entries={tagEntries(item, data)} initialLimit={12} expandable />
-        {refs.length ? (
-          <div className="ref-list">
-            {refs.map((ref) => {
-              const url = externalUrl(ref);
-              return url ? (
-                <a key={`${ref[0]}-${ref[1]}`} href={url} target="_blank" rel="noreferrer">
-                  {ref[0]}
-                </a>
-              ) : (
-                <span key={`${ref[0]}-${ref[1]}`}>{ref[0]}</span>
-              );
-            })}
-          </div>
-        ) : null}
-      </div>
-    </div>
   );
 }

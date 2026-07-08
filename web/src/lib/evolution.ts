@@ -1,12 +1,12 @@
-import type { TagIndex } from "./tagIndex";
-import { broadKind, similarityBetween } from "./tagIndex";
-import type { CatalogItem, EvolutionExport, EvolutionNode, EvolutionSettings } from "./types";
+import type { BroadKind, DomainModel } from "./domain";
+import type { FeatureIndex } from "./features";
+import { similarityBetween } from "./features";
+import type { EdgeEvidence, EvolutionExport, EvolutionNode, EvolutionSettings } from "./types";
 
 export interface EvolutionChild {
   id: number;
-  score: number;
-  shared: number;
-  topTags: number[];
+  /** Evidence supporting the inferred parent edge (from the build-time export). */
+  evidence: EdgeEvidence;
 }
 
 export interface EvolutionForest {
@@ -27,7 +27,7 @@ export interface EvolutionForest {
 export interface ChildPlaceholder {
   key: string;
   parentId: number;
-  kind: ReturnType<typeof broadKind>;
+  kind: BroadKind;
   childIds: number[];
 }
 
@@ -52,16 +52,11 @@ export function buildForest(data: EvolutionExport): EvolutionForest {
       children = [];
       childrenByParent.set(node.parent, children);
     }
-    children.push({
-      id: node.id,
-      score: node.score,
-      shared: node.shared,
-      topTags: node.topTags,
-    });
+    children.push({ id: node.id, evidence: node.evidence });
   }
 
   for (const children of childrenByParent.values()) {
-    children.sort((a, b) => b.score - a.score || a.id - b.id);
+    children.sort((a, b) => b.evidence.score - a.evidence.score || a.id - b.id);
   }
 
   // Iterative subtree sizing (the forest can be deep).
@@ -104,15 +99,15 @@ export function buildForest(data: EvolutionExport): EvolutionForest {
  * grouped placeholders for the rest.
  *
  * Children may share a placeholder only when they have the same direct
- * parent, the same broad work kind, and a sufficiently similar tag profile.
- * Several groups produce several placeholders rather than one misleading
- * `+N` bucket.
+ * parent, the same broad work kind, and a sufficiently similar feature
+ * profile. Several groups produce several placeholders rather than one
+ * misleading `+N` bucket.
  */
 export function groupChildren(
   parentId: number,
   children: EvolutionChild[],
-  catalogById: Map<number, CatalogItem>,
-  index: TagIndex,
+  domain: DomainModel,
+  index: FeatureIndex,
   settings: EvolutionSettings,
   expandedGroups: ReadonlySet<string>,
 ): VisibleChildren {
@@ -129,17 +124,16 @@ export function groupChildren(
   const expandedChildren: EvolutionChild[] = [];
 
   // Greedy deterministic grouping in score order: a hidden child joins the
-  // first group whose representative shares its broad kind and whose tag
+  // first group whose representative shares its broad kind and whose feature
   // profile is similar enough; otherwise it starts a new group.
   interface Group {
-    kind: ReturnType<typeof broadKind>;
+    kind: BroadKind;
     representative: number;
     members: EvolutionChild[];
   }
   const groups: Group[] = [];
   for (const child of hidden) {
-    const item = catalogById.get(child.id);
-    const kind = broadKind(item ? item.kind : 0);
+    const kind = domain.workById.get(child.id)?.broadKind ?? "work";
     let placed = false;
     for (const group of groups) {
       if (group.kind !== kind) continue;
@@ -169,7 +163,7 @@ export function groupChildren(
     }
   }
 
-  expandedChildren.sort((a, b) => b.score - a.score || a.id - b.id);
+  expandedChildren.sort((a, b) => b.evidence.score - a.evidence.score || a.id - b.id);
   return { visible: [...visible, ...expandedChildren], placeholders };
 }
 
@@ -186,8 +180,8 @@ export interface RevealResult {
 export function revealWork(
   targetId: number,
   forest: EvolutionForest,
-  catalogById: Map<number, CatalogItem>,
-  index: TagIndex,
+  domain: DomainModel,
+  index: FeatureIndex,
   settings: EvolutionSettings,
 ): RevealResult | null {
   if (!forest.byId.has(targetId)) return null;
@@ -212,14 +206,7 @@ export function revealWork(
     const childId = path[i + 1];
     expandNodes.push(parentId);
     const children = forest.childrenByParent.get(parentId) || [];
-    const { placeholders } = groupChildren(
-      parentId,
-      children,
-      catalogById,
-      index,
-      settings,
-      new Set(),
-    );
+    const { placeholders } = groupChildren(parentId, children, domain, index, settings, new Set());
     for (const placeholder of placeholders) {
       if (placeholder.childIds.includes(childId)) {
         expandGroups.push(placeholder.key);

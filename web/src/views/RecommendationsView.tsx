@@ -1,18 +1,23 @@
 import { useMemo } from "react";
+import type { DomainModel } from "../lib/domain";
+import type { FeatureIndex } from "../lib/features";
+import { factorPhrase } from "../lib/features";
 import { dateLabel } from "../lib/format";
-import { explanation, scoreRecommendations } from "../lib/recommendations";
-import type { AppData, Ratings, Settings } from "../lib/types";
+import { scoreRecommendations } from "../lib/recommendations";
+import type { Ratings, Settings } from "../lib/types";
 import { KindIcon, RatingButtons, rowInteractionProps } from "../components/common";
 import type { OpenHandler, RateHandler } from "../components/common";
 
 export function RecommendationsView({
-  data,
+  domain,
+  index,
   ratings,
   settings,
   onOpen,
   onRate,
 }: {
-  data: AppData;
+  domain: DomainModel;
+  index: FeatureIndex;
   ratings: Ratings;
   settings: Settings;
   onOpen: OpenHandler;
@@ -23,15 +28,25 @@ export function RecommendationsView({
     [ratings],
   );
   const scored = useMemo(
-    () => (likedCount ? scoreRecommendations(data.catalog, ratings, settings) : []),
-    [data, ratings, settings, likedCount],
+    () => (likedCount ? scoreRecommendations(domain, index, ratings, settings) : []),
+    [domain, index, ratings, settings, likedCount],
   );
 
   if (!likedCount) {
-    return <section className="empty">Like several works first to build recommendations.</section>;
+    return (
+      <section className="empty">
+        Like several works first to build recommendations — the Browse tab is a good place to start. Liked works
+        contribute their concepts, contributors, and content profile as positive evidence; dislikes subtract.
+      </section>
+    );
   }
   if (!scored.length) {
-    return <section className="empty">No unrated works have positive liked-tag evidence yet.</section>;
+    return (
+      <section className="empty">
+        No unrated works share positive evidence with your liked works yet. Try liking a few more, or different,
+        works.
+      </section>
+    );
   }
 
   return (
@@ -56,19 +71,32 @@ export function RecommendationsView({
           </thead>
           <tbody>
             {scored.map((result) => (
-              <tr key={result.item.id} {...rowInteractionProps(result.item.id, result.item.label, onOpen)}>
+              <tr key={result.work.id} {...rowInteractionProps(result.work.id, result.work.label, onOpen)}>
                 <td className="score-cell">{result.score.toFixed(2)}</td>
-                <td className="date-cell">{dateLabel(result.item.date, result.item.datePrecision)}</td>
-                <td className="label-cell">{result.item.label}</td>
-                <td className="kind-cell">
-                  <KindIcon kind={result.item.kind} />
+                <td className="date-cell">
+                  {result.work.primaryDate
+                    ? dateLabel(result.work.primaryDate.value, result.work.primaryDate.precision)
+                    : ""}
                 </td>
-                <td className="why-cell">{explanation(result)}</td>
+                <td className="label-cell">{result.work.label}</td>
+                <td className="kind-cell">
+                  <KindIcon broadKind={result.work.broadKind} label={result.work.typeLabel} />
+                </td>
+                <td className="why-cell">
+                  {result.positive.slice(0, 2).map((factor) => (
+                    <span key={factor.id} className="evidence positive">
+                      {factorPhrase(factor)}
+                    </span>
+                  ))}
+                  {result.negative.length ? (
+                    <span className="evidence negative">− {factorPhrase(result.negative[0])}</span>
+                  ) : null}
+                </td>
                 <td className="rating-cell">
                   <RatingButtons
-                    id={result.item.id}
-                    label={result.item.label}
-                    rating={ratings[String(result.item.id)] || 0}
+                    id={result.work.id}
+                    label={result.work.label}
+                    rating={ratings[String(result.work.id)] || 0}
                     onRate={onRate}
                   />
                 </td>

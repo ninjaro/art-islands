@@ -1,85 +1,135 @@
-import { describe, expect, test } from "vitest";
-import { explanation, scoreRecommendations } from "./recommendations";
-import type { CatalogItem, TagEntry } from "./types";
+import { describe, expect, it } from "vitest";
+import { buildFeatureIndex } from "./features";
+import { explanationText, scoreRecommendations } from "./recommendations";
+import { makeDomain, makeWork } from "./testFixtures";
+import { DEFAULT_SETTINGS } from "./types";
+import type { Ratings } from "./types";
 
-function work(id: number, label: string, date: string | null, tags: TagEntry[]): CatalogItem {
-  return { id, label, kind: 1, date, datePrecision: 3, image: null, refs: [], tags, links: [] };
+function setup(specs: Parameters<typeof makeWork>[1][]) {
+  const works = specs.map((spec, index) => makeWork(index + 1, spec));
+  const domain = makeDomain(works);
+  const index = buildFeatureIndex(works, DEFAULT_SETTINGS.features);
+  return { domain, index };
+}
+
+function score(specs: Parameters<typeof makeWork>[1][], ratings: Ratings) {
+  const { domain, index } = setup(specs);
+  return scoreRecommendations(domain, index, ratings, DEFAULT_SETTINGS);
 }
 
 describe("scoreRecommendations", () => {
-  test("scores unrated catalog items from liked tag overlap", () => {
-    const catalog = [
-      work(1, "Liked", "1980-01-01", [[10, 100, 0], [20, 25, 0]]),
-      work(2, "Disliked", "1970-01-01", [[30, 100, 0], [10, 50, 0]]),
-      work(3, "Best candidate", "1960-01-01", [[10, 100, 0], [40, 50, 0]]),
-      work(4, "Mixed candidate", "1950-01-01", [[10, 100, 0], [30, 20, 0]]),
-      work(5, "No evidence", "1940-01-01", [[99, 100, 0]]),
-    ];
-
-    const results = scoreRecommendations(
-      catalog,
-      { "1": 1, "2": -1 },
-      {
-        recommendation: { likeWeight: 2, dislikeWeight: 1, limit: 10 },
-      },
-    );
-
-    expect(results.map((result) => result.item.id)).toEqual([3, 4]);
-    expect(results[0].likedSharedTags).toBe(1);
-    expect(results[0].dislikedSharedTags).toBe(1);
-    expect(explanation(results[0])).toBe("1 shared liked tag, 1 shared disliked tag");
+  it("returns empty without likes", () => {
+    expect(score([{ concepts: [{ id: 1, weight: 80 }] }, { concepts: [{ id: 1, weight: 80 }] }], {})).toEqual([]);
+    expect(
+      score([{ concepts: [{ id: 1, weight: 80 }] }, { concepts: [{ id: 1, weight: 80 }] }], { "1": -1 }),
+    ).toEqual([]);
   });
 
-  test("returns no recommendations without liked records", () => {
-    const results = scoreRecommendations(
-      [work(1, "Only", "2000-01-01", [[10, 100, 0]])],
-      { "1": -1 },
-      null,
+  it("excludes already rated works", () => {
+    const results = score(
+      [
+        { concepts: [{ id: 1, weight: 80 }] },
+        { concepts: [{ id: 2, weight: 80 }] },
+        { concepts: [{ id: 1, weight: 80 }] },
+      ],
+      { "1": 1, "2": -1 },
+    );
+    expect(results.map((entry) => entry.work.id)).toEqual([3]);
+  });
+
+  it("requires positive evidence", () => {
+    const results = score(
+      [
+        { concepts: [{ id: 1, weight: 80 }] }, // liked
+        { concepts: [{ id: 2, weight: 80 }] }, // disliked
+        { concepts: [{ id: 2, weight: 60 }] }, // shares only disliked features
+      ],
+      { "1": 1, "2": -1 },
     );
     expect(results).toEqual([]);
   });
 
-  test("applies configured recommendation limit", () => {
-    const catalog = [
-      work(1, "Liked", "2000-01-01", [[10, 100, 0]]),
-      work(2, "A", "1990-01-01", [[10, 100, 0]]),
-      work(3, "B", "1991-01-01", [[10, 100, 0]]),
+  it("disliked evidence subtracts", () => {
+    const specs = [
+      { concepts: [{ id: 1, weight: 80 }] },
+      { concepts: [{ id: 2, weight: 80 }] },
+      { concepts: [{ id: 1, weight: 70 }, { id: 2, weight: 20 }, { id: 3, weight: 10 }] },
     ];
+    const [withoutDislike] = score(specs, { "1": 1 });
+    const [withDislike] = score(specs, { "1": 1, "2": -1 });
+    expect(withDislike.score).toBeLessThan(withoutDislike.score);
+    expect(withDislike.negative.length).toBeGreaterThan(0);
+  });
 
-    const results = scoreRecommendations(
-      catalog,
+  it("candidate weight matters and negative polarity is not positive evidence", () => {
+    const results = score(
+      [
+        { concepts: [{ id: 1, weight: 90 }, { id: 9, weight: 10 }] }, // liked
+        { concepts: [{ id: 1, weight: 90 }, { id: 8, weight: 10 }] }, // strong match
+        { concepts: [{ id: 1, weight: 30 }, { id: 7, weight: 10 }] }, // weak match
+        { concepts: [{ id: 1, weight: 90, polarity: -1 }, { id: 6, weight: 10 }] }, // anti-match
+      ],
       { "1": 1 },
-      { recommendation: { likeWeight: 1, dislikeWeight: 1, limit: 1 } },
     );
-
-    expect(results).toHaveLength(1);
-    expect(results[0].item.id).toBe(2);
+    const ids = results.map((entry) => entry.work.id);
+    expect(ids[0]).toBe(2);
+    expect(ids.indexOf(2)).toBeLessThan(ids.indexOf(3));
+    expect(ids).not.toContain(4); // negative polarity match is negative evidence, not positive
   });
 
-  test("rated works never appear as recommendations", () => {
-    const catalog = [
-      work(1, "Liked", "2000-01-01", [[10, 100, 0]]),
-      work(2, "Disliked", "1990-01-01", [[20, 100, 0]]),
-      work(3, "Fresh", "1991-01-01", [[10, 100, 0]]),
-    ];
-    const results = scoreRecommendations(catalog, { "1": 1, "2": -1 }, null);
-    expect(results.map((result) => result.item.id)).toEqual([3]);
+  it("inherited contributor evidence is weaker than direct concepts", () => {
+    const viaConcept = score(
+      [
+        { concepts: [{ id: 1, weight: 80 }, { id: 5, weight: 40 }] },
+        { concepts: [{ id: 1, weight: 80 }, { id: 6, weight: 40 }] },
+      ],
+      { "1": 1 },
+    )[0];
+    const viaDirector = score(
+      [
+        { concepts: [{ id: 5, weight: 40 }], contributors: [{ entityId: 50, role: "director", weight: 80 }] },
+        { concepts: [{ id: 6, weight: 40 }], contributors: [{ entityId: 50, role: "director", weight: 80 }] },
+      ],
+      { "1": 1 },
+    )[0];
+    expect(viaDirector.score).toBeLessThan(viaConcept.score);
+    expect(viaDirector.positive[0].source).toBe("contributor");
   });
 
-  test("dislike overlap lowers the score", () => {
-    const catalog = [
-      work(1, "Liked", "2000-01-01", [[10, 100, 0]]),
-      work(2, "Disliked", "1999-01-01", [[20, 100, 0]]),
-      work(3, "Pure", "1991-01-01", [[10, 100, 0]]),
-      work(4, "Tainted", "1992-01-01", [[10, 100, 0], [20, 100, 0]]),
-    ];
-    const results = scoreRecommendations(catalog, { "1": 1, "2": -1 }, {
-      recommendation: { likeWeight: 1, dislikeWeight: 0.5, limit: 10 },
-    });
-    const pure = results.find((result) => result.item.id === 3);
-    const tainted = results.find((result) => result.item.id === 4);
-    expect(pure).toBeDefined();
-    expect(tainted).toBeDefined();
-    expect(tainted!.score).toBeLessThan(pure!.score);
+  it("keeps positive and negative contributions for explanation", () => {
+    const [top] = score(
+      [
+        { concepts: [{ id: 1, label: "Thriller", category: "Genre", weight: 80 }] },
+        { concepts: [{ id: 2, label: "Slapstick", category: "Genre", weight: 80 }] },
+        {
+          concepts: [
+            { id: 1, label: "Thriller", category: "Genre", weight: 70 },
+            { id: 2, label: "Slapstick", category: "Genre", weight: 30 },
+            { id: 3, weight: 10 },
+          ],
+        },
+      ],
+      { "1": 1, "2": -1 },
+    );
+    expect(top.positive[0].label).toBe("Thriller");
+    expect(top.negative[0].label).toBe("Slapstick");
+    const text = explanationText(top);
+    expect(text).toContain("Shared genre: Thriller");
+    expect(text).toContain("offset by: Shared genre: Slapstick");
+  });
+
+  it("is deterministic and respects the limit", () => {
+    const specs = [...Array(30).keys()].map((index) => ({
+      concepts: [
+        { id: 1, weight: 80 },
+        { id: 100 + index, weight: 50 },
+      ],
+    }));
+    const settings = { ...DEFAULT_SETTINGS, recommendation: { ...DEFAULT_SETTINGS.recommendation, limit: 5 } };
+    const { domain, index } = setup(specs);
+    const first = scoreRecommendations(domain, index, { "1": 1 }, settings);
+    const second = scoreRecommendations(domain, index, { "1": 1 }, settings);
+    expect(first).toHaveLength(5);
+    expect(first.map((entry) => entry.work.id)).toEqual(second.map((entry) => entry.work.id));
   });
 });

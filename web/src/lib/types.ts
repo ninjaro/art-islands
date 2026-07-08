@@ -121,18 +121,21 @@ export const DEFAULT_SETTINGS: Settings = {
   },
 };
 
-/** One inferred lineage record from the build-time export. */
+/** Evidence supporting one inferred graph edge (evolution or islands). */
+export interface EdgeEvidence {
+  score: number;
+  sharedFeatureCount: number;
+  topFactors: import("./features").EdgeFactor[];
+}
+
+/** One inferred lineage record from the build-time export (version 2). */
 export interface EvolutionNode {
   /** Entity id of the work. */
   id: number;
   /** Entity id of the inferred earlier work, or null for roots. */
   parent: number | null;
-  /** Similarity score supporting the inferred edge. */
-  score: number;
-  /** Number of shared tags supporting the edge. */
-  shared: number;
-  /** Strongest shared tag ids (short list). */
-  topTags: number[];
+  /** Evidence supporting the inferred parent edge. */
+  evidence: EdgeEvidence;
 }
 
 export interface EvolutionExport {
@@ -140,6 +143,8 @@ export interface EvolutionExport {
   note: string;
   nodes: EvolutionNode[];
 }
+
+export const EVOLUTION_EXPORT_VERSION = 2;
 
 export interface V2Identifier {
   scheme: string;
@@ -317,13 +322,10 @@ export interface V2Data {
 }
 
 export interface AppData {
-  catalog: CatalogItem[];
-  catalogById: Map<number, CatalogItem>;
-  tags: Tag[];
-  tagById: Map<number, Tag>;
-  lookup: Lookup;
+  v2: V2Data;
+  domain: import("./domain").DomainModel;
+  /** Optional build-time lineage export; views show a regeneration hint when absent. */
   evolution: EvolutionExport | null;
-  v2: V2Data | null;
 }
 
 const LEGACY_SETTING_ALIASES: Record<string, Record<string, string>> = {
