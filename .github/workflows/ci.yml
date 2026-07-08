@@ -54,6 +54,9 @@ jobs:
       - name: Rebuild static exports
         run: python -m art_islands export
 
+      - name: Rebuild v2 static exports
+        run: python -m art_islands db-v2 export
+
       - name: SQLite foreign-key check
         run: |
           python - <<'PY'
@@ -68,7 +71,7 @@ jobs:
         run: |
           python - <<'PY'
           import json, pathlib
-          for path in sorted(pathlib.Path("public/data").glob("*.json")):
+          for path in sorted(pathlib.Path("public/data").rglob("*.json")):
               json.loads(path.read_text(encoding="utf-8"))
               print(f"ok {path}")
           PY

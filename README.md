@@ -6,12 +6,23 @@ small React + Vite frontend renders four views — **Browse**, **Recommendations
 **Evolution**, and **Islands** — with all personal ratings stored purely in the
 browser's localStorage. There is no backend.
 
-* **Browse** — filterable, sortable catalog table with local like/dislike ratings.
-* **Recommendations** — tag-overlap recommendations derived from your local ratings.
-* **Evolution** — an inferred temporal similarity forest of catalogued works.
-  Branches are inferred from date and tag similarity; they do not prove direct influence.
-* **Islands** — a graph of your rated works plus recommended works, split into
-  connected components. Disconnected islands are expected and never joined artificially.
+* **Browse** — filterable, sortable, paginated catalog table with local
+  like/dislike ratings and a feature-based relevance sort.
+* **Recommendations** — feature-based recommendations derived from your local
+  ratings, with per-row positive and negative evidence (shared concepts,
+  contributors, and content-guide profiles).
+* **Evolution** — an inferred temporal similarity structure of catalogued
+  works on one shared chronological canvas. Every edge carries its evidence
+  (similarity score, shared features, strongest factors); branches are
+  inferred from date and feature similarity and do not prove direct influence.
+* **Islands** — a bounded up-to-K nearest-neighbor graph of your rated works
+  plus recommended works, split into connected components. Disconnected
+  islands are expected and never joined artificially.
+
+All four views run on the V2 domain exports (`public/data/v2/`) and one
+shared weighted, polarity-aware feature model implemented in both Python and
+TypeScript — see `docs/feature-model.md`. Cross-language golden fixtures in
+`shared/fixtures/feature-golden.json` keep the two implementations identical.
 
 ## Local installation
 
@@ -60,11 +71,21 @@ lineage, and v2 domain exports) after any data change:
 .venv/bin/art-islands db-v2 export
 ```
 
-Tunable thresholds (recommendation weights, Evolution lineage and grouping
-settings, Islands graph caps) live in `data/settings.json` and are exported to
-`public/data/settings.json`. Current data-maintenance commands include
-`enrich`, `tag set`, `config show|set`, `batch`, `db-v2 export`,
-`db-v2 validate`, and `serve-static`.
+Tunable values (recommendation weights, feature source multipliers, Evolution
+lineage and grouping settings, Islands graph caps, browse page sizes) live in
+`data/settings.json` and are exported to `public/data/settings.json`; they are
+validated and merged with safe defaults in both languages, and the legacy
+`islands.maxNeighborsPerSeed` / `evolution.minimumSharedTags` names are still
+accepted. Current data-maintenance commands include `enrich`, `tag set`,
+`config show|set`, `batch`, `db-v2 export`, `db-v2 validate`, and
+`serve-static`.
+
+The app downloads only the V2 exports (~25 MB raw, served compressed by
+GitHub Pages), `evolution.json`, and `settings.json`. The legacy
+`catalog.json`, `tags.json`, and `entities-lookup.json` files are still
+generated for external compatibility but are never fetched by the frontend.
+If the initial payload becomes a bottleneck, chunked static exports are the
+documented follow-up optimization.
 
 ## Database Cleanup
 

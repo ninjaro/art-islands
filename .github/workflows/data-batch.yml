@@ -77,6 +77,9 @@ jobs:
       - name: Rebuild static exports
         run: python -m art_islands export
 
+      - name: Rebuild v2 static exports
+        run: python -m art_islands db-v2 export
+
       - name: SQLite foreign-key check
         run: |
           python - <<'PY'
