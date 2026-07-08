@@ -1,0 +1,808 @@
+{
+ "expected": {
+  "features": {
+   "1": {
+    "advisory:1": 0.23387093714344695,
+    "concept:10": 1.1693546857172348,
+    "concept:11": 1.3183347464017316,
+    "concept:99": 0.6097120416375175,
+    "entity:50": 0.5197131936521043,
+    "entity:60": 0.1757779661868976
+   },
+   "2": {
+    "advisory:1": 0.22087810730214436,
+    "concept:10": 0.9094980888911826,
+    "concept:99": 0.6097120416375175,
+    "entity:50": 0.5197131936521043
+   },
+   "3": {
+    "advisory:2": 0.257510065989456,
+    "concept:20": 1.4484941211906903,
+    "concept:99": 0.6097120416375175,
+    "entity:70": 0.6431450771444792
+   },
+   "4": {
+    "advisory:2": 0.16094379124341004,
+    "concept:20": 0.9656627474604601,
+    "concept:99": 0.6097120416375175,
+    "entity:70": 0.6431450771444792
+   },
+   "5": {
+    "concept:30": -0.9656627474604601,
+    "concept:99": 0.6097120416375175,
+    "entity:80": 0.16094379124341004
+   },
+   "6": {
+    "concept:30": 0.9656627474604601,
+    "concept:99": 0.6097120416375175,
+    "entity:80": 0.16094379124341004
+   },
+   "7": {
+    "concept:40": 0.6591673732008658
+   },
+   "8": {
+    "advisory:1": 0.25985659682605217,
+    "concept:10": 0.3897848952390783,
+    "concept:99": 0.6097120416375175,
+    "entity:50": 0.19489244761953914,
+    "entity:70": -0.4287633847629861
+   }
+  },
+  "similarities": [
+   {
+    "a": 1,
+    "b": 2,
+    "sharedFeatureCount": 4,
+    "similarity": 0.7284652494041066,
+    "topFactors": [
+     {
+      "category": "Genre",
+      "contribution": 1.0635258518957744,
+      "id": "concept:10",
+      "label": "Cyberpunk",
+      "source": "direct-concept"
+     },
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     },
+     {
+      "contribution": 0.27010180365606967,
+      "id": "entity:50",
+      "label": "R. Scott",
+      "relationType": "director",
+      "source": "contributor"
+     }
+    ]
+   },
+   {
+    "a": 1,
+    "b": 3,
+    "sharedFeatureCount": 1,
+    "similarity": 0.11055810230281553,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     }
+    ]
+   },
+   {
+    "a": 1,
+    "b": 4,
+    "sharedFeatureCount": 1,
+    "similarity": 0.14379435190108417,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     }
+    ]
+   },
+   {
+    "a": 1,
+    "b": 5,
+    "sharedFeatureCount": 1,
+    "similarity": 0.1646409334746485,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     }
+    ]
+   },
+   {
+    "a": 1,
+    "b": 6,
+    "sharedFeatureCount": 1,
+    "similarity": 0.1646409334746485,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     }
+    ]
+   },
+   {
+    "a": 1,
+    "b": 7,
+    "sharedFeatureCount": 0,
+    "similarity": 0.0,
+    "topFactors": []
+   },
+   {
+    "a": 1,
+    "b": 8,
+    "sharedFeatureCount": 4,
+    "similarity": 0.5605954408994432,
+    "topFactors": [
+     {
+      "category": "Genre",
+      "contribution": 0.4557967936696177,
+      "id": "concept:10",
+      "label": "Cyberpunk",
+      "source": "direct-concept"
+     },
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     },
+     {
+      "contribution": 0.10128817637102615,
+      "id": "entity:50",
+      "label": "R. Scott",
+      "relationType": "director",
+      "source": "contributor"
+     }
+    ]
+   },
+   {
+    "a": 2,
+    "b": 3,
+    "sharedFeatureCount": 1,
+    "similarity": 0.17568723093114028,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     }
+    ]
+   },
+   {
+    "a": 2,
+    "b": 4,
+    "sharedFeatureCount": 1,
+    "similarity": 0.22850275993201513,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     }
+    ]
+   },
+   {
+    "a": 2,
+    "b": 5,
+    "sharedFeatureCount": 1,
+    "similarity": 0.2616299402539804,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     }
+    ]
+   },
+   {
+    "a": 2,
+    "b": 6,
+    "sharedFeatureCount": 1,
+    "similarity": 0.2616299402539804,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     }
+    ]
+   },
+   {
+    "a": 2,
+    "b": 7,
+    "sharedFeatureCount": 0,
+    "similarity": 0.0,
+    "topFactors": []
+   },
+   {
+    "a": 2,
+    "b": 8,
+    "sharedFeatureCount": 4,
+    "similarity": 0.7966205122908322,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     },
+     {
+      "category": "Genre",
+      "contribution": 0.3545086172985915,
+      "id": "concept:10",
+      "label": "Cyberpunk",
+      "source": "direct-concept"
+     },
+     {
+      "contribution": 0.10128817637102615,
+      "id": "entity:50",
+      "label": "R. Scott",
+      "relationType": "director",
+      "source": "contributor"
+     }
+    ]
+   },
+   {
+    "a": 3,
+    "b": 4,
+    "sharedFeatureCount": 4,
+    "similarity": 0.9812924569454728,
+    "topFactors": [
+     {
+      "category": "Genre",
+      "contribution": 1.3987568127493266,
+      "id": "concept:20",
+      "label": "Progressive rock",
+      "source": "direct-concept"
+     },
+     {
+      "contribution": 0.4136355902551781,
+      "id": "entity:70",
+      "label": "The Band",
+      "relationType": "music_artist",
+      "source": "organization"
+     },
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     }
+    ]
+   },
+   {
+    "a": 3,
+    "b": 5,
+    "sharedFeatureCount": 1,
+    "similarity": 0.18767207289367502,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     }
+    ]
+   },
+   {
+    "a": 3,
+    "b": 6,
+    "sharedFeatureCount": 1,
+    "similarity": 0.18767207289367502,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     }
+    ]
+   },
+   {
+    "a": 3,
+    "b": 7,
+    "sharedFeatureCount": 0,
+    "similarity": 0.0,
+    "topFactors": []
+   },
+   {
+    "a": 3,
+    "b": 8,
+    "sharedFeatureCount": 2,
+    "similarity": 0.061984418625556065,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     },
+     {
+      "contribution": -0.2757570601701187,
+      "id": "entity:70",
+      "label": "The Band",
+      "relationType": "music_artist",
+      "source": "organization"
+     }
+    ]
+   },
+   {
+    "a": 4,
+    "b": 5,
+    "sharedFeatureCount": 1,
+    "similarity": 0.24409051466680048,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     }
+    ]
+   },
+   {
+    "a": 4,
+    "b": 6,
+    "sharedFeatureCount": 1,
+    "similarity": 0.24409051466680048,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     }
+    ]
+   },
+   {
+    "a": 4,
+    "b": 7,
+    "sharedFeatureCount": 0,
+    "similarity": 0.0,
+    "topFactors": []
+   },
+   {
+    "a": 4,
+    "b": 8,
+    "sharedFeatureCount": 2,
+    "similarity": 0.08061832754522905,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     },
+     {
+      "contribution": -0.2757570601701187,
+      "id": "entity:70",
+      "label": "The Band",
+      "relationType": "music_artist",
+      "source": "organization"
+     }
+    ]
+   },
+   {
+    "a": 5,
+    "b": 6,
+    "sharedFeatureCount": 3,
+    "similarity": -0.4020977809510003,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     },
+     {
+      "contribution": 0.025902903939802352,
+      "id": "entity:80",
+      "label": "A. Performer",
+      "relationType": "cast_member",
+      "source": "contributor"
+     },
+     {
+      "category": "Genre",
+      "contribution": -0.9325045418328843,
+      "id": "concept:30",
+      "label": "Romance",
+      "source": "direct-concept"
+     }
+    ]
+   },
+   {
+    "a": 5,
+    "b": 7,
+    "sharedFeatureCount": 0,
+    "similarity": 0.0,
+    "topFactors": []
+   },
+   {
+    "a": 5,
+    "b": 8,
+    "sharedFeatureCount": 1,
+    "similarity": 0.3574749191681481,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     }
+    ]
+   },
+   {
+    "a": 6,
+    "b": 7,
+    "sharedFeatureCount": 0,
+    "similarity": 0.0,
+    "topFactors": []
+   },
+   {
+    "a": 6,
+    "b": 8,
+    "sharedFeatureCount": 1,
+    "similarity": 0.3574749191681481,
+    "topFactors": [
+     {
+      "category": "Language",
+      "contribution": 0.3717487737177898,
+      "id": "concept:99",
+      "label": "English",
+      "source": "direct-concept"
+     }
+    ]
+   },
+   {
+    "a": 7,
+    "b": 8,
+    "sharedFeatureCount": 0,
+    "similarity": 0.0,
+    "topFactors": []
+   }
+  ]
+ },
+ "note": "Generated by tools/generate_feature_golden.py; do not edit by hand.",
+ "settings": {
+  "authorMultiplier": 0.55,
+  "contentGuideMultiplier": 0.25,
+  "creatorMultiplier": 0.55,
+  "directConceptMultiplier": 1.0,
+  "directorMultiplier": 0.5,
+  "organizationMultiplier": 0.2,
+  "performerMultiplier": 0.25,
+  "producerMultiplier": 0.3
+ },
+ "works": [
+  {
+   "advisories": [
+    {
+     "categoryId": 1,
+     "intensity": 72,
+     "label": "Violence"
+    }
+   ],
+   "concepts": [
+    {
+     "category": "Genre",
+     "id": 10,
+     "label": "Cyberpunk",
+     "polarity": 0,
+     "weight": 90
+    },
+    {
+     "category": "Style",
+     "id": 11,
+     "label": "Neo-noir",
+     "polarity": 0,
+     "weight": 60
+    },
+    {
+     "category": "Language",
+     "id": 99,
+     "label": "English",
+     "polarity": 0,
+     "weight": 80
+    }
+   ],
+   "contributors": [
+    {
+     "entityId": 50,
+     "family": "person",
+     "label": "R. Scott",
+     "polarity": 0,
+     "role": "director",
+     "weight": 80
+    },
+    {
+     "entityId": 60,
+     "family": "organization",
+     "label": "Big Studio",
+     "polarity": 0,
+     "role": "production_company",
+     "weight": 40
+    }
+   ],
+   "date": "1982-06-25",
+   "id": 1,
+   "kind": "film"
+  },
+  {
+   "advisories": [
+    {
+     "categoryId": 1,
+     "intensity": 68,
+     "label": "Violence"
+    }
+   ],
+   "concepts": [
+    {
+     "category": "Genre",
+     "id": 10,
+     "label": "Cyberpunk",
+     "polarity": 0,
+     "weight": 70
+    },
+    {
+     "category": "Language",
+     "id": 99,
+     "label": "English",
+     "polarity": 0,
+     "weight": 80
+    }
+   ],
+   "contributors": [
+    {
+     "entityId": 50,
+     "family": "person",
+     "label": "R. Scott",
+     "polarity": 0,
+     "role": "director",
+     "weight": 80
+    }
+   ],
+   "date": "1995-03-31",
+   "id": 2,
+   "kind": "film"
+  },
+  {
+   "advisories": [
+    {
+     "categoryId": 2,
+     "intensity": 64,
+     "label": "Sensory disorientation"
+    }
+   ],
+   "concepts": [
+    {
+     "category": "Genre",
+     "id": 20,
+     "label": "Progressive rock",
+     "polarity": 0,
+     "weight": 90
+    },
+    {
+     "category": "Language",
+     "id": 99,
+     "label": "English",
+     "polarity": 0,
+     "weight": 80
+    }
+   ],
+   "contributors": [
+    {
+     "entityId": 70,
+     "family": "group",
+     "label": "The Band",
+     "polarity": 0,
+     "role": "music_artist",
+     "weight": 90
+    }
+   ],
+   "date": "1979-11-30",
+   "id": 3,
+   "kind": "music"
+  },
+  {
+   "advisories": [
+    {
+     "categoryId": 2,
+     "intensity": 40,
+     "label": "Sensory disorientation"
+    }
+   ],
+   "concepts": [
+    {
+     "category": "Genre",
+     "id": 20,
+     "label": "Progressive rock",
+     "polarity": 0,
+     "weight": 60
+    },
+    {
+     "category": "Language",
+     "id": 99,
+     "label": "English",
+     "polarity": 0,
+     "weight": 80
+    }
+   ],
+   "contributors": [
+    {
+     "entityId": 70,
+     "family": "group",
+     "label": "The Band",
+     "polarity": 0,
+     "role": "music_artist",
+     "weight": 90
+    }
+   ],
+   "date": "1981-02-13",
+   "id": 4,
+   "kind": "music"
+  },
+  {
+   "advisories": [],
+   "concepts": [
+    {
+     "category": "Genre",
+     "id": 30,
+     "label": "Romance",
+     "polarity": -1,
+     "weight": 60
+    },
+    {
+     "category": "Language",
+     "id": 99,
+     "label": "English",
+     "polarity": 0,
+     "weight": 80
+    }
+   ],
+   "contributors": [
+    {
+     "entityId": 80,
+     "family": "person",
+     "label": "A. Performer",
+     "polarity": 0,
+     "role": "cast_member",
+     "weight": 40
+    }
+   ],
+   "date": "2001-09-14",
+   "id": 5,
+   "kind": "film"
+  },
+  {
+   "advisories": [],
+   "concepts": [
+    {
+     "category": "Genre",
+     "id": 30,
+     "label": "Romance",
+     "polarity": 0,
+     "weight": 60
+    },
+    {
+     "category": "Language",
+     "id": 99,
+     "label": "English",
+     "polarity": 0,
+     "weight": 80
+    }
+   ],
+   "contributors": [
+    {
+     "entityId": 80,
+     "family": "person",
+     "label": "A. Performer",
+     "polarity": 0,
+     "role": "cast_member",
+     "weight": 40
+    }
+   ],
+   "date": "2001-10-26",
+   "id": 6,
+   "kind": "film"
+  },
+  {
+   "advisories": [],
+   "concepts": [
+    {
+     "category": "Subject",
+     "id": 40,
+     "label": "Marginalia",
+     "polarity": 0,
+     "weight": 30
+    }
+   ],
+   "contributors": [],
+   "date": null,
+   "id": 7,
+   "kind": "work"
+  },
+  {
+   "advisories": [
+    {
+     "categoryId": 1,
+     "intensity": 80,
+     "label": "Violence"
+    }
+   ],
+   "concepts": [
+    {
+     "category": "Genre",
+     "id": 10,
+     "label": "Cyberpunk",
+     "polarity": 0,
+     "weight": 30
+    },
+    {
+     "category": "Language",
+     "id": 99,
+     "label": "English",
+     "polarity": 0,
+     "weight": 80
+    }
+   ],
+   "contributors": [
+    {
+     "entityId": 50,
+     "family": "person",
+     "label": "R. Scott",
+     "polarity": 0,
+     "role": "producer",
+     "weight": 50
+    },
+    {
+     "entityId": 70,
+     "family": "group",
+     "label": "The Band",
+     "polarity": -1,
+     "role": "music_artist",
+     "weight": 60
+    }
+   ],
+   "date": "1990-05-01",
+   "id": 8,
+   "kind": "film"
+  }
+ ]
+}
