@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from . import batch as batch_module
+from . import v2 as v2_module
 from .model import (
     ENTITY_KIND_FILM,
     ENTITY_KIND_GAME,
@@ -57,6 +58,14 @@ def default_db_path() -> Path:
 
 def default_output_path() -> Path:
     return project_root() / "public" / "data"
+
+
+def default_v2_db_path() -> Path:
+    return default_db_path()
+
+
+def default_v2_output_path() -> Path:
+    return project_root() / "public" / "data" / "v2"
 
 
 def default_settings_path() -> Path:
@@ -159,7 +168,13 @@ def command_migrate(args) -> None:
 
 
 def command_export(args) -> None:
-    result = export_static_data(args.db, args.output, args.settings)
+    if args.version == 2:
+        db_path = default_v2_db_path() if args.db == default_db_path() else args.db
+        output_path = default_v2_output_path() if args.output == default_output_path() else args.output
+        result = v2_module.export_v2_static_data(db_path, output_path, args.settings)
+        args.output = output_path
+    else:
+        result = export_static_data(args.db, args.output, args.settings)
     for key, value in result.items():
         print(f"{key}={value}")
     print(f"output={args.output}")
@@ -266,6 +281,20 @@ def command_config_set(args) -> None:
     settings["recommendation"][json_key] = parsed_value
     save_settings(args.settings, settings)
     print(f"{args.key}={settings['recommendation'][json_key]}")
+
+
+def command_db_v2_export(args) -> None:
+    result = v2_module.export_v2_static_data(args.db, args.output, args.settings)
+    for key, value in result.items():
+        print(f"{key}={value}")
+    print(f"output={args.output}")
+
+
+def command_db_v2_validate(args) -> None:
+    result = v2_module.validate_v2_database(project_root(), args.source_db, args.db)
+    print(json.dumps(result, indent=2, sort_keys=True))
+    if not result["ok"]:
+        raise SystemExit(1)
 
 
 def command_tag_set(args) -> None:
@@ -743,6 +772,7 @@ def parser() -> argparse.ArgumentParser:
 
     export = sub.add_parser("export")
     add_common_export_args(export)
+    export.add_argument("--version", type=int, choices=(1, 2), default=1)
     export.set_defaults(function=command_export)
 
     build = sub.add_parser("build")
@@ -797,6 +827,20 @@ def parser() -> argparse.ArgumentParser:
     config_set.add_argument("key", choices=sorted(CONFIG_KEYS))
     config_set.add_argument("value")
     config_set.set_defaults(function=command_config_set)
+
+    db_v2 = sub.add_parser("db-v2")
+    db_v2_sub = db_v2.add_subparsers(dest="db_v2_command", required=True)
+
+    db_v2_export = db_v2_sub.add_parser("export")
+    db_v2_export.add_argument("--db", type=resolved_path, default=default_v2_db_path())
+    db_v2_export.add_argument("--output", type=resolved_path, default=default_v2_output_path())
+    db_v2_export.add_argument("--settings", type=resolved_path, default=default_settings_path())
+    db_v2_export.set_defaults(function=command_db_v2_export)
+
+    db_v2_validate = db_v2_sub.add_parser("validate")
+    db_v2_validate.add_argument("--source-db", type=resolved_path, default=default_db_path())
+    db_v2_validate.add_argument("--db", type=resolved_path, default=default_v2_db_path())
+    db_v2_validate.set_defaults(function=command_db_v2_validate)
 
     serve = sub.add_parser("serve-static")
     serve.add_argument("--root", type=resolved_path, default=Path("public"))

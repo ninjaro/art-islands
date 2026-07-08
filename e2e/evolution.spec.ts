@@ -78,6 +78,32 @@ test("evolution work nodes open the shared entity window", async ({ page }) => {
   await expect(page.locator(".entity-window .window-title strong")).toHaveText(nodeLabel!);
 });
 
+test("evolution edges expose their evidence by hover and by keyboard focus", async ({ page }) => {
+  await openApp(page);
+  await page.click('nav button:has-text("Evolution")');
+  await page.waitForSelector(".evo-node");
+
+  // Expand the first expandable root to materialize evidence edges.
+  await page.locator(".evo-toggle").first().click();
+  await page.waitForSelector(".edge-hit");
+
+  // Keyboard focus opens the tooltip (not only mouse hover).
+  await page.locator(".edge-hit").first().focus();
+  const tooltip = page.locator(".edge-tooltip").first();
+  await expect(tooltip).toBeVisible();
+  await expect(tooltip).toContainText(/Similarity: \d/);
+  await expect(tooltip).toContainText("→"); // direction: earlier → later
+  await expect(tooltip).toContainText(/shared features/);
+  // Human-readable factor labels, no bare feature ids.
+  await expect(tooltip).not.toContainText(/concept:\d|entity:\d/);
+  await page.locator(".edge-hit").first().blur();
+  await expect(page.locator(".edge-tooltip")).toHaveCount(0);
+
+  // Mouse hover shows the same tooltip.
+  await page.locator(".edge-hit").first().hover();
+  await expect(page.locator(".edge-tooltip").first()).toBeVisible();
+});
+
 test("expansion state is remembered for the browser session", async ({ page }) => {
   await openApp(page);
   await page.click('nav button:has-text("Evolution")');

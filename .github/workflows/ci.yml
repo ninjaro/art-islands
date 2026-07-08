@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
 
       - uses: actions/setup-python@v5
         with:
@@ -29,6 +31,17 @@ jobs:
           python -m pip install --quiet -e . pytest
           npm ci
 
+      - name: Validate LFS database is real SQLite
+        run: |
+          head -c 16 data/art-islands.sqlite | grep -q "SQLite format 3" \
+            || { echo "data/art-islands.sqlite is an LFS pointer, not a database"; exit 1; }
+          python - <<'PY'
+          import sqlite3
+          result = sqlite3.connect("data/art-islands.sqlite").execute("pragma quick_check").fetchone()[0]
+          assert result == "ok", result
+          print("quick_check ok")
+          PY
+
       - name: Python tests (model, CLI, evolution, batch parser)
         run: python -m pytest tests -q
 
@@ -40,6 +53,9 @@ jobs:
 
       - name: Rebuild static exports
         run: python -m art_islands export
+
+      - name: Rebuild v2 static exports
+        run: python -m art_islands db-v2 export
 
       - name: SQLite foreign-key check
         run: |
@@ -55,7 +71,7 @@ jobs:
         run: |
           python - <<'PY'
           import json, pathlib
-          for path in sorted(pathlib.Path("public/data").glob("*.json")):
+          for path in sorted(pathlib.Path("public/data").rglob("*.json")):
               json.loads(path.read_text(encoding="utf-8"))
               print(f"ok {path}")
           PY

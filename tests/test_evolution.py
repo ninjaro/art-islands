@@ -1,26 +1,41 @@
 from __future__ import annotations
 
+import sqlite3
+
+from art_islands import features
 from art_islands.evolution import (
     EVOLUTION_NOTE,
     LineageWork,
     build_evolution_export,
     compute_lineage,
 )
-from art_islands.model import connect_art, settings_with_defaults
+from art_islands.model import DEFAULT_SETTINGS, connect_art, settings_with_defaults
+
+SETTINGS = DEFAULT_SETTINGS["features"]
 
 
-def work(entity_id, date, tags, kind=1):
+def concept_features(concepts, contributors=(), advisories=()):
+    return features.extract_features(
+        [(cid, f"Concept {cid}", "Genre", weight, polarity) for cid, weight, polarity in concepts],
+        contributors,
+        advisories,
+        SETTINGS,
+    )
+
+
+def work(entity_id, date, concepts, kind="film", contributors=(), advisories=()):
+    normalized = [entry if len(entry) == 3 else (*entry, 0) for entry in concepts]
     return LineageWork(
         entity_id=entity_id,
         kind=kind,
         date=date,
         year=int(date[:4]),
-        tags=tuple(tags),
+        features=concept_features(normalized, contributors, advisories),
     )
 
 
 def lineage(works, **overrides):
-    params = {"minimum_similarity": 0.1, "minimum_shared_tags": 2}
+    params = {"minimum_similarity": 0.1, "minimum_shared_features": 2}
     params.update(overrides)
     return compute_lineage(works, **params)
 
@@ -77,8 +92,8 @@ def test_deterministic_output() -> None:
 def test_weakly_related_records_become_roots() -> None:
     works = [
         work(1, "1950-01-01", [(10, 80), (11, 60)]),
-        work(2, "1960-01-01", [(99, 80), (98, 60)]),  # no tags in common
-        work(3, "1970-01-01", [(10, 5)]),  # only one weak shared tag
+        work(2, "1960-01-01", [(99, 80), (98, 60)]),  # no features in common
+        work(3, "1970-01-01", [(10, 5)]),  # only one weak shared feature
     ]
     records = {record.entity_id: record for record in lineage(works)}
     assert records[1].parent_id is None
@@ -86,31 +101,69 @@ def test_weakly_related_records_become_roots() -> None:
     assert records[3].parent_id is None
 
 
-def test_common_generic_tags_are_downweighted() -> None:
+def test_common_generic_features_are_downweighted() -> None:
     generic = 500
     works = []
-    # Tag 500 appears on every work: it must not create lineage on its own.
+    # Concept 500 appears on every work: it must not create lineage on its own.
     for index in range(1, 30):
         works.append(work(index, f"{1900 + index}-01-01", [(generic, 100), (index, 100)]))
-    # Two works genuinely share two specific tags.
+    # Two works genuinely share two specific concepts.
     works.append(work(100, "1980-01-01", [(generic, 100), (70, 90), (71, 90)]))
     works.append(work(101, "1985-01-01", [(generic, 100), (70, 90), (71, 90)]))
 
     records = {record.entity_id: record for record in lineage(works)}
     # The specific overlap wins for 101.
     assert records[101].parent_id == 100
-    # Works that only share the generic tag stay roots.
+    # Works that only share the generic concept stay roots.
     assert records[5].parent_id is None
 
 
 def test_same_kind_preferred_over_other_kinds() -> None:
     works = [
-        work(1, "1950-01-01", [(10, 90), (11, 90)], kind=2),
-        work(2, "1951-01-01", [(10, 90), (11, 90)], kind=1),
-        work(3, "1960-01-01", [(10, 90), (11, 90)], kind=1),
+        work(1, "1950-01-01", [(10, 90), (11, 90)], kind="music"),
+        work(2, "1951-01-01", [(10, 90), (11, 90)], kind="film"),
+        work(3, "1960-01-01", [(10, 90), (11, 90)], kind="film"),
     ]
     records = {record.entity_id: record for record in lineage(works)}
     assert records[3].parent_id == 2
+
+
+def test_kind_preference_is_configurable_not_a_partition() -> None:
+    works = [
+        work(1, "1950-01-01", [(10, 90), (11, 90)], kind="music"),
+        work(2, "1980-01-01", [(10, 90), (11, 90)], kind="film"),
+    ]
+    records = {record.entity_id: record for record in lineage(works)}
+    # A cross-kind parent is still assigned when it is the only evidence.
+    assert records[2].parent_id == 1
+
+
+def test_shared_director_connects_works_without_shared_concepts() -> None:
+    director = [(50, "R. Scott", "person", "director", 80, 0)]
+    works = [
+        work(1, "1979-01-01", [(10, 80)], contributors=director),
+        work(2, "1982-01-01", [(11, 80)], contributors=director),
+    ]
+    records = {
+        record.entity_id: record
+        for record in lineage(works, minimum_shared_features=1, minimum_similarity=0.05)
+    }
+    assert records[2].parent_id == 1
+    factor = records[2].top_factors[0]
+    assert factor["id"] == "entity:50"
+    assert factor["label"] == "R. Scott"
+    assert factor["source"] == "contributor"
+
+
+def test_negative_polarity_reduces_parent_score() -> None:
+    works = [
+        work(1, "1950-01-01", [(10, 80, 0), (11, 60, 0)]),
+        work(2, "1950-06-01", [(10, 80, 0), (11, 60, -1)]),
+        work(3, "1960-01-01", [(10, 80, 0), (11, 60, 0)]),
+    ]
+    records = {record.entity_id: record for record in lineage(works)}
+    # The fully aligned earlier work wins over the polarity-conflicting one.
+    assert records[3].parent_id == 1
 
 
 def test_edge_metadata_explains_inference() -> None:
@@ -122,12 +175,122 @@ def test_edge_metadata_explains_inference() -> None:
     child = records[2]
     assert child.parent_id == 1
     assert child.score > 0
-    assert child.shared_tags == 3
-    assert set(child.top_tags) <= {10, 11, 12}
-    assert len(child.top_tags) <= 3
+    assert child.shared_features == 3
+    assert len(child.top_factors) <= 3
+    for factor in child.top_factors:
+        assert factor["label"].startswith("Concept ")
+        assert factor["contribution"] > 0
+        assert factor["source"] == "direct-concept"
+
+
+def create_v2_evolution_fixture(path) -> None:
+    from tools.clean_domain_database import SCHEMA
+
+    db = sqlite3.connect(path)
+    try:
+        db.executescript(SCHEMA)
+        db.execute("insert into data_sources values (1, 'legacy_database', 'Legacy', 'sqlite', null)")
+        db.execute("insert into source_records values (1, 1, 'legacy:1', null)")
+        db.executemany(
+            """
+            insert into entities(
+                entity_id, label, entity_kind, release_date, date_precision,
+                is_catalogued, image_ref, short_description, entity_family
+            ) values (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            [
+                (1, "Early Film", 1, "1980-01-01", 1, 1, None, None, "work"),
+                (2, "Later Film", 1, "1990-01-01", 1, 1, None, None, "work"),
+                (3, "Famous Director", 3, "1940-01-01", 1, 1, None, None, "person"),
+                (4, "Undated Work", 7, None, 0, 1, None, None, "work"),
+            ],
+        )
+        db.executemany(
+            "insert into entity_type_definitions values (?, ?, ?, ?, ?)",
+            [(1, "film", "work", "Film", None), (2, "person", "person", "Person", None)],
+        )
+        db.executemany(
+            "insert into entity_types(entity_id, entity_type_id, is_primary, confidence, source_record_id) values (?, ?, ?, ?, ?)",
+            [(1, 1, 1, 1.0, 1), (2, 1, 1, 1.0, 1), (3, 2, 1, 1.0, 1)],
+        )
+        db.execute(
+            "insert into relation_types values (1, 'director', 'Director', 'contributor', 'work', 'person', null)"
+        )
+        db.executemany(
+            """
+            insert into entity_relations(
+                entity_relation_id, source_entity_id, target_entity_id, relation_type_id,
+                role_label, character_label, ordering, weight, confidence, polarity, source_record_id
+            ) values (?, ?, ?, ?, null, null, 1, ?, 0.9, 0, 1)
+            """,
+            [(1, 1, 3, 1, 80), (2, 2, 3, 1, 80)],
+        )
+        db.execute("insert into concept_categories values (1, 'genre', 'Genre')")
+        db.executemany(
+            """
+            insert into concepts(
+                concept_id, label, description, concept_category_id, canonical_entity_id,
+                namespace, value, legacy_tag_id, classification_rule, confidence, review_recommended
+            ) values (?, ?, null, 1, null, null, null, null, null, 0.9, 0)
+            """,
+            [(100, "Sci-fi"), (101, "Only Early"), (102, "Only Later")],
+        )
+        db.executemany(
+            "insert into entity_concepts(entity_id, concept_id, weight, polarity, confidence, source_record_id) values (?, ?, ?, ?, 0.9, 1)",
+            [(1, 100, 90, 0), (2, 100, 90, 0), (1, 101, 50, 0), (2, 102, 50, 0)],
+        )
+        db.execute("insert into advisory_categories values (1, 'violence', 'Violence', null)")
+        db.executemany(
+            """
+            insert into entity_advisories(
+                entity_advisory_id, entity_id, advisory_category_id, concept_id,
+                severity, confidence, description, intensity, uncertainty
+            ) values (?, ?, 1, null, null, 0.8, null, ?, 10)
+            """,
+            [(1, 1, 70), (2, 2, 72)],
+        )
+        db.commit()
+    finally:
+        db.close()
+
+
+def test_v2_export_uses_features_and_excludes_people(tmp_path) -> None:
+    db_path = tmp_path / "domain.sqlite"
+    create_v2_evolution_fixture(db_path)
+    db = sqlite3.connect(db_path)
+    db.row_factory = sqlite3.Row
+
+    export = build_evolution_export(db, settings_with_defaults())
+    db.close()
+
+    assert export["version"] == 2
+    assert export["note"] == EVOLUTION_NOTE
+    nodes = {node["id"]: node for node in export["nodes"]}
+    # The catalogued person never becomes an Evolution node.
+    assert set(nodes) == {1, 2, 4}
+    assert nodes[1]["parent"] is None
+    assert nodes[2]["parent"] == 1
+    assert nodes[4]["parent"] is None
+
+    evidence = nodes[2]["evidence"]
+    assert evidence["score"] > 0
+    assert evidence["sharedFeatureCount"] == 3  # shared concept + director + advisory profile
+    labels = {factor["label"] for factor in evidence["topFactors"]}
+    assert labels <= {"Sci-fi", "Famous Director", "Violence"}
+    sources = {factor["source"] for factor in evidence["topFactors"]}
+    assert sources <= {"direct-concept", "contributor", "content-guide"}
+    # Explanations are human-readable, never bare ids.
+    assert all(not factor["label"].startswith("concept:") for factor in evidence["topFactors"])
+
+    rerun_db = sqlite3.connect(db_path)
+    rerun_db.row_factory = sqlite3.Row
+    second = build_evolution_export(rerun_db, settings_with_defaults())
+    rerun_db.close()
+    assert second == export  # deterministic
 
 
 def test_export_includes_undated_works_as_roots(tmp_path) -> None:
+    # Legacy-only database exercises the documented compatibility adapter.
     db = connect_art(tmp_path / "art.sqlite")
     db.executemany(
         """
@@ -153,12 +316,14 @@ def test_export_includes_undated_works_as_roots(tmp_path) -> None:
     export = build_evolution_export(db, settings_with_defaults())
     db.close()
 
-    assert export["version"] == 1
+    assert export["version"] == 2
     assert export["note"] == EVOLUTION_NOTE
     nodes = {node["id"]: node for node in export["nodes"]}
     assert set(nodes) == {1, 2, 3}
     assert nodes[1]["parent"] is None
     assert nodes[2]["parent"] == 1
+    assert nodes[2]["evidence"]["sharedFeatureCount"] == 2
+    assert nodes[2]["evidence"]["topFactors"][0]["label"] in {"alpha", "beta"}
     assert nodes[3]["parent"] is None
     # No fabricated ids: every referenced parent exists.
     for node in export["nodes"]:

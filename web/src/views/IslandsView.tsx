@@ -11,18 +11,21 @@ import {
 } from "@xyflow/react";
 import type { Edge, Node, NodeProps } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
+import type { DomainModel, WorkViewModel } from "../lib/domain";
+import { roleLabel } from "../lib/domain";
+import type { FeatureIndex } from "../lib/features";
+import { factorPhrase } from "../lib/features";
+import { motionDuration } from "../lib/format";
 import { buildIslandsGraph } from "../lib/islands";
-import type { IslandNode, IslandsGraph } from "../lib/islands";
+import type { IslandEdge, IslandNode } from "../lib/islands";
 import { layoutIslands } from "../lib/islandsLayout";
-import { yearLabel } from "../lib/format";
-import type { TagIndex } from "../lib/tagIndex";
-import type { AppData, CatalogItem, Ratings, Settings } from "../lib/types";
+import type { Ratings, Settings } from "../lib/types";
 import type { OpenHandler, RateHandler } from "../components/common";
-import { SvgIcon, kindIconName } from "../components/icons";
+import { SvgIcon, iconForBroadKind } from "../components/icons";
 
 interface IslandNodeData extends Record<string, unknown> {
   island: IslandNode;
-  item: CatalogItem;
+  work: WorkViewModel;
   rating: number;
   onRate: RateHandler;
   explanationText: string;
@@ -43,13 +46,13 @@ type IslandBgFlowNode = Node<IslandBgData>;
 const STATE_LABELS = { liked: "liked", disliked: "disliked", recommended: "recommended" } as const;
 
 function WorkNode({ data }: NodeProps<IslandFlowNode>) {
-  const { island, item, rating, onRate, explanationText } = data;
-  const year = yearLabel(item.date);
+  const { island, work, rating, onRate, explanationText } = data;
+  const year = work.year !== null ? String(work.year) : "";
   return (
     <div
       className={`island-node ${island.state}`}
       title={explanationText}
-      aria-label={`${item.label}${year ? `, ${year}` : ""}, ${STATE_LABELS[island.state]}`}
+      aria-label={`${work.label}${year ? `, ${year}` : ""}, ${STATE_LABELS[island.state]}. ${explanationText}`}
     >
       <Handle type="target" position={Position.Left} className="hidden-handle" isConnectable={false} />
       <Handle type="source" position={Position.Right} className="hidden-handle" isConnectable={false} />
@@ -63,10 +66,10 @@ function WorkNode({ data }: NodeProps<IslandFlowNode>) {
         )}
       </span>
       <span className="island-kind">
-        <SvgIcon name={kindIconName(item.kind)} title="" size={14} />
+        <SvgIcon name={iconForBroadKind(work.broadKind)} title="" size={14} />
       </span>
       <span className="island-body">
-        <span className="island-label">{item.label}</span>
+        <span className="island-label">{work.label}</span>
         <span className="island-year">{year || "undated"}</span>
       </span>
       <span className="island-actions nodrag">
@@ -75,24 +78,24 @@ function WorkNode({ data }: NodeProps<IslandFlowNode>) {
           className={rating === 1 ? "island-rate like active" : "island-rate like"}
           onClick={(event) => {
             event.stopPropagation();
-            onRate(item.id, 1);
+            onRate(work.id, 1);
           }}
-          aria-label={`Like ${item.label}`}
+          aria-label={`Like ${work.label}`}
           aria-pressed={rating === 1}
         >
-          <SvgIcon name="like" title={`Like ${item.label}`} size={13} />
+          <SvgIcon name="like" title={`Like ${work.label}`} size={13} />
         </button>
         <button
           type="button"
           className={rating === -1 ? "island-rate dislike active" : "island-rate dislike"}
           onClick={(event) => {
             event.stopPropagation();
-            onRate(item.id, -1);
+            onRate(work.id, -1);
           }}
-          aria-label={`Dislike ${item.label}`}
+          aria-label={`Dislike ${work.label}`}
           aria-pressed={rating === -1}
         >
-          <SvgIcon name="dislike" title={`Dislike ${item.label}`} size={13} />
+          <SvgIcon name="dislike" title={`Dislike ${work.label}`} size={13} />
         </button>
       </span>
     </div>
@@ -123,32 +126,36 @@ function IslandBackground({ data }: NodeProps<IslandBgFlowNode>) {
 
 const nodeTypes = { islandWork: WorkNode, islandBg: IslandBackground };
 
-function explanationFor(node: IslandNode, item: CatalogItem, graph: IslandsGraph, data: AppData): string {
-  if (node.state === "liked") return `${item.label}: you liked this work.`;
-  if (node.state === "disliked") return `${item.label}: you disliked this work.`;
+function explanationFor(node: IslandNode, work: WorkViewModel): string {
+  if (node.state === "liked") return `${work.label}: you liked this work.`;
+  if (node.state === "disliked") return `${work.label}: you disliked this work.`;
   const parts = [`Recommended, score ${node.score?.toFixed(2)}`];
-  if (node.likedSharedTags) parts.push(`${node.likedSharedTags} tags shared with liked works`);
-  if (node.dislikedSharedTags) parts.push(`${node.dislikedSharedTags} tags shared with disliked works`);
-  const strongestEdge = graph.edges
-    .filter((edge) => edge.source === node.id || edge.target === node.id)
-    .sort((a, b) => b.similarity - a.similarity)[0];
-  if (strongestEdge && strongestEdge.topTags.length) {
-    const names = strongestEdge.topTags.map((id) => data.tagById.get(id)?.name || `#${id}`).join(", ");
-    parts.push(`strongest shared tags: ${names}`);
+  for (const factor of node.topFactors ?? []) {
+    parts.push(factorPhrase(factor));
   }
   return parts.join("; ");
 }
 
+function edgeAriaLabel(edge: IslandEdge, domain: DomainModel): string {
+  const source = domain.workById.get(edge.source)?.label ?? `#${edge.source}`;
+  const target = domain.workById.get(edge.target)?.label ?? `#${edge.target}`;
+  if (edge.kind === "explicit") {
+    return `${source} and ${target}: ${roleLabel(edge.relationType ?? "related")} relation`;
+  }
+  const factors = edge.topFactors.map((factor) => factor.label).join(", ");
+  return `${source} and ${target}: similarity ${edge.similarity.toFixed(2)}${factors ? `, ${factors}` : ""}`;
+}
+
 function IslandsCanvas({
-  data,
-  tagIndex,
+  domain,
+  index,
   ratings,
   settings,
   onOpen,
   onRate,
 }: {
-  data: AppData;
-  tagIndex: TagIndex;
+  domain: DomainModel;
+  index: FeatureIndex;
   ratings: Ratings;
   settings: Settings;
   onOpen: OpenHandler;
@@ -161,19 +168,19 @@ function IslandsCanvas({
   const deferredRatings = useDeferredValue(ratings);
 
   const graph = useMemo(
-    () => buildIslandsGraph(data.catalog, tagIndex, deferredRatings, settings),
-    [data.catalog, tagIndex, deferredRatings, settings],
+    () => buildIslandsGraph(domain, index, deferredRatings, settings),
+    [domain, index, deferredRatings, settings],
   );
 
   const layout = useMemo(() => layoutIslands(graph), [graph]);
 
   const onFocusComponent = useCallback(
-    (index: number) => {
-      const component = graph.components.find((candidate) => candidate.index === index);
+    (componentIndex: number) => {
+      const component = graph.components.find((candidate) => candidate.index === componentIndex);
       if (!component) return;
       fitView({
         nodes: component.nodeIds.map((id) => ({ id: `n${id}` })),
-        duration: 300,
+        duration: motionDuration(300),
         padding: 0.25,
       });
     },
@@ -199,7 +206,7 @@ function IslandsCanvas({
     }));
 
     const workNodes: IslandFlowNode[] = graph.nodes.map((node) => {
-      const item = data.catalogById.get(node.id)!;
+      const work = domain.workById.get(node.id)!;
       const position = layout.positions.get(node.id) || { x: 0, y: 0 };
       return {
         id: `n${node.id}`,
@@ -207,16 +214,16 @@ function IslandsCanvas({
         position,
         data: {
           island: node,
-          item,
+          work,
           rating: ratings[String(node.id)] || 0,
           onRate,
-          explanationText: explanationFor(node, item, graph, data),
+          explanationText: explanationFor(node, work),
         },
       };
     });
 
     return [...bgNodes, ...workNodes];
-  }, [graph, layout, data, ratings, onRate, onFocusComponent]);
+  }, [graph, layout, domain, ratings, onRate, onFocusComponent]);
 
   const edges: Edge[] = useMemo(
     () =>
@@ -226,9 +233,10 @@ function IslandsCanvas({
         target: `n${edge.target}`,
         type: "straight",
         className: edge.kind === "explicit" ? "island-edge-explicit" : "island-edge-inferred",
-        focusable: false,
+        focusable: true,
+        ariaLabel: edgeAriaLabel(edge, domain),
       })),
-    [graph],
+    [graph, domain],
   );
 
   const seedCount = graph.nodes.filter((node) => node.state !== "recommended").length;
@@ -243,9 +251,8 @@ function IslandsCanvas({
         fitView
         minZoom={0.03}
         nodesConnectable={false}
-        edgesFocusable={false}
         onNodeClick={(_, node) => {
-          if (node.type === "islandWork") onOpen((node.data as IslandNodeData).item.id);
+          if (node.type === "islandWork") onOpen((node.data as IslandNodeData).work.id);
         }}
       >
         <Background />
@@ -269,7 +276,7 @@ function IslandsCanvas({
             </span>
           </div>
           <div className="graph-toolbar">
-            <button type="button" onClick={() => fitView({ duration: 300 })}>
+            <button type="button" onClick={() => fitView({ duration: motionDuration(300) })}>
               Fit all
             </button>
             <span className="island-stats">
@@ -277,6 +284,11 @@ function IslandsCanvas({
               {recommendedCount} recommended
             </span>
           </div>
+          <p className="graph-help">
+            Each work connects to at most {settings.islands.maxInferredNeighborsPerNode} nearest neighbors with
+            similarity ≥ {settings.islands.minimumSimilarity}. Solid edges are explicit catalog relations; dashed
+            edges are inferred similarity. Hover or focus a node or edge for its evidence.
+          </p>
         </Panel>
       </ReactFlow>
     </div>
@@ -284,15 +296,15 @@ function IslandsCanvas({
 }
 
 export function IslandsView({
-  data,
-  tagIndex,
+  domain,
+  index,
   ratings,
   settings,
   onOpen,
   onRate,
 }: {
-  data: AppData;
-  tagIndex: TagIndex;
+  domain: DomainModel;
+  index: FeatureIndex;
   ratings: Ratings;
   settings: Settings;
   onOpen: OpenHandler;
@@ -309,8 +321,8 @@ export function IslandsView({
   return (
     <ReactFlowProvider>
       <IslandsCanvas
-        data={data}
-        tagIndex={tagIndex}
+        domain={domain}
+        index={index}
         ratings={ratings}
         settings={settings}
         onOpen={onOpen}

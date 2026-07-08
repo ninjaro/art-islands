@@ -181,3 +181,29 @@ def test_migrate_art_database_and_export(tmp_path, monkeypatch) -> None:
 
     lookup = json.loads((export_dir / "entities-lookup.json").read_text())
     assert any(item["label"] == "Luis Bunuel" for item in lookup.values())
+
+
+def test_settings_defaults_include_new_sections() -> None:
+    settings = model.settings_with_defaults({})
+    assert settings["features"]["directorMultiplier"] == 0.5
+    assert settings["browse"]["pageSizeOptions"] == [25, 50, 100]
+    assert settings["browse"]["defaultPageSize"] == 50
+    assert settings["evolution"]["kindMismatchFactor"] == 0.6
+    assert settings["islands"]["maxInferredNeighborsPerNode"] == 8
+
+
+def test_settings_legacy_aliases() -> None:
+    settings = model.settings_with_defaults(
+        {"islands": {"maxNeighborsPerSeed": 12}, "evolution": {"minimumSharedTags": 3}}
+    )
+    assert settings["islands"]["maxInferredNeighborsPerNode"] == 12
+    assert "maxNeighborsPerSeed" not in settings["islands"]
+    assert settings["evolution"]["minimumSharedFeatures"] == 3
+
+
+def test_settings_page_size_validation() -> None:
+    settings = model.settings_with_defaults(
+        {"browse": {"defaultPageSize": 37, "pageSizeOptions": ["a", 10]}}
+    )
+    assert settings["browse"]["pageSizeOptions"] == [25, 50, 100]
+    assert settings["browse"]["defaultPageSize"] == 50

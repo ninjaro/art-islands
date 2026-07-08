@@ -19,7 +19,7 @@ test("all four views load and data requests use the Pages base path", async ({ p
   await page.click('nav button:has-text("Evolution")');
   await expect(page.locator(".evo-node").first()).toBeVisible();
   await expect(page.locator(".graph-disclaimer")).toContainText(
-    "Branches are inferred from date and tag similarity. They do not prove direct influence.",
+    "Branches are inferred from date and feature similarity",
   );
 
   await page.click('nav button:has-text("Islands")');
@@ -55,12 +55,39 @@ test("ratings synchronize across views and survive reload", async ({ page }) => 
   await expect(page.locator(".rating-summary span")).toHaveText("2 rated");
 
   await page.click('nav button:has-text("Browse")');
-  await expect(page.locator("tbody .icon-button.active.like")).toHaveCount(2);
+  // The second liked work may sit on another page; find it via search.
+  await page.getByLabel("Search works, concepts, and contributors").fill(recommendedLabel!.slice(0, 24));
+  await expect(
+    page
+      .locator("tbody tr", { hasText: recommendedLabel!.slice(0, 24) })
+      .first()
+      .locator(".icon-button.active.like"),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Clear all" }).click();
 
   // Survives reload.
   await page.reload();
   await page.waitForSelector("table tbody tr");
   await expect(page.locator(".rating-summary span")).toHaveText("2 rated");
+});
+
+test("recommendations explain their evidence and open the enhanced work card", async ({ page }) => {
+  await openApp(page);
+  await page.locator("tbody tr").nth(0).locator(".rating-buttons .like").click();
+  await page.locator("tbody tr").nth(1).locator(".rating-buttons .like").click();
+
+  await page.click('nav button:has-text("Recommendations")');
+  await page.waitForSelector(".recommendation-table tbody tr");
+
+  // Positive evidence is phrased with provenance; negatives are distinguished.
+  const why = page.locator(".why-cell .evidence.positive").first();
+  await expect(why).toBeVisible();
+  await expect(why).toHaveText(/Shared|Same|Similar|Related/);
+
+  // Clicking a row opens the enhanced work card.
+  await page.locator(".recommendation-table tbody tr").first().locator(".label-cell").click();
+  await expect(page.locator(".entity-window")).toHaveCount(1);
+  await expect(page.locator(".entity-window .work-section h3").first()).toBeVisible();
 });
 
 test("clearing ratings resets Recommendations and Islands", async ({ page }) => {

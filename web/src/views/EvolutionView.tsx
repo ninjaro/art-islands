@@ -1,27 +1,34 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Background,
+  BaseEdge,
   Controls,
+  EdgeLabelRenderer,
   Handle,
+  MarkerType,
   Panel,
   Position,
   ReactFlow,
   ReactFlowProvider,
+  getSmoothStepPath,
   useReactFlow,
+  useViewport,
 } from "@xyflow/react";
-import type { Edge, Node, NodeProps } from "@xyflow/react";
+import type { Edge, EdgeProps, Node, NodeProps } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
+import type { DomainModel, WorkViewModel } from "../lib/domain";
 import { buildForest, revealWork } from "../lib/evolution";
 import type { EvolutionForest } from "../lib/evolution";
 import { buildVisibleForest, layoutForest, workKey } from "../lib/evolutionLayout";
 import type { EvolutionViewState, VisibleTreeNode } from "../lib/evolutionLayout";
-import { yearLabel } from "../lib/format";
-import type { TagIndex } from "../lib/tagIndex";
-import type { AppData, CatalogItem, EvolutionSettings, Settings } from "../lib/types";
+import type { FeatureIndex } from "../lib/features";
+import { factorPhrase } from "../lib/features";
+import { motionDuration } from "../lib/format";
+import type { AppData, EdgeEvidence, EvolutionSettings, Settings } from "../lib/types";
 import type { OpenHandler } from "../components/common";
-import { SvgIcon, kindIconName } from "../components/icons";
+import { SvgIcon, iconForBroadKind } from "../components/icons";
 
-const SESSION_KEY = "art-islands-evolution-view-v1";
+const SESSION_KEY = "art-islands-evolution-view-v2";
 
 interface StoredViewState {
   expandedNodes: number[];
@@ -59,24 +66,23 @@ function loadStoredState(defaultRoots: number): {
 
 interface WorkNodeData extends Record<string, unknown> {
   tree: VisibleTreeNode;
-  item?: CatalogItem;
+  work?: WorkViewModel;
   onOpen: OpenHandler;
   onToggle: (entityId: number) => void;
   onExpandGroup: (key: string) => void;
   onCollapseGroup: (key: string) => void;
-  tagNames: (ids: number[]) => string;
 }
 
 type EvolutionFlowNode = Node<WorkNodeData>;
 
 function WorkNode({ data }: NodeProps<EvolutionFlowNode>) {
-  const { tree, item, onOpen, onToggle } = data;
-  if (!item || tree.entityId === undefined) return null;
-  const year = yearLabel(item.date);
-  const edge = tree.edge;
-  const explanationText = edge
-    ? `Inferred from tag similarity ${edge.score.toFixed(2)}, ${edge.shared} shared tags` +
-      (edge.topTags.length ? `; strongest: ${data.tagNames(edge.topTags)}` : "")
+  const { tree, work, onOpen, onToggle } = data;
+  if (!work || tree.entityId === undefined) return null;
+  const year = work.year !== null ? String(work.year) : "";
+  const evidence = tree.edge?.evidence;
+  const explanationText = evidence
+    ? `Inferred from feature similarity ${evidence.score.toFixed(2)}, ${evidence.sharedFeatureCount} shared features` +
+      (evidence.topFactors.length ? `; ${evidence.topFactors.map(factorPhrase).join("; ")}` : "")
     : "Root of an inferred branch";
   return (
     <div className="evo-node" title={explanationText}>
@@ -85,13 +91,13 @@ function WorkNode({ data }: NodeProps<EvolutionFlowNode>) {
       <button
         type="button"
         className="evo-open"
-        onClick={() => onOpen(item.id)}
-        aria-label={`Open details for ${item.label}${year ? `, ${year}` : ""}`}
+        onClick={() => onOpen(work.id)}
+        aria-label={`Open details for ${work.label}${year ? `, ${year}` : ""}`}
       >
         <span className="evo-kind">
-          <SvgIcon name={kindIconName(item.kind)} title="" size={14} />
+          <SvgIcon name={iconForBroadKind(work.broadKind)} title="" size={14} />
         </span>
-        <span className="evo-label">{item.label}</span>
+        <span className="evo-label">{work.label}</span>
         <span className="evo-year">{year || "—"}</span>
       </button>
       {tree.childCount > 0 ? (
@@ -100,7 +106,7 @@ function WorkNode({ data }: NodeProps<EvolutionFlowNode>) {
           className="evo-toggle"
           onClick={(event) => {
             event.stopPropagation();
-            onToggle(item.id);
+            onToggle(work.id);
           }}
           aria-label={
             tree.expanded
@@ -138,7 +144,7 @@ function PlaceholderNode({ data }: NodeProps<EvolutionFlowNode>) {
       className="evo-node evo-placeholder"
       onClick={() => onExpandGroup(placeholder.key)}
       aria-label={`Show ${placeholder.childIds.length} more related ${placeholder.kind} works`}
-      title={`${placeholder.childIds.length} hidden related works of the same kind and similar tag profile`}
+      title={`${placeholder.childIds.length} hidden related works of the same kind and similar profile`}
     >
       <Handle type="target" position={Position.Left} className="hidden-handle" isConnectable={false} />
       +{placeholder.childIds.length}
@@ -148,15 +154,85 @@ function PlaceholderNode({ data }: NodeProps<EvolutionFlowNode>) {
 
 const nodeTypes = { work: WorkNode, placeholder: PlaceholderNode };
 
+interface EvidenceEdgeData extends Record<string, unknown> {
+  evidence: EdgeEvidence;
+  earlierLabel: string;
+  laterLabel: string;
+}
+
+/**
+ * Edge with attached evidence: a compact strongest-factor label on the edge
+ * itself, and a full tooltip reachable by mouse hover AND keyboard focus.
+ */
+function EvidenceEdge(props: EdgeProps) {
+  const [open, setOpen] = useState(false);
+  const data = props.data as EvidenceEdgeData;
+  const [path, labelX, labelY] = getSmoothStepPath({
+    sourceX: props.sourceX,
+    sourceY: props.sourceY,
+    sourcePosition: props.sourcePosition,
+    targetX: props.targetX,
+    targetY: props.targetY,
+    targetPosition: props.targetPosition,
+  });
+  const strongest = data.evidence.topFactors[0];
+  return (
+    <>
+      <BaseEdge id={props.id} path={path} markerEnd={props.markerEnd} />
+      {/* Invisible fat path as the hover/focus target. */}
+      <path
+        d={path}
+        className="edge-hit"
+        tabIndex={0}
+        role="img"
+        aria-label={`${data.earlierLabel} to ${data.laterLabel}: similarity ${data.evidence.score.toFixed(2)}, ${
+          data.evidence.sharedFeatureCount
+        } shared features`}
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+        onFocus={() => setOpen(true)}
+        onBlur={() => setOpen(false)}
+      />
+      <EdgeLabelRenderer>
+        <div
+          className="edge-label nodrag nopan"
+          style={{ transform: `translate(-50%,-50%) translate(${labelX}px,${labelY}px)` }}
+        >
+          {strongest ? <span className="edge-label-chip">{strongest.label}</span> : null}
+          {open ? (
+            <div className="edge-tooltip" role="tooltip">
+              <strong>
+                {data.earlierLabel} → {data.laterLabel}
+              </strong>
+              <div>
+                Similarity: {data.evidence.score.toFixed(2)} · {data.evidence.sharedFeatureCount} shared features
+              </div>
+              {data.evidence.topFactors.length ? (
+                <ul>
+                  {data.evidence.topFactors.map((factor) => (
+                    <li key={factor.id}>{factorPhrase(factor)}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
+      </EdgeLabelRenderer>
+    </>
+  );
+}
+
+const edgeTypes = { evidence: EvidenceEdge };
+
 function EvolutionCanvas({
-  data,
-  tagIndex,
+  domain,
+  index,
   settings,
   forest,
   onOpen,
 }: {
-  data: AppData;
-  tagIndex: TagIndex;
+  domain: DomainModel;
+  index: FeatureIndex;
   settings: Settings;
   forest: EvolutionForest;
   onOpen: OpenHandler;
@@ -166,6 +242,7 @@ function EvolutionCanvas({
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const { fitView, setCenter, setViewport } = useReactFlow();
+  const { zoom } = useViewport();
   const focusTarget = useRef<number | null>(null);
 
   useEffect(() => {
@@ -186,20 +263,9 @@ function EvolutionCanvas({
   const viewState: EvolutionViewState = state;
 
   const layout = useMemo(() => {
-    const visibleForest = buildVisibleForest(
-      forest,
-      data.catalogById,
-      tagIndex,
-      evolutionSettings,
-      viewState,
-    );
-    return layoutForest(visibleForest);
-  }, [forest, data.catalogById, tagIndex, evolutionSettings, viewState]);
-
-  const tagNames = useCallback(
-    (ids: number[]) => ids.map((id) => data.tagById.get(id)?.name || `#${id}`).join(", "),
-    [data.tagById],
-  );
+    const visibleForest = buildVisibleForest(forest, domain, index, evolutionSettings, viewState);
+    return layoutForest(visibleForest, (entityId) => domain.workById.get(entityId)?.year ?? null);
+  }, [forest, domain, index, evolutionSettings, viewState]);
 
   const onToggle = useCallback((entityId: number) => {
     setState((current) => {
@@ -236,27 +302,49 @@ function EvolutionCanvas({
         connectable: false,
         data: {
           tree: placed.node,
-          item: placed.node.entityId !== undefined ? data.catalogById.get(placed.node.entityId) : undefined,
+          work: placed.node.entityId !== undefined ? domain.workById.get(placed.node.entityId) : undefined,
           onOpen,
           onToggle,
           onExpandGroup,
           onCollapseGroup,
-          tagNames,
         },
       })),
-    [layout, data.catalogById, onOpen, onToggle, onExpandGroup, onCollapseGroup, tagNames],
+    [layout, domain, onOpen, onToggle, onExpandGroup, onCollapseGroup],
   );
+
+  const nodeByKey = useMemo(() => new Map(layout.nodes.map((placed) => [placed.node.key, placed.node])), [layout]);
 
   const edges: Edge[] = useMemo(
     () =>
-      layout.edges.map((edge) => ({
-        id: edge.key,
-        source: edge.sourceKey,
-        target: edge.targetKey,
-        type: "smoothstep",
-        focusable: false,
-      })),
-    [layout],
+      layout.edges.map((edge) => {
+        const targetNode = nodeByKey.get(edge.targetKey);
+        const evidence = targetNode?.type === "work" ? targetNode.edge?.evidence : undefined;
+        if (!evidence) {
+          // Edges into placeholders/folds carry no evidence.
+          return {
+            id: edge.key,
+            source: edge.sourceKey,
+            target: edge.targetKey,
+            type: "smoothstep",
+            focusable: false,
+          };
+        }
+        const sourceNode = nodeByKey.get(edge.sourceKey);
+        const earlierLabel =
+          sourceNode?.entityId !== undefined ? domain.workById.get(sourceNode.entityId)?.label ?? "" : "";
+        const laterLabel =
+          targetNode?.entityId !== undefined ? domain.workById.get(targetNode.entityId)?.label ?? "" : "";
+        return {
+          id: edge.key,
+          source: edge.sourceKey,
+          target: edge.targetKey,
+          type: "evidence",
+          focusable: false,
+          markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18 },
+          data: { evidence, earlierLabel, laterLabel } satisfies EvidenceEdgeData,
+        };
+      }),
+    [layout, nodeByKey, domain],
   );
 
   // Focus a node after a search reveal once the new layout is in place.
@@ -265,7 +353,7 @@ function EvolutionCanvas({
     const key = workKey(focusTarget.current);
     const placed = layout.nodes.find((candidate) => candidate.node.key === key);
     if (placed) {
-      setCenter(placed.x + 110, placed.y + 20, { zoom: 1, duration: 300 });
+      setCenter(placed.x + 110, placed.y + 20, { zoom: 1, duration: motionDuration(300) });
       focusTarget.current = null;
     }
   }, [layout, setCenter]);
@@ -273,18 +361,18 @@ function EvolutionCanvas({
   const searchMatches = useMemo(() => {
     const query = debouncedSearch.trim().toLowerCase();
     if (query.length < 2) return [];
-    const matches: CatalogItem[] = [];
-    for (const item of data.catalog) {
-      if (item.label.toLowerCase().includes(query)) {
-        matches.push(item);
+    const matches: WorkViewModel[] = [];
+    for (const work of domain.works) {
+      if (work.label.toLowerCase().includes(query)) {
+        matches.push(work);
         if (matches.length >= 8) break;
       }
     }
     return matches;
-  }, [debouncedSearch, data.catalog]);
+  }, [debouncedSearch, domain.works]);
 
   function focusWork(id: number) {
-    const reveal = revealWork(id, forest, data.catalogById, tagIndex, evolutionSettings);
+    const reveal = revealWork(id, forest, domain, index, evolutionSettings);
     if (!reveal) return;
     setState((current) => {
       const expandedNodes = new Set(current.expandedNodes);
@@ -312,23 +400,24 @@ function EvolutionCanvas({
   const totalRoots = forest.roots.length;
 
   return (
-    <div className="graph-view" data-testid="evolution-canvas">
+    <div className="graph-view" data-testid="evolution-canvas" data-zoom-low={zoom < 0.7}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         fitView
         minZoom={0.05}
         nodesDraggable={false}
         nodesConnectable={false}
-        edgesFocusable={false}
         proOptions={{ hideAttribution: false }}
       >
         <Background />
         <Controls showInteractive={false} />
         <Panel position="top-left" className="graph-panel">
           <p className="graph-disclaimer">
-            Branches are inferred from date and tag similarity. They do not prove direct influence.
+            Branches are inferred from date and feature similarity — arrows point from the earlier work to the
+            later one. They do not prove direct historical influence.
           </p>
           <div className="graph-toolbar">
             <div className="graph-search">
@@ -341,17 +430,17 @@ function EvolutionCanvas({
               />
               {searchMatches.length ? (
                 <ul className="graph-search-results" role="listbox" aria-label="Matching works">
-                  {searchMatches.map((item) => (
-                    <li key={item.id}>
-                      <button type="button" onClick={() => focusWork(item.id)}>
-                        {item.label} {yearLabel(item.date) ? `(${yearLabel(item.date)})` : ""}
+                  {searchMatches.map((work) => (
+                    <li key={work.id}>
+                      <button type="button" onClick={() => focusWork(work.id)}>
+                        {work.label} {work.year !== null ? `(${work.year})` : ""}
                       </button>
                     </li>
                   ))}
                 </ul>
               ) : null}
             </div>
-            <button type="button" onClick={() => fitView({ duration: 300 })}>
+            <button type="button" onClick={() => fitView({ duration: motionDuration(300) })}>
               Fit
             </button>
             <button type="button" onClick={resetView}>
@@ -363,7 +452,10 @@ function EvolutionCanvas({
                 onClick={() =>
                   setState((current) => ({
                     ...current,
-                    visibleRootCount: Math.min(totalRoots, current.visibleRootCount + evolutionSettings.maxInitialRoots),
+                    visibleRootCount: Math.min(
+                      totalRoots,
+                      current.visibleRootCount + evolutionSettings.maxInitialRoots,
+                    ),
                   }))
                 }
               >
@@ -379,12 +471,14 @@ function EvolutionCanvas({
 
 export function EvolutionView({
   data,
-  tagIndex,
+  domain,
+  index,
   settings,
   onOpen,
 }: {
   data: AppData;
-  tagIndex: TagIndex;
+  domain: DomainModel;
+  index: FeatureIndex;
   settings: Settings;
   onOpen: OpenHandler;
 }) {
@@ -393,14 +487,15 @@ export function EvolutionView({
   if (!data.evolution || !forest) {
     return (
       <section className="empty">
-        Evolution data is not available. Regenerate the static exports with the Python export command.
+        Evolution data is not available or outdated. Regenerate the static exports with{" "}
+        <code>.venv/bin/art-islands export</code>.
       </section>
     );
   }
 
   return (
     <ReactFlowProvider>
-      <EvolutionCanvas data={data} tagIndex={tagIndex} settings={settings} forest={forest} onOpen={onOpen} />
+      <EvolutionCanvas domain={domain} index={index} settings={settings} forest={forest} onOpen={onOpen} />
     </ReactFlowProvider>
   );
 }

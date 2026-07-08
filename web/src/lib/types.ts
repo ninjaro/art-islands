@@ -1,41 +1,3 @@
-/** [tagId, weight 0-100, polarity -1|0|1] */
-export type TagEntry = [number, number, number];
-
-/** [targetEntityId, linkKind, weight 0-100, polarity -1|0|1] */
-export type LinkEntry = [number, number, number, number];
-
-/** [refKindLabel, refValue] */
-export type RefEntry = [string, string];
-
-export interface CatalogItem {
-  id: number;
-  label: string;
-  kind: number;
-  date: string | null;
-  datePrecision: number;
-  image: string | null;
-  refs: RefEntry[];
-  tags: TagEntry[];
-  links: LinkEntry[];
-}
-
-export interface Tag {
-  id: number;
-  name: string;
-  description: string | null;
-  kind: number;
-  namespace: string | null;
-  value: string | null;
-}
-
-export interface LookupEntry {
-  label: string;
-  kind: number;
-  catalogued: boolean;
-}
-
-export type Lookup = Record<string, LookupEntry>;
-
 export type RatingValue = 1 | -1;
 export type Ratings = Record<string, RatingValue>;
 
@@ -45,25 +7,44 @@ export interface RecommendationSettings {
   limit: number;
 }
 
+export interface FeatureSettings {
+  directConceptMultiplier: number;
+  creatorMultiplier: number;
+  directorMultiplier: number;
+  authorMultiplier: number;
+  producerMultiplier: number;
+  performerMultiplier: number;
+  organizationMultiplier: number;
+  contentGuideMultiplier: number;
+}
+
 export interface EvolutionSettings {
   visibleChildrenPerNode: number;
   maxInitialRoots: number;
   groupingSimilarity: number;
   minimumSimilarity: number;
-  minimumSharedTags: number;
+  minimumSharedFeatures: number;
+  kindMismatchFactor: number;
 }
 
 export interface IslandsSettings {
   maxRecommendationNodes: number;
-  maxNeighborsPerSeed: number;
+  maxInferredNeighborsPerNode: number;
   maxEdges: number;
   minimumSimilarity: number;
 }
 
+export interface BrowseSettings {
+  defaultPageSize: number;
+  pageSizeOptions: number[];
+}
+
 export interface Settings {
   recommendation: RecommendationSettings;
+  features: FeatureSettings;
   evolution: EvolutionSettings;
   islands: IslandsSettings;
+  browse: BrowseSettings;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -72,33 +53,51 @@ export const DEFAULT_SETTINGS: Settings = {
     dislikeWeight: 1.5,
     limit: 100,
   },
+  features: {
+    directConceptMultiplier: 1.0,
+    creatorMultiplier: 0.55,
+    directorMultiplier: 0.5,
+    authorMultiplier: 0.55,
+    producerMultiplier: 0.3,
+    performerMultiplier: 0.25,
+    organizationMultiplier: 0.2,
+    contentGuideMultiplier: 0.25,
+  },
   evolution: {
     visibleChildrenPerNode: 4,
     maxInitialRoots: 20,
     groupingSimilarity: 0.25,
     minimumSimilarity: 0.18,
-    minimumSharedTags: 2,
+    minimumSharedFeatures: 2,
+    kindMismatchFactor: 0.6,
   },
   islands: {
     maxRecommendationNodes: 150,
-    maxNeighborsPerSeed: 12,
+    maxInferredNeighborsPerNode: 8,
     maxEdges: 500,
     minimumSimilarity: 0.12,
   },
+  browse: {
+    defaultPageSize: 50,
+    pageSizeOptions: [25, 50, 100],
+  },
 };
 
-/** One inferred lineage record from the build-time export. */
+/** Evidence supporting one inferred graph edge (evolution or islands). */
+export interface EdgeEvidence {
+  score: number;
+  sharedFeatureCount: number;
+  topFactors: import("./features").EdgeFactor[];
+}
+
+/** One inferred lineage record from the build-time export (version 2). */
 export interface EvolutionNode {
   /** Entity id of the work. */
   id: number;
   /** Entity id of the inferred earlier work, or null for roots. */
   parent: number | null;
-  /** Similarity score supporting the inferred edge. */
-  score: number;
-  /** Number of shared tags supporting the edge. */
-  shared: number;
-  /** Strongest shared tag ids (short list). */
-  topTags: number[];
+  /** Evidence supporting the inferred parent edge. */
+  evidence: EdgeEvidence;
 }
 
 export interface EvolutionExport {
@@ -107,33 +106,226 @@ export interface EvolutionExport {
   nodes: EvolutionNode[];
 }
 
+export const EVOLUTION_EXPORT_VERSION = 2;
+
+export interface V2Identifier {
+  scheme: string;
+  value: string;
+  primary: boolean;
+}
+
+export interface V2Entity {
+  id: number;
+  label: string;
+  description?: string;
+  family?: "work" | "person" | "group" | "organization" | "place" | "concept" | "unknown";
+  image?: string;
+  catalogued: boolean;
+  identifiers?: V2Identifier[];
+}
+
+export interface V2Date {
+  type: string;
+  value: string;
+  precision: number;
+  endValue?: string;
+  endPrecision?: number;
+  edition?: string;
+  rank?: string;
+  primary?: boolean;
+  confidence?: number;
+}
+
+export interface V2Measurement {
+  type: string;
+  number?: number;
+  text?: string;
+  unit?: string;
+  qualifier?: string;
+  confidence?: number;
+}
+
+export interface V2CatalogItem {
+  id: number;
+  label: string;
+  family?: string;
+  image?: string;
+  compatibilityDate?: string;
+  compatibilityDatePrecision?: number;
+  dates?: V2Date[];
+  contributors?: Record<string, number[]>;
+  concepts?: Record<string, number[]>;
+  measurements?: V2Measurement[];
+}
+
+export interface V2EntityTypeDefinition {
+  id: number;
+  code: string;
+  family: string;
+  label: string;
+  description: string | null;
+}
+
+export interface V2EntityTypeAssignment {
+  entityId: number;
+  typeId: number;
+  isPrimary: number;
+  confidence: number | null;
+}
+
+export interface V2Relation {
+  id: number;
+  source: number;
+  target: number;
+  type: string;
+  roleLabel?: string;
+  characterLabel?: string;
+  weight: number;
+  polarity: number;
+  confidence?: number;
+}
+
+export interface V2Concept {
+  id: number;
+  label: string;
+  description?: string;
+  category: string;
+  namespace?: string;
+  value?: string;
+  legacyTagId?: number;
+  classificationRule?: string;
+  confidence?: number;
+  reviewRecommended?: number;
+}
+
+export interface V2EntityConcept {
+  entityId: number;
+  conceptId: number;
+  weight: number;
+  polarity: number;
+  confidence: number | null;
+}
+
+export interface V2ConceptExport {
+  categories: { id: number; code: string; label: string }[];
+  concepts: V2Concept[];
+  entityConcepts: V2EntityConcept[];
+}
+
+export interface V2AgeRating {
+  id: number;
+  entityId: number;
+  systemId: number;
+  certificate: string;
+  minimumAge?: number | null;
+  editionLabel?: string | null;
+  descriptorsJson?: string | null;
+  ratingDate?: string | null;
+}
+
+export interface V2AgeRatingSystem {
+  id: number;
+  code: string;
+  countryCode?: string | null;
+  label: string;
+}
+
+export interface V2AgeRatingExport {
+  systems: V2AgeRatingSystem[];
+  ratings: V2AgeRating[];
+}
+
+export interface V2AdvisoryCategory {
+  id: number;
+  code: string;
+  label: string;
+}
+
+export interface V2Advisory {
+  id: number;
+  entityId: number;
+  categoryId: number;
+  conceptId?: number | null;
+  severity?: number | string | null;
+  intensity?: number | null;
+  uncertainty?: number | null;
+}
+
+export interface V2AdvisoryExport {
+  categories: V2AdvisoryCategory[];
+  advisories: V2Advisory[];
+}
+
+export interface V2Restriction {
+  id: number;
+  entityId: number;
+  countryCode?: string;
+  regionLabel?: string;
+  restrictionType: string;
+  startDate?: string;
+  endDate?: string;
+  reason?: string;
+  editionLabel?: string;
+  status?: string;
+}
+
+export interface V2Data {
+  catalog: V2CatalogItem[];
+  entities: Record<string, V2Entity>;
+  entityTypes: {
+    definitions: V2EntityTypeDefinition[];
+    assignments: V2EntityTypeAssignment[];
+  };
+  relations: V2Relation[];
+  concepts: V2ConceptExport;
+  advisories: V2AdvisoryExport;
+  ratings: V2AgeRatingExport;
+  restrictions: V2Restriction[];
+}
+
 export interface AppData {
-  catalog: CatalogItem[];
-  catalogById: Map<number, CatalogItem>;
-  tags: Tag[];
-  tagById: Map<number, Tag>;
-  lookup: Lookup;
+  v2: V2Data;
+  domain: import("./domain").DomainModel;
+  /** Optional build-time lineage export; views show a regeneration hint when absent. */
   evolution: EvolutionExport | null;
 }
 
+const LEGACY_SETTING_ALIASES: Record<string, Record<string, string>> = {
+  islands: { maxNeighborsPerSeed: "maxInferredNeighborsPerNode" },
+  evolution: { minimumSharedTags: "minimumSharedFeatures" },
+};
+
 export function mergeSettings(raw: unknown): Settings {
   const source = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
-  const merged: Settings = {
-    recommendation: { ...DEFAULT_SETTINGS.recommendation },
-    evolution: { ...DEFAULT_SETTINGS.evolution },
-    islands: { ...DEFAULT_SETTINGS.islands },
-  };
-  for (const key of ["recommendation", "evolution", "islands"] as const) {
-    const section = source[key];
+  const merged = structuredClone(DEFAULT_SETTINGS) as unknown as Record<string, Record<string, unknown>>;
+  for (const sectionName of Object.keys(DEFAULT_SETTINGS) as (keyof Settings)[]) {
+    const section = source[sectionName];
     if (!section || typeof section !== "object") continue;
-    const target = merged[key] as unknown as Record<string, number>;
-    for (const [name, value] of Object.entries(section)) {
-      const num = Number(value);
-      if (name in target && Number.isFinite(num) && num >= 0) {
-        target[name] = num;
+    const incoming: Record<string, unknown> = { ...(section as Record<string, unknown>) };
+    for (const [legacy, current] of Object.entries(LEGACY_SETTING_ALIASES[sectionName] ?? {})) {
+      if (incoming[current] === undefined && incoming[legacy] !== undefined) incoming[current] = incoming[legacy];
+      delete incoming[legacy];
+    }
+    const target = merged[sectionName];
+    for (const [name, value] of Object.entries(incoming)) {
+      if (!(name in target)) continue;
+      if (Array.isArray(target[name])) {
+        const list = Array.isArray(value)
+          ? value.map(Number).filter((entry) => Number.isInteger(entry) && entry > 0)
+          : [];
+        if (list.length && Array.isArray(value) && list.length === value.length) target[name] = list;
+      } else {
+        const num = Number(value);
+        if (Number.isFinite(num) && num >= 0) target[name] = num;
       }
     }
   }
-  merged.recommendation.limit = Math.max(1, Math.floor(merged.recommendation.limit));
-  return merged;
+  const result = merged as unknown as Settings;
+  result.recommendation.limit = Math.max(1, Math.floor(result.recommendation.limit));
+  if (!result.browse.pageSizeOptions.includes(result.browse.defaultPageSize)) {
+    result.browse.defaultPageSize = result.browse.pageSizeOptions.includes(DEFAULT_SETTINGS.browse.defaultPageSize)
+      ? DEFAULT_SETTINGS.browse.defaultPageSize
+      : result.browse.pageSizeOptions[0];
+  }
+  return result;
 }

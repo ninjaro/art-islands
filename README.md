@@ -6,16 +6,39 @@ small React + Vite frontend renders four views — **Browse**, **Recommendations
 **Evolution**, and **Islands** — with all personal ratings stored purely in the
 browser's localStorage. There is no backend.
 
-* **Browse** — filterable, sortable catalog table with local like/dislike ratings.
-* **Recommendations** — tag-overlap recommendations derived from your local ratings.
-* **Evolution** — an inferred temporal similarity forest of catalogued works.
-  Branches are inferred from date and tag similarity; they do not prove direct influence.
-* **Islands** — a graph of your rated works plus recommended works, split into
-  connected components. Disconnected islands are expected and never joined artificially.
+* **Browse** — filterable, sortable, paginated catalog table with local
+  like/dislike ratings and a feature-based relevance sort.
+* **Recommendations** — feature-based recommendations derived from your local
+  ratings, with per-row positive and negative evidence (shared concepts,
+  contributors, and content-guide profiles).
+* **Evolution** — an inferred temporal similarity structure of catalogued
+  works on one shared chronological canvas. Every edge carries its evidence
+  (similarity score, shared features, strongest factors); branches are
+  inferred from date and feature similarity and do not prove direct influence.
+* **Islands** — a bounded up-to-K nearest-neighbor graph of your rated works
+  plus recommended works, split into connected components. Disconnected
+  islands are expected and never joined artificially.
+
+All four views run on the V2 domain exports (`public/data/v2/`) and one
+shared weighted, polarity-aware feature model implemented in both Python and
+TypeScript — see `docs/feature-model.md`. Cross-language golden fixtures in
+`shared/fixtures/feature-golden.json` keep the two implementations identical.
 
 ## Local installation
 
-Requires Python ≥ 3.11 and Node ≥ 20.
+Requires Python ≥ 3.11, Node ≥ 20, and Git LFS.
+
+This repository stores `data/art-islands.sqlite` in Git LFS (see
+`docs/decisions/0001-sqlite-git-lfs.md`). Install and enable LFS once before
+cloning or pulling database updates:
+
+```sh
+brew install git-lfs   # or your platform's package manager
+git lfs install
+git lfs pull           # if you cloned before installing LFS
+```
+
+Then:
 
 ```sh
 python -m venv .venv
@@ -35,17 +58,56 @@ The dev server serves the JSON exports from `public/data/` under the same
 ## Python export
 
 The SQLite database `data/art-islands.sqlite` is the editable source of truth.
-Regenerate all static exports (catalog, tags, lookup, settings, and the
-Evolution lineage) after any data change:
+It stores the current known catalog state: entities, external identifiers,
+tags, relationships, measurements, content ratings, advisories, source records,
+and mappings from facts to sources. Import batches, patch history, raw payloads,
+row timestamps, and migration recovery data are intentionally excluded.
+
+Regenerate all static exports (catalog, tags, lookup, settings, Evolution
+lineage, and v2 domain exports) after any data change:
 
 ```sh
 .venv/bin/art-islands export
+.venv/bin/art-islands db-v2 export
 ```
 
-Tunable thresholds (recommendation weights, Evolution lineage and grouping
-settings, Islands graph caps) live in `data/settings.json` and are exported to
-`public/data/settings.json`. Other CLI commands: `migrate`, `build`, `enrich`,
-`tag set`, `config show|set`, `batch`, `serve-static`.
+Tunable values (recommendation weights, feature source multipliers, Evolution
+lineage and grouping settings, Islands graph caps, browse page sizes) live in
+`data/settings.json` and are exported to `public/data/settings.json`; they are
+validated and merged with safe defaults in both languages, and the legacy
+`islands.maxNeighborsPerSeed` / `evolution.minimumSharedTags` names are still
+accepted. Current data-maintenance commands include `enrich`, `tag set`,
+`config show|set`, `batch`, `db-v2 export`, `db-v2 validate`, and
+`serve-static`.
+
+The app downloads only the V2 exports (~25 MB raw, served compressed by
+GitHub Pages), `evolution.json`, and `settings.json`. The legacy
+`catalog.json`, `tags.json`, and `entities-lookup.json` files are still
+generated for external compatibility but are never fetched by the frontend.
+If the initial payload becomes a bottleneck, chunked static exports are the
+documented follow-up optimization.
+
+## Database Cleanup
+
+The cleanup tool `tools/clean_domain_database.py` rebuilds a compact
+domain-preserving SQLite database from an explicit whitelist. It keeps source
+citations and fact-to-source mappings, but removes technical metadata such as
+schema migration history, patch application history, import offsets, raw JSON
+payloads, retrieval timestamps, and curation provenance flags.
+
+```sh
+python tools/clean_domain_database.py \
+  --source data/art-islands.sqlite \
+  --target data/art-islands.domain-clean.sqlite \
+  --inventory database-cleanup-inventory.md
+```
+
+`database-cleanup-inventory.md` records the table and column classification
+used for the cleanup. Validate the active database with:
+
+```sh
+.venv/bin/art-islands db-v2 validate
+```
 
 ## Production build
 

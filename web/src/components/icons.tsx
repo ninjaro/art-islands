@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { BroadKind } from "../lib/domain";
 
 const lineProps = {
   fill: "none",
@@ -85,10 +86,9 @@ export function SvgIcon({ name, title, size = 18 }: { name: string; title: strin
   );
 }
 
-export function kindIconName(kind: number): string {
-  if (kind === 1) return "film";
-  if (kind === 2) return "music";
-  if (kind === 6) return "game";
-  if (kind === 7) return "book";
-  return "unknown";
+export function iconForBroadKind(kind: BroadKind): string {
+  if (kind === "film" || kind === "tv") return "film";
+  if (kind === "music") return "music";
+  if (kind === "game") return "game";
+  return "book";
 }

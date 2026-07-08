@@ -1,12 +1,13 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { EMPTY_FILTERS, filterWorks, relevanceScores, sortWorks } from "./lib/browse";
+import type { Filters } from "./lib/browse";
 import { loadAppData } from "./lib/data";
+import { buildFeatureIndex } from "./lib/features";
 import { loadRatings, saveRatings, toggleRating } from "./lib/ratings";
-import { buildTagIndex } from "./lib/tagIndex";
 import type { AppData, RatingValue, Ratings, Settings } from "./lib/types";
 import { DEFAULT_SETTINGS } from "./lib/types";
 import { FloatingEntityWindows, useEntityWindows } from "./components/windows";
-import { BrowseView, EMPTY_FILTERS, filterCatalog, sortCatalog } from "./views/BrowseView";
-import type { Filters } from "./views/BrowseView";
+import { BrowseView } from "./views/BrowseView";
 import { RecommendationsView } from "./views/RecommendationsView";
 import { EvolutionView } from "./views/EvolutionView";
 import { IslandsView } from "./views/IslandsView";
@@ -28,6 +29,9 @@ export default function App() {
   const [ratings, setRatings] = useState<Ratings>(() => loadRatings());
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
   const [sortMode, setSortMode] = useState("date");
+  // Pagination state lives here so it survives view switches (FR-3.8).
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(0); // 0 = settings default
   const viewScroll = useRef<Partial<Record<ViewName, number>>>({});
 
   const { windows, openWindow, focusWindow, closeWindow, startDrag } = useEntityWindows();
@@ -56,13 +60,35 @@ export default function App() {
     if (scroller) scroller.scrollTop = viewScroll.current[view] || 0;
   }, [view]);
 
-  // Reusable IDF tag index, built once per catalog.
-  const tagIndex = useMemo(() => (data ? buildTagIndex(data.catalog) : null), [data]);
-
-  const visible = useMemo(
-    () => (data ? sortCatalog(filterCatalog(data, filters), sortMode) : []),
-    [data, filters, sortMode],
+  // Reusable weighted feature index, built once per catalog and settings.
+  // Rating changes never rebuild it.
+  const featureIndex = useMemo(
+    () => (data ? buildFeatureIndex(data.domain.works, settings.features) : null),
+    [data, settings.features],
   );
+
+  const filtered = useMemo(() => (data ? filterWorks(data.domain, filters) : []), [data, filters]);
+  const relevance = useMemo(
+    () => (data && featureIndex ? relevanceScores(featureIndex, filtered, filters) : null),
+    [data, featureIndex, filtered, filters],
+  );
+  const visible = useMemo(() => sortWorks(filtered, sortMode, relevance), [filtered, sortMode, relevance]);
+
+  const effectivePageSize = pageSize || settings.browse.defaultPageSize;
+
+  // Changing a filter, search query, or sort mode resets to page 1 (FR-3.6).
+  function handleFiltersChange(next: Filters) {
+    setFilters(next);
+    setPage(1);
+  }
+  function handleSortModeChange(mode: string) {
+    setSortMode(mode);
+    setPage(1);
+  }
+  function handlePageSizeChange(size: number) {
+    setPageSize(size);
+    setPage(1);
+  }
 
   const ratedCount = Object.keys(ratings).length;
 
@@ -77,8 +103,24 @@ export default function App() {
     }
   }
 
-  if (error) return <div className="error">{error}</div>;
-  if (!data || !tagIndex) return <div className="loading">Loading…</div>;
+  if (error) {
+    return (
+      <div className="error-panel" role="alert">
+        <h2>Data failed to load</h2>
+        <p>{error}</p>
+        <button type="button" onClick={() => window.location.reload()}>
+          Retry
+        </button>
+      </div>
+    );
+  }
+  if (!data || !featureIndex) {
+    return (
+      <div className="loading" role="status">
+        Loading catalog…
+      </div>
+    );
+  }
 
   return (
     <div className="app">
@@ -87,8 +129,8 @@ export default function App() {
           <h1>Art Islands</h1>
           <div className="count">
             {view === "browse"
-              ? `${visible.length.toLocaleString()} of ${data.catalog.length.toLocaleString()} works`
-              : `${data.catalog.length.toLocaleString()} works`}
+              ? `${visible.length.toLocaleString()} of ${data.domain.works.length.toLocaleString()} works`
+              : `${data.domain.works.length.toLocaleString()} works`}
           </div>
         </div>
         <nav className="view-tabs" aria-label="Main views">
@@ -113,24 +155,42 @@ export default function App() {
       </header>
       {view === "browse" ? (
         <BrowseView
-          data={data}
+          domain={data.domain}
           ratings={ratings}
           visible={visible}
           filters={filters}
           sortMode={sortMode}
-          onFiltersChange={setFilters}
-          onSortModeChange={setSortMode}
+          page={page}
+          pageSize={effectivePageSize}
+          pageSizeOptions={settings.browse.pageSizeOptions}
+          onFiltersChange={handleFiltersChange}
+          onSortModeChange={handleSortModeChange}
+          onPageChange={setPage}
+          onPageSizeChange={handlePageSizeChange}
           onOpen={openWindow}
           onRate={handleRate}
         />
       ) : view === "recommendations" ? (
-        <RecommendationsView data={data} ratings={ratings} settings={settings} onOpen={openWindow} onRate={handleRate} />
+        <RecommendationsView
+          domain={data.domain}
+          index={featureIndex}
+          ratings={ratings}
+          settings={settings}
+          onOpen={openWindow}
+          onRate={handleRate}
+        />
       ) : view === "evolution" ? (
-        <EvolutionView data={data} tagIndex={tagIndex} settings={settings} onOpen={openWindow} />
+        <EvolutionView
+          data={data}
+          domain={data.domain}
+          index={featureIndex}
+          settings={settings}
+          onOpen={openWindow}
+        />
       ) : (
         <IslandsView
-          data={data}
-          tagIndex={tagIndex}
+          domain={data.domain}
+          index={featureIndex}
           ratings={ratings}
           settings={settings}
           onOpen={openWindow}
@@ -139,7 +199,7 @@ export default function App() {
       )}
       <FloatingEntityWindows
         windows={windows}
-        data={data}
+        domain={data.domain}
         ratings={ratings}
         onFocus={focusWindow}
         onClose={closeWindow}
