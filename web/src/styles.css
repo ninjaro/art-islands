@@ -469,10 +469,19 @@ tbody tr:focus-visible {
   display: grid;
   gap: 8px;
   max-width: 430px;
+  pointer-events: none;
   background: rgba(255, 255, 255, 0.94);
   border: 1px solid #d0ccc0;
   border-radius: 8px;
   padding: 10px 12px;
+}
+
+.graph-panel button,
+.graph-panel input,
+.graph-panel select,
+.graph-panel textarea,
+.graph-panel a {
+  pointer-events: auto;
 }
 
 .graph-disclaimer {
