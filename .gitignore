@@ -58,6 +58,9 @@ layers/
 migration-audit.md
 migration-issues.json
 
+# Evidence/research cache
+.research-cache/
+
 # Art Islands DB v2 migration workspace
 tools/db_v2_migration/cache/*
 tools/db_v2_migration/checkpoints/*
